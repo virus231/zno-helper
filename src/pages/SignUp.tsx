@@ -16,6 +16,10 @@ interface FormValues {
 }
 
 function SignUp() {
+    const dispatch = useDispatch()
+    const onRegisterUser = (fields) => dispatch(register(fields))
+
+
     const initialValues: FormValues = {
         firstName: '',
         number: '',
@@ -24,8 +28,23 @@ function SignUp() {
         confirmPassword: ''
     };
 
-    const dispatch = useDispatch()
-    const onRegisterUser = (fields) => dispatch(register(fields))
+    const userSchema = Yup.object({
+        firstName: Yup.string().required('First Name is required'),
+        email: Yup.string().email('Email is invalid').required('Email is required'),
+        number: Yup.string().max(11).min(3)
+            // .test('Phone test', 'Phone number must be valid', (val) => {
+            //     val = val.replace(/[\s\-]/g, '');
+            //     return val.match(/^((\+?3)?8)?((0\(\d{2}\)?)|(\(0\d{2}\))|(0\d{2}))\d{7}$/) != null;
+            // })
+            .required('Required'),
+        password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
+    })
+
+
+    type User = Yup.InferType<typeof userSchema>;
+
+
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">
@@ -42,27 +61,7 @@ function SignUp() {
                         <h3>Реєстрація</h3>
                         <Formik
                             initialValues={initialValues}
-                            validationSchema={Yup.object().shape({
-                                firstName: Yup.string()
-                                    .required('First Name is required'),
-                                email: Yup.string()
-                                    .email('Email is invalid')
-                                    .required('Email is required'),
-                                number: Yup.string()
-                                    .max(11)
-                                    .min(3)
-                                    // .test('Phone test', 'Phone number must be valid', (val) => {
-                                    //     val = val.replace(/[\s\-]/g, '');
-                                    //     return val.match(/^((\+?3)?8)?((0\(\d{2}\)?)|(\(0\d{2}\))|(0\d{2}))\d{7}$/) != null;
-                                    // })
-                                    .required('Required'),
-                                password: Yup.string()
-                                    .min(6, 'Password must be at least 6 characters')
-                                    .required('Password is required'),
-                                confirmPassword: Yup.string()
-                                    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                                    .required('Confirm Password is required')
-                            })}
+                            validationSchema={userSchema}
                             onSubmit={onRegisterUser}
                             render={({ errors, status, touched }) => (
                                 <Form>
