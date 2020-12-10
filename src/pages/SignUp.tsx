@@ -1,49 +1,58 @@
 import React from "react";
 import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import {Container, Row, Col} from 'react-bootstrap';
 import './main.css'
-import {register} from '../redux/actions/action'
+import MaskedInput from "react-text-mask";
+import {RegisterAuthAction} from '../redux/actions/action'
+
 
 interface FormValues {
     firstName: string;
-    number: string;
     email: string;
     password: string;
-    confirmPassword: string
 }
 
-function SignUp() {
-    const dispatch = useDispatch()
-    const onRegisterUser = (fields) => dispatch(register(fields))
+const phoneNumberMask = [
+    "(",
+    /[1-10]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+];
 
+function SignUp() {
+    const {user} = useSelector(state =>  ({
+        user: state
+    }))
+    console.log(user)
+    const dispatch = useDispatch()
+    const onRegisterUser = (values) => dispatch(RegisterAuthAction(values))
 
     const initialValues: FormValues = {
         firstName: '',
-        number: '',
         email: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
     };
 
     const userSchema = Yup.object({
         firstName: Yup.string().required('First Name is required'),
         email: Yup.string().email('Email is invalid').required('Email is required'),
-        number: Yup.string().max(11).min(3)
-            // .test('Phone test', 'Phone number must be valid', (val) => {
-            //     val = val.replace(/[\s\-]/g, '');
-            //     return val.match(/^((\+?3)?8)?((0\(\d{2}\)?)|(\(0\d{2}\))|(0\d{2}))\d{7}$/) != null;
-            // })
-            .required('Required'),
-        password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
+        password: Yup.string().min(6, 'Введи 6 символів').required('Password is required')
     })
 
-
     type User = Yup.InferType<typeof userSchema>;
-
 
 
     return (
@@ -62,14 +71,19 @@ function SignUp() {
                         <Formik
                             initialValues={initialValues}
                             validationSchema={userSchema}
-                            onSubmit={onRegisterUser}
-                            render={({ errors, status, touched }) => (
-                                <Form>
+                            onSubmit={(values, actions) => {
+                                onRegisterUser(values)
+                            }}
+                            render={({ errors, status, touched, handleChange, handleSubmit,
+                                         handleBlur, values }) => (
+                                <Form onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="firstName">Ім’я користувача</label>
                                         <Field
                                             name="firstName"
                                             type="text"
+                                            value={values.firstName}
+                                            onChange={handleChange}
                                             className={`form-control ${errors.firstName && touched.firstName && 'is-invalid'}`}/>
                                         <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
                                     </div>
@@ -78,37 +92,61 @@ function SignUp() {
                                         <Field
                                             name="email"
                                             type="text"
+                                            value={values.email}
+                                            onChange={handleChange}
                                             className={`form-control ${errors.email && touched.email && 'is-invalid'}`}/>
                                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                                     </div>
-                                    <div className="form-group">
+                                    <div className="form-group d-flex flex-column">
                                         <label htmlFor="number">Номер телефону</label>
                                         <Field
-                                            name="number"
-                                            type="number"
-                                            className={`form-control ${errors.number && touched.number && 'is-invalid'}`}/>
+                                            name="phone"
+                                            // value={values.number}
+                                            onChange={handleChange}
+                                            render={({ field }) => (
+                                                <MaskedInput
+                                                    {...field}
+                                                    mask={phoneNumberMask}
+                                                    id="phone"
+                                                    placeholder="Ваш номер"
+                                                    type="text"
+                                                    onChange={handleChange}
+                                                />
+
+                                            )}
+
+                                        />
                                         <ErrorMessage name="number" component="div" className="invalid-feedback" />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="password">Password</label>
+                                        <label htmlFor="password">Пароль</label>
                                         <Field
                                             name="password"
                                             type="password"
+                                            value={values.password}
+                                            onChange={handleChange}
                                             className={`form-control ${errors.password && touched.password && 'is-invalid'}`}/>
                                         <ErrorMessage name="password" component="div" className="invalid-feedback" />
                                     </div>
-                                    <div className="form-group">
-                                        <label htmlFor="confirmPassword">Confirm Password</label>
-                                        <Field
-                                            name="confirmPassword"
-                                            type="password"
-                                            className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />
-                                        <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
+                                    {/*<div className="form-group">*/}
+                                    {/*    <label htmlFor="confirmPassword">Confirm Password</label>*/}
+                                    {/*    <Field*/}
+                                    {/*        name="confirmPassword"*/}
+                                    {/*        type="password"*/}
+                                    {/*        className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />*/}
+                                    {/*    <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />*/}
+                                    {/*</div>*/}
+                                    <div className="form-group text-center">
+                                        <button type="submit" className="btn btn-primary btn-register mr-2 px-5">Зареєструватися</button>
+                                        {/*<button type="reset" className="btn btn-secondary">Reset</button>*/}
+                                        <p>
+                                            Вже маєш профіль?
+                                            <Link to="/login" className="ml-2">
+                                                Увійти
+                                            </Link>
+                                        </p>
                                     </div>
-                                    <div className="form-group">
-                                        <button type="submit" className="btn btn-primary mr-2">Register</button>
-                                        <button type="reset" className="btn btn-secondary">Reset</button>
-                                    </div>
+
                                 </Form>
                             )}
                         />

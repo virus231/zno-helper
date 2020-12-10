@@ -5,6 +5,8 @@ import thunk from 'redux-thunk'
 const composeEnhnacers = window.__REDUX_DEVTOOLS__EXTENSION__COMPOSE || compose;
 
 const store = createStore(
-    authReducer,composeEnhnacers(applyMiddleware(thunk)))
+    authReducer,
+    composeEnhnacers(applyMiddleware(thunk))
+)
 
 export default store;
