@@ -1,0 +1,31 @@
+.promo {
+    height: 100vh;
+    background: url('../assets/images/signup-bg.png') no-repeat;
+    background-size: cover;
+  
+    &-col {
+      text-align: center;
+  
+      p {
+        text-align: left;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 28px;
+        text-transform: uppercase;
+  
+        a {
+          color: #3D3D3D;
+        }
+      }
+    }
+  }
+  
+  .form {
+    h5 {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 32px;
+      color: #3D3D3D;
+    }
+  }
+  
