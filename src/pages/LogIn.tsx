@@ -4,7 +4,6 @@ import {useDispatch} from 'react-redux'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import {Container, Row, Col} from 'react-bootstrap';
-import './main.css'
 import {LoginAuthAction} from "../redux/actions/action";
 
 interface FormValues {
@@ -66,6 +65,9 @@ function LogIn() {
                                             name="password"
                                             type="password"
                                             className={`form-control ${errors.password && touched.password && 'is-invalid'}`}/>
+                                            <Link to="/reset">
+                                                Відновити пароль
+                                            </Link>
                                         <ErrorMessage name="password" component="div" className="invalid-feedback" />
                                     </div>
                                     <div className="form-group text-center">

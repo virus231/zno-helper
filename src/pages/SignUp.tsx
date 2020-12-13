@@ -4,9 +4,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import {Container, Row, Col} from 'react-bootstrap';
-import './main.css'
 import MaskedInput from "react-text-mask";
-import {RegisterAuthAction} from '../redux/actions/action'
+import {register} from "./styles/auth/thunks";
 
 
 interface FormValues {
@@ -32,13 +31,11 @@ const phoneNumberMask = [
     /\d/
 ];
 
-function SignUp() {
-    const {user} = useSelector(state =>  ({
-        user: state
-    }))
-    console.log(user)
+function SignUp():JSX.Element {
+    const state = useSelector(state =>  console.log(state.auth))
+    console.log(state)
     const dispatch = useDispatch()
-    const onRegisterUser = (values) => dispatch(RegisterAuthAction(values))
+    const onRegisterUser = (values) => dispatch(register(values))
 
     const initialValues: FormValues = {
         firstName: '',
@@ -127,6 +124,9 @@ function SignUp() {
                                             onChange={handleChange}
                                             className={`form-control ${errors.password && touched.password && 'is-invalid'}`}/>
                                         <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                                    </div>
+                                    <div className="form-group text-center">
+                                        <p>Вказати реферала</p>
                                     </div>
                                     {/*<div className="form-group">*/}
                                     {/*    <label htmlFor="confirmPassword">Confirm Password</label>*/}
