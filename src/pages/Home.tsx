@@ -4,10 +4,9 @@ import SideBar from '../components/SideBar'
 function Home():JSX.Element {
 
     return (
-        <>
+        <section className="home">
             <SideBar/>
-            Home
-        </>
+        </section>
     )
 }
 
