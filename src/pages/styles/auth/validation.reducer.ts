@@ -19,7 +19,8 @@ export default createReducer(initialState, builder =>
             state.loading = true
         })
         .addCase(checkEmail.fulfilled, (state, action: PayloadAction<CheckResponse>) => {
-
+            const {valid} = action.payload
+            state.emailValid = valid
         })
         .addCase(checkEmail.rejected, (state, { error }) => {
             state.emailError = error.message ?? defaultError
@@ -30,7 +31,8 @@ export default createReducer(initialState, builder =>
             state.loading = true
         })
         .addCase(checkPhone.fulfilled, (state, action: PayloadAction<CheckResponse>) => {
-
+            const {valid} = action.payload
+            state.phoneValid = valid
         })
         .addCase(checkPhone.rejected, (state, { error }) => {
             state.phoneError = error.message ?? defaultError
@@ -41,7 +43,8 @@ export default createReducer(initialState, builder =>
             state.loading = true
         })
         .addCase(checkUsername.fulfilled, (state, action: PayloadAction<CheckResponse>) => {
-
+            const { valid } = action.payload
+            state.usernameValid = valid
         })
         .addCase(checkUsername.rejected, (state, { error }) => {
             state.usernameError = error.message ?? defaultError

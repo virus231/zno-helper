@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
+import MaskedInput from "react-text-mask";
 import {LoginAuthAction} from "../redux/actions/action";
 
 interface FormValues {
@@ -11,7 +12,25 @@ interface FormValues {
     password: string;
 }
 
-function LogIn() {
+const phoneNumberMask = [
+    "(",
+    /[1-10]/,
+    /\d/,
+    /\d/,
+    ")",
+    " ",
+    /\d/,
+    /\d/,
+    /\d/,
+    "-",
+    /\d/,
+    /\d/,
+    /\d/,
+    /\d/
+];
+
+
+function LogIn():JSX.Element {
     const dispatch = useDispatch()
     const onLogInUser = (fields) => dispatch(LoginAuthAction(fields))
 
@@ -44,42 +63,78 @@ function LogIn() {
                         </p>
                     </Col>
                     <Col lg={4} className="pt-5 mt-5">
-                        <h3>Вхід</h3>
+                        <h1>Вхід</h1>
                         <Formik
                             initialValues={initialValues}
                             validationSchema={userSchema}
                             onSubmit={onLogInUser}
-                            render={({ errors, status, touched }) => (
-                                <Form>
-                                    <div className="form-group">
-                                        <label htmlFor="number">Номер телефону</label>
-                                        <Field
-                                            name="number"
-                                            type="number"
-                                            className={`form-control ${errors.number && touched.number && 'is-invalid'}`}/>
-                                        <ErrorMessage name="number" component="div" className="invalid-feedback" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="password">Пароль</label>
-                                        <Field
-                                            name="password"
-                                            type="password"
-                                            className={`form-control ${errors.password && touched.password && 'is-invalid'}`}/>
-                                            <Link to="/reset">
-                                                Відновити пароль
-                                            </Link>
-                                        <ErrorMessage name="password" component="div" className="invalid-feedback" />
-                                    </div>
+                            render={({ errors, status, values, touched, handleChange }) => (
+                                <Form noValidate>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationFormikPhone">
+                                            <Form.Label>Номер телефону</Form.Label>
+                                            <InputGroup>
+                                                <div className="d-flex ">
+                                                    <InputGroup.Prepend>
+                                                        <InputGroup.Text id="inputGroupPrepend3">
+                                                            <svg width="22" height="24" viewBox="0 0 22 24" fill="none"
+                                                                 xmlns="http://www.w3.org/2000/svg">
+                                                                <g clip-path="url(#clip0)">
+                                                                    <path
+                                                                        d="M21.2012 1.15363L16.7325 0.0286319C16.2469 -0.0932431 15.7485 0.183319 15.5508 0.680194L13.4883 5.93019C13.3079 6.38957 13.4282 6.92863 13.7848 7.24269L16.3887 9.56769C14.8419 13.163 12.1391 16.1536 8.77467 17.8739L6.64342 15.0333C6.35123 14.6443 5.86138 14.513 5.44029 14.7099L0.627791 16.9599C0.168026 17.1802 -0.0854899 17.7239 0.0262288 18.2536L1.05748 23.1286C1.1649 23.6349 1.5774 24.0005 2.06295 24.0005C13.0672 24.0005 22.0004 14.2739 22.0004 2.25051C22.0004 1.72551 21.6696 1.27082 21.2012 1.15363Z"
+                                                                        fill="#929292"/>
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0">
+                                                                        <rect width="22" height="24" fill="white"/>
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
+                                                        </InputGroup.Text>
+                                                    </InputGroup.Prepend>
+                                                    <MaskedInput
+                                                        mask={phoneNumberMask}
+                                                        id="phone"
+                                                        aria-describedby="inputGroupPrepend3"
+                                                        placeholder="Ваш номер"
+                                                        type="tel"
+                                                        // onChange={handleChange}
+                                                    />
+                                                </div>
+                                                <Form.Control.Feedback type="invalid">
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="validationFormikPassword">
+                                            <Form.Label>Пароль</Form.Label>
+                                            <InputGroup>
+                                                <Form.Control
+                                                    type="password"
+                                                    placeholder="Ваш пароль"
+                                                    name="password"
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.password}
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.password}
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                            <p>
+                                                <Link to="/reset">Відновити пароль</Link>
+                                            </p>
+                                        </Form.Group>
+                                    </Form.Row>
                                     <div className="form-group text-center">
-                                        <button type="submit" className="btn btn-primary mr-2 px-5 btn-login">Увійти</button>
-                                        <p>
-                                            Ще не маєш профілю?
+                                        <button type="submit" className="btn btn-primary btn-register mr-2 px-5">Увійти</button>
+                                        <p>Ще не маєш профілю?
                                             <Link to="/signup" className="ml-2">
                                                 Створити
                                             </Link>
                                         </p>
                                     </div>
-
                                 </Form>
                             )}
                         />
