@@ -25,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
     "react-text-mask": "^5.4.3",
+    "react-verification-code-input": "^1.2.9",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "shards-react": "^1.0.3",

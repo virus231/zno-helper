@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import {Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
+import CodeInput from '../components/CodeInput'
 import {checkUsername, register} from "./styles/auth/thunks";
 
 
@@ -32,6 +33,7 @@ const phoneNumberMask = [
 ];
 
 function SignUp():JSX.Element {
+    const [active, setActive] = useState(false)
     const state = useSelector(state =>  state.auth)
     const dispatch = useDispatch()
     const onRegisterUser = (values) => dispatch(register(values))
@@ -59,6 +61,9 @@ function SignUp():JSX.Element {
 
     const validUsername = useSelector((state) => state.validation.usernameValid)
 
+    const showCode = () => {
+        setActive(!false)
+    }
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">
@@ -170,7 +175,10 @@ function SignUp():JSX.Element {
                                                     />
                                                 </div>
                                                 <div className="form-group text-center">
-                                                    <p className="text-center">Підтвердити</p>
+                                                    <p className={active ? 'd-block' : 'd-none'}>
+                                                        <CodeInput />
+                                                    </p>
+                                                    <button onClick={showCode} type="button" className="text-center btn">Підтвердити</button>
                                                 </div>
                                                 <Form.Control.Feedback type="invalid">
                                                 </Form.Control.Feedback>

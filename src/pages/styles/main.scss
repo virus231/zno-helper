@@ -42,11 +42,11 @@ input[type=number] {
 }
 
 .btn-register, .btn-login {
-    font-family: Inter;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
     text-align: center;
+    color: white !important;
 }
 
 input {
@@ -223,25 +223,85 @@ label {
   border: none;
   border-radius: .625rem;
   box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, .1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, .1), 0 0.25rem 0.53125rem rgba(90, 97, 105, .12), 0 0.125rem 0.1875rem rgba(90, 97, 105, .1);
+  position: relative;
+  transition: all .33s;
+  height: 100%;
 
-  img {
-    cursor: pointer;
-    position: relative;
-
-    &:hover .hover-block {
-      display: block;
-      z-index: 99999;
-    }
+  &:hover .hover-block {
+    opacity: 1;
   }
 
+
   .hover-block {
+    cursor: pointer;
     position: absolute;
     left: 0;
+    text-align: center;
     right: 0;
     top: 0;
     bottom: 0;
-    display: block;
+    opacity: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(238, 238, 238, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    transition: all .33s;
+    display: flex;
+
+    .pass-test {
+      font-style: normal;
+      font-weight: 300;
+      font-size: 18px;
+      color: #567BF3;
+    }
+
+    .delete-subject {
+      font-style: normal;
+      font-weight: 300;
+      font-size: 18px;
+      color: #F3565F;
+    }
+  }
+
+  img {
+    cursor: pointer;
+
+
+  }
+
+
+}
+
+.styles_react-code-input__CRulA {
+  display: flex;
+}
+
+.btn {
+  transition: all .33s;
+  color: #007eff;
+
+  &:hover {
+    color: darkblue;
   }
 }
 
+.add {
+  transition: linear .33s;
+  border-radius: 50%;
 
+
+  &:hover{
+    box-shadow: 0 0 13px 0 #5959bd;
+  }
+}
+
+.wrap {
+  cursor: pointer;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
