@@ -1,6 +1,5 @@
 import React from 'react';
 import {Col, Container, Row} from 'react-bootstrap';
-import SideBar from '../components/SideBar'
 import SubjectCart from "../components/SubjectCart";
 import {Card, CardBody, CardImg } from "shards-react";
 import history from "../assets/images/history.png";
@@ -8,9 +7,8 @@ import history from "../assets/images/history.png";
 function Home():JSX.Element {
 
     return (
-        <section className="home d-flex">
-            <SideBar/>
-            <Container>
+        <section className="">
+            <Container className="">
                 <Row>
                     <Col lg={4}>
                         <h2>Предмети</h2>

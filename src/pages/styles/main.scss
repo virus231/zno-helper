@@ -41,7 +41,7 @@ input[type=number] {
   }
 }
 
-.btn-register, .btn-login {
+.btn-register, .btn-login, .btn-continue {
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -108,9 +108,7 @@ label {
 }
 
 .home {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
+  //height: 100vh;
   align-items: center;
 }
 
@@ -204,6 +202,10 @@ label {
     color: #DDDDDD;
     cursor: pointer;
   }
+}
+
+.sidebar {
+  height: 100vh;
 }
 
 .pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout>img.sidebar-bg {
@@ -305,3 +307,21 @@ label {
   align-items: center;
   justify-content: center;
 }
+
+.subject-cart {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.subject-name {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  color: #3D3D3D;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+

@@ -7,13 +7,13 @@ import {Container, Row, Col, Form, InputGroup} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import CodeInput from '../components/CodeInput'
 import {checkUsername, register} from "./styles/auth/thunks";
+import {RegisterBody} from '../utils/interfaces'
 
-
-interface FormValues {
-    firstName: string;
-    email: string;
-    password: string;
-}
+// interface FormValues {
+//     firstName: string;
+//     email: string;
+//     password: string;
+// }
 
 const phoneNumberMask = [
     "(",
@@ -33,14 +33,16 @@ const phoneNumberMask = [
 ];
 
 function SignUp():JSX.Element {
-    const [active, setActive] = useState(false)
+    const [activeCode, setActiveCode] = useState(false)
+    const [activeReferal, setActiveReferal] = useState(false)
     const state = useSelector(state =>  state.auth)
     const dispatch = useDispatch()
     const onRegisterUser = (values) => dispatch(register(values))
 
-    const initialValues: FormValues = {
-        firstName: '',
+    const initialValues: RegisterBody = {
+        username: '',
         email: '',
+        phone: '',
         password: ''
     };
 
@@ -62,7 +64,11 @@ function SignUp():JSX.Element {
     const validUsername = useSelector((state) => state.validation.usernameValid)
 
     const showCode = () => {
-        setActive(!false)
+        setActiveCode(!false)
+    }
+
+    const showReferal = () => {
+        setActiveReferal(!false)
     }
 
     return (
@@ -109,13 +115,13 @@ function SignUp():JSX.Element {
                                                     type="text"
                                                     placeholder="Ваше ім'я"
                                                     aria-describedby="inputGroupPrepend"
-                                                    name="firstName"
-                                                    value={values.firstName}
+                                                    name="username"
+                                                    value={values.username}
                                                     onChange={handleChange}
-                                                    isInvalid={!!errors.firstName}
+                                                    isInvalid={!!errors.username}
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.firstName}
+                                                    {errors.username}
                                                 </Form.Control.Feedback>
                                             </InputGroup>
                                         </Form.Group>
@@ -175,7 +181,7 @@ function SignUp():JSX.Element {
                                                     />
                                                 </div>
                                                 <div className="form-group text-center">
-                                                    <p className={active ? 'd-block' : 'd-none'}>
+                                                    <p className={activeCode ? 'd-block' : 'd-none'}>
                                                         <CodeInput />
                                                     </p>
                                                     <button onClick={showCode} type="button" className="text-center btn">Підтвердити</button>
@@ -201,6 +207,22 @@ function SignUp():JSX.Element {
                                                 <Form.Control.Feedback type="invalid">
                                                     {errors.password}
                                                 </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} md="12" controlId="Referal">
+                                            <p onClick={showReferal}>
+                                                {activeReferal ? 'Реферал' : 'Вказати реферала'}
+                                            </p>
+                                            <InputGroup className={activeReferal ? 'd-flex' : 'd-none'}>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Реферал"
+                                                    name="referral"
+                                                    value={values.referral}
+                                                    onChange={handleChange}
+                                                />
                                             </InputGroup>
                                         </Form.Group>
                                     </Form.Row>

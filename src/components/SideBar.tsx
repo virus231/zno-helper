@@ -14,7 +14,6 @@ function SideBar():JSX.Element {
                         <img className="profile-block__img mt-5" src="https://source.unsplash.com/user/erondu/110x110" alt="Logo"/>
                         <h6 className="profile-block__name mt-2">Username</h6>
                         <p className="profile-block__period">Пробний період</p>
-
                     </div>
                 </SidebarHeader>
                 <SidebarContent>

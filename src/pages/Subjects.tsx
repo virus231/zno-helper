@@ -67,7 +67,7 @@ function Subjects():JSX.Element {
                     <Col lg={12} className="d-flex justify-content-center text-center align-items-center mt-5">
                         <div>
                             <p>Вибрано 5/6</p>
-                            <Link to="/" className="btn btn-primary px-5 ">
+                            <Link to="/" className="btn btn-primary btn-continue px-5 ">
                                 Продовжити
                             </Link>
                         </div>
