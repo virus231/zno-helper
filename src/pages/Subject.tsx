@@ -5,8 +5,8 @@ import ThemeCart from '../components/ThemeCart';
 
 function Subject():JSX.Element {
     return (
-        <section className="subject">
-            <Container className="">
+        <section className="subject mt-5">
+            <Container className="mt-5">
                 <Row className="">
                    <Col lg={4}>
                        <div className="d-flex align-items-center">

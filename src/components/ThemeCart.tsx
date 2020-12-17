@@ -13,7 +13,7 @@ import {
 
 export default function ThemeCart():JSX.Element {
     return (
-        <Col lg="3" className="">
+        <Col lg="3" className="my-3">
             <Card className="mt-3">
                 <CardHeader>Card header</CardHeader>
                 <CardImg src="https://source.unsplash.com/user/erondu/300x200" className="img-fluid" />
