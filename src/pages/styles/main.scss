@@ -344,3 +344,20 @@ label {
 .referal {
   cursor: pointer;
 }
+
+// Test
+
+.test {
+  background: url("https://www.leadernetworks.com/wp-content/uploads/2017/04/quiz-background-slider.png") no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.wrapper {
+  &-test {
+    background-color: #3d3d3d44;
+    
+  }
+}
+
+
