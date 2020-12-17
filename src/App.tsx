@@ -15,12 +15,13 @@ function App():JSX.Element {
                 <Route exact path="/login" component={LogIn}/>
                 <Route exact path="/reset" component={ResetPassword}/>
                 <Route exact path="/subjects" component={Subjects}/>
-                <div className="d-flex align-items-center home">
+                <div className="d-flex home">
                     <SideBar/>
                     <Container>
                         <Route exact path="/subject/:id" component={Subject}/>
                         <Route exact path="/home" component={Home}/>
-                        <Route exact path="/tests/:id" component={Tests}/>
+                        <Route exact path="/tests" component={Tests}/>
+                        <Route exact path="/test/:id" component={Tests}/>
                     </Container>
                 </div>
                 <Redirect to="/signup"/>

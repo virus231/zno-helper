@@ -10,6 +10,10 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.btn a {
+  color: white !important;
+}
+
 .promo {
   height: 100vh;
   background: url('../../assets/images/signup-bg.png') no-repeat;
@@ -109,7 +113,7 @@ label {
 
 .home {
   //height: 100vh;
-  align-items: center;
+  // align-items: center;
 }
 
 .profile {
@@ -205,7 +209,8 @@ label {
 }
 
 .sidebar {
-  height: 100vh;
+  // height: 100%;
+  position: fixed;
 }
 
 .pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout>img.sidebar-bg {
@@ -282,10 +287,10 @@ label {
 
 .btn {
   transition: all .33s;
-  color: #007eff;
+  // color: #007eff;
 
   &:hover {
-    color: darkblue;
+    // color: darkblue;
   }
 }
 

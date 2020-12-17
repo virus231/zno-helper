@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
     Col,
     Card,
@@ -19,7 +20,11 @@ export default function ThemeCart():JSX.Element {
                 <CardBody>
                     <CardTitle>Lorem Ipsum</CardTitle>
                     <p>Lorem ipsum dolor sit amet.</p>
-                    <Button>Read more &rarr;</Button>
+                    <Button>
+                        <Link to="/test/2">
+                            Пройти Тест
+                        </Link>
+                    </Button>
                 </CardBody>
                 <CardFooter>Card footer</CardFooter>
             </Card>
