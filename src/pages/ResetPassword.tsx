@@ -58,9 +58,6 @@ function ResetPassword():JSX.Element {
                                             className={`form-control ${errors.email && touched.email && 'is-invalid'}`}/>
                                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                                     </div>
-                                    <div className="form-group">
-                                        <Link to="/">Відновлення через телефон</Link>
-                                    </div>
                                     <div className="form-group text-center">
                                         <button type="submit" className="btn btn-primary btn-register mr-2 px-5">Надіслати</button>
                                         <p>

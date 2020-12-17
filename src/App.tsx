@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import {Container} from "react-bootstrap";
 import  {Switch, Route, Redirect} from 'react-router-dom';
-import {SignUp, LogIn, ResetPassword, ChoiceSubjects, Home, Subject, Tests, Test} from './pages/index'
+import {SignUp, LogIn, ResetPassword, ChoiceSubjects, Home, Subject, Subjects, Tests, Test} from './pages/index'
 import SideBar from './components/SideBar'
 
 import './pages/styles/main.scss'
@@ -22,6 +22,8 @@ function App():JSX.Element {
                         <Route exact path="/home" component={Home}/>
                         <Route exact path="/tests" component={Tests}/>
                         <Route exact path="/test/:id" component={Test}/>
+                        <Route exact path="/subject-page" component={Subjects}/>
+
                     </Container>
                 </div>
                 <Redirect to="/signup"/>

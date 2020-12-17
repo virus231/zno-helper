@@ -18,7 +18,7 @@ export default function ThemeCart():JSX.Element {
                 <CardHeader>Card header</CardHeader>
                 <CardImg src="https://source.unsplash.com/user/erondu/300x200" className="img-fluid" />
                 <CardBody>
-                    <CardTitle>Lorem Ipsum</CardTitle>
+                    <CardTitle>Тема предмету</CardTitle>
                     <p>Lorem ipsum dolor sit amet.</p>
                     <Button>
                         <Link to="/test/2">

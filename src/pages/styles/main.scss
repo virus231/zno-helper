@@ -330,3 +330,17 @@ label {
   }
 }
 
+.btn-verification {
+  background:rgba(42, 98, 255, 0.99);
+  color: white;
+  transition: all .33s;
+
+  &:hover {
+    color: white !important;
+    background:rgba(0, 68, 255, 0.99)
+  }
+}
+
+.referal {
+  cursor: pointer;
+}
