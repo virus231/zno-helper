@@ -4,7 +4,7 @@ import React from 'react';
 const Answer = (props) => {
         return (
             <>
-                <ul>
+                <ul className="answers">
                     <li className="correct">asd</li>
                     <li className="incorrect">asd</li>
                     <li>asd</li>
@@ -12,7 +12,11 @@ const Answer = (props) => {
 
                 </ul>
                 <div>
-
+                    {
+                        props.correctAnswer ?
+                        'Правильно Відповідь!' : 
+                        props.clickedAnswer ? 'Неправильна відповідь!' : ''
+                    }
                 </div>
             </>
         );

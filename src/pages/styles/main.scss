@@ -361,24 +361,24 @@ label {
 }
 
 
- li{
+ .answers li{
   padding: 10px;
   border-left: 4px solid #FF3B3B;
   background-color: #bbb;
   margin: 0 0 5px;
 }
- li:hover{
+ .answers li:hover{
   cursor: pointer;
   background-color: #a2a2a2;
 }
- .correct,
- .correct:hover {
+ .answers .correct,
+ .answers .correct:hover {
   background-color: #1db900;
   border-left: 4px solid #0f6300;
   color: #fff;
 }
- .incorrect,
- .incorrect:hover {
+ .answers .incorrect,
+ .answers .incorrect:hover {
   background-color: #ec0000;
   border-left: 4px solid #FF3B3B;
   color: #fff;
