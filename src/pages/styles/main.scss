@@ -361,3 +361,29 @@ label {
 }
 
 
+ li{
+  padding: 10px;
+  border-left: 4px solid #FF3B3B;
+  background-color: #bbb;
+  margin: 0 0 5px;
+}
+ li:hover{
+  cursor: pointer;
+  background-color: #a2a2a2;
+}
+ .correct,
+ .correct:hover {
+  background-color: #1db900;
+  border-left: 4px solid #0f6300;
+  color: #fff;
+}
+ .incorrect,
+ .incorrect:hover {
+  background-color: #ec0000;
+  border-left: 4px solid #FF3B3B;
+  color: #fff;
+}
+[disabled] {
+  pointer-events: none;
+  opacity: 0.7;
+}
