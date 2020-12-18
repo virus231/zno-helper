@@ -19,8 +19,8 @@ function Test() {
                             <Question />
                             <Answer />
                             <button className="NextStep">
-                                Next
-                                </button>
+                                 Далі
+                            </button>
                             <div className="finalPage">
                                 <h1>You have completed the quiz!</h1>
                                 <p>Your score is: </p>
