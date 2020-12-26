@@ -5,3 +5,5 @@ export {default as SignUp} from './SignUp';
 export {default as Subject} from './Subject';
 export {default as Subjects} from './Subjects';
 export {default as Tests} from './Tests';
+export {default as DuelStart} from './DuelStart';
+export {default as CreateTest} from './CreateTest';

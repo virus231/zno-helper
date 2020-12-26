@@ -108,8 +108,7 @@ label {
 }
 
 .home {
-  //height: 100vh;
-  align-items: center;
+  height: 100vh;
 }
 
 .profile {
@@ -205,7 +204,8 @@ label {
 }
 
 .sidebar {
-  height: 100vh;
+  //height: 100vh;
+  position: fixed;
 }
 
 .pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout>img.sidebar-bg {
@@ -282,11 +282,11 @@ label {
 
 .btn {
   transition: all .33s;
-  color: #007eff;
-
-  &:hover {
-    color: darkblue;
-  }
+  //color: #007eff;
+  //
+  //&:hover {
+  //  color: darkblue;
+  //}
 }
 
 .add {
@@ -324,4 +324,94 @@ label {
     text-decoration: none;
   }
 }
+
+.btn-pill {
+  border-radius: 1.25em;
+  //background: #567BF3 !important;
+}
+
+.btn-outline-danger {
+  color: #dc3545 !important;
+  border-radius: 1.25em;
+
+  &:hover {
+    color: #fff !important;
+  }
+}
+
+.card {
+  height: auto;
+}
+
+.tag {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  color: #222E34;
+  cursor: pointer;
+  transition: all .33s;
+
+  &:hover {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: #567BF3;
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  background: rgba(86, 123, 243, 0.1);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  color: #567BF3;
+  //width:1
+}
+
+.file-preview {
+  margin: 0 10px;
+}
+
+.variation-block {
+  max-height: 100%;
+  background: #EEF2FE;
+  border-radius: 8px;
+  border: 2px dashed #567BF3;
+  transition: all .33s;
+
+  &__name {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: #567BF3;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.099999999999999999);
+  }
+}
+
+.question-input {
+  border-bottom: 1px solid #567BF3;
+}
+
+.btn-add {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  color: #567BF3;
+}
+
 
