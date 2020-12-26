@@ -10,6 +10,10 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.btn a {
+  color: white !important;
+}
+
 .promo {
   height: 100vh;
   background: url('../../assets/images/signup-bg.png') no-repeat;
@@ -108,7 +112,8 @@ label {
 }
 
 .home {
-  height: 100vh;
+  // height: 100vh;
+  // align-items: center;
 }
 
 .profile {
@@ -205,7 +210,7 @@ label {
 
 .sidebar {
   //height: 100vh;
-  position: fixed;
+  // position: fixed;
 }
 
 .pro-sidebar>.pro-sidebar-inner>.pro-sidebar-layout>img.sidebar-bg {
@@ -227,7 +232,7 @@ label {
   box-shadow: 0 0.46875rem 2.1875rem rgba(90, 97, 105, .1), 0 0.9375rem 1.40625rem rgba(90, 97, 105, .1), 0 0.25rem 0.53125rem rgba(90, 97, 105, .12), 0 0.125rem 0.1875rem rgba(90, 97, 105, .1);
   position: relative;
   transition: all .33s;
-  height: 100%;
+  height: auto;
 
   &:hover .hover-block {
     opacity: 1;
@@ -325,93 +330,75 @@ label {
   }
 }
 
-.btn-pill {
-  border-radius: 1.25em;
-  //background: #567BF3 !important;
-}
-
-.btn-outline-danger {
-  color: #dc3545 !important;
-  border-radius: 1.25em;
-
-  &:hover {
-    color: #fff !important;
-  }
-}
-
-.card {
-  height: auto;
-}
-
-.tag {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  color: #222E34;
-  cursor: pointer;
+.btn-verification {
+  background:rgba(42, 98, 255, 0.99);
+  color: white;
   transition: all .33s;
 
   &:hover {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    color: #567BF3;
+    color: white !important;
+    background:rgba(0, 68, 255, 0.99)
   }
 }
 
-input[type="file"] {
+.referal {
+  cursor: pointer;
+}
+
+// Test
+
+.test {
+  background: url("https://www.leadernetworks.com/wp-content/uploads/2017/04/quiz-background-slider.png") no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.wrapper {
+  &-test {
+    background-color: #3d3d3d44;
+
+  }
+}
+
+
+ .answers li{
+  padding: 10px;
+  border-left: 4px solid #FF3B3B;
+  background-color: #bbb;
+  margin: 0 0 5px;
+}
+ .answers li:hover{
+  cursor: pointer;
+  background-color: #a2a2a2;
+}
+ .answers .correct,
+ .answers .correct:hover {
+  background-color: #1db900;
+  border-left: 4px solid #0f6300;
+  color: #fff;
+}
+ .answers .incorrect,
+ .answers .incorrect:hover {
+  background-color: #ec0000;
+  border-left: 4px solid #FF3B3B;
+  color: #fff;
+}
+[disabled] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.NextStep{
+  background-color: #009e00;
+  color:#fff;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.NextStep:hover{
+  background-color: green;
+}
+.NextStep[disabled]{
   display: none;
 }
-.custom-file-upload {
-  background: rgba(86, 123, 243, 0.1);
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  color: #567BF3;
-  //width:1
-}
-
-.file-preview {
-  margin: 0 10px;
-}
-
-.variation-block {
-  max-height: 100%;
-  background: #EEF2FE;
-  border-radius: 8px;
-  border: 2px dashed #567BF3;
-  transition: all .33s;
-
-  &__name {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    color: #567BF3;
-  }
-
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.099999999999999999);
-  }
-}
-
-.question-input {
-  border-bottom: 1px solid #567BF3;
-}
-
-.btn-add {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  text-align: center;
-  color: #567BF3;
-}
-
-

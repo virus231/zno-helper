@@ -57,7 +57,7 @@ function LogIn():JSX.Element {
                 <Row className="">
                     <Col lg={8} className="promo-col">
                         <p>
-                            <Link to="/signup">
+                            <Link to="/">
                                 Z-Helper
                             </Link>
                         </p>

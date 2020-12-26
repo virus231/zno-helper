@@ -1,77 +1,49 @@
-import React, { useState} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
-
-import ch from '../assets/images/chemistry mini.png'
-import en from '../assets/images/english.png'
-import ph from '../assets/images/physics.png'
-
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+import React from 'react'
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
 
 
-function Subjects():JSX.Element {
+function Subjects() {
     return (
-        <section className="subjects pt-5">
+        <section className="subjects mt-5">
             <Container>
-                <Row className="text-center">
-                    <Col xs="12">
-                        <h3>Username вибери предмети для складання ЗНО</h3>
-                        <p>Ти будеш готуватись по цим предметах</p>
+                <Row>
+                    <Col lg="4">
+                        <h3>
+                            Історія України
+                        </h3>
                     </Col>
                 </Row>
-                <Row>
-                    <Col xs="12">
-                        <Swiper
-                            spaceBetween={50}
-                            slidesPerView={3}
-                            navigation
-                            scrollbar={{ draggable: true }}
-                            onSwiper={(swiper) => console.log(swiper)}
-                            onSlideChange={() => console.log('slide change')}
-                        >
-                            <SwiperSlide>
-                                <div className="text-uppercase d-flex flex-column align-items-center">
-                                    <span className="">Xімія</span>
-                                    <img className="img-fluid" src={ch} alt="Chemistry"/>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="text-uppercase d-flex flex-column align-items-center">
-                                    <span className="">Анг.мова</span>
-                                    <img className="img-fluid" src={en} alt="Chemistry"/>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
+                <Row className="mt-5">
+                    <Col lg="4">
+                        <Link to="/tests">
+                            <Card>
+                                <CardImg top src="https://place-hold.it/300x200" />
+                                <CardBody className="text-center">
+                                    <p>Всі Тести</p>
+                                </CardBody>
+                            </Card>
+                        </Link>
+                    </Col>
 
-                                <div className="text-uppercase d-flex flex-column align-items-center">
-                                    <span className="">Фізика</span>
-                                    <img className="img-fluid" src={en} alt="Chemistry"/>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="text-uppercase d-flex flex-column align-items-center">
-                                    <span className="">Анг.мова</span>
-                                    <img className="img-fluid" src={en} alt="Chemistry"/>
-                                </div>
-                            </SwiperSlide>
-                        </Swiper>
+                    <Col lg="4">
+                        <Card>
+                            <CardImg top src="https://place-hold.it/300x200" />
+                            <CardBody className="text-center">
+                                <p>Мої тести</p>
+                            </CardBody>
+                        </Card>
                     </Col>
-                </Row>
-                <Row>
-                    <Col lg={12} className="d-flex justify-content-center text-center align-items-center mt-5">
-                        <div>
-                            <p>Вибрано 5/6</p>
-                            <Link to="/" className="btn btn-primary btn-continue px-5 ">
-                                Продовжити
-                            </Link>
-                        </div>
+
+                    <Col lg="4">
+                        <Card>
+                            <CardImg top src="https://place-hold.it/300x200" />
+                            <CardBody className="text-center">
+                                <p>Створити тест</p>
+                            </CardBody>
+                        </Card>
                     </Col>
+
                 </Row>
             </Container>
         </section>
