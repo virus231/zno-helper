@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import  {Switch, Route, Redirect} from 'react-router-dom';
-import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTest, DuelStart, ChoiceSubjects} from './pages/index'
+import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTest, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
 import SideBar from './components/SideBar'
 
 import './pages/styles/main.scss'
@@ -20,7 +20,9 @@ function App():JSX.Element {
                     <Route exact path="/create-test" component={CreateTest}/>
                     <Route exact path="/subject/:id" component={Subject}/>
                     <Route exact path="/home" component={Home}/>
-                    <Route exact path="/duel" component={DuelStart}/>
+                    <Route exact path="/duel-start" component={DuelStart}/>
+                    <Route exact path="/duel-join/:id" component={DuelJoin}/>
+                    <Route exact path="/duel-test" component={DuelTest}/>
                     <Route exact path="/tests/:id" component={Tests}/>
                 </div>
                 <Redirect to="/signup"/>

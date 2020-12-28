@@ -1,0 +1,218 @@
+.main_container_600{
+  top: 162px;
+  width: 600px;
+  left: 660px;
+};
+
+.header_div{
+  position: relative;
+  height: auto;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 6px rgba(61, 61, 61, 0.04);
+  border-radius: 0px 15px 15px 0px;
+  padding: 10px 15px;
+  border-left: 3px solid #567BF3;
+  margin-bottom: 50px;
+
+  .duel_h1{
+    font-family: "Inter", serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 44px;
+    color: #6B8CBE;
+  };
+};
+
+.button_main {
+  width: 380px;
+  height: 100px;
+  border-radius: 15px;
+  font-size: 36px;
+  color: #fff;
+  text-align: center;
+  font-family: "Inter", serif;
+  margin: 0 auto;
+  display: block;
+}
+
+.duel {
+  background: url("../../assets/images/duel-bg.jpg") no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", serif;
+}
+
+.duel .invite_by{
+  display: block;
+  width: 100%;
+  height: 56px;
+  font-weight: 500;
+  font-size: 26px;
+  background: #fff;
+  padding-left: 30px;
+  color: #6B8CBE;
+  line-height: 56px;
+  border-radius: 5px;
+}
+.duel .invite_by span{
+  color: #567BF3;
+  font-style: italic;
+}
+
+.duel input.participant_name{
+  display: block;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  width: 100%;
+  height: 56px;
+  font-weight: 300;
+  color: #222E34;
+  font-size: 26px;
+  line-height: 56px;
+  padding-left: 30px;
+  border-left: 2px solid #567BF3;
+  border-radius: 0px 5px 5px 0px;
+  background: #EEF2FE;
+}
+.duel input.participant_name::placeholder {
+  color: #6B8CBE;
+  opacity: 0.8;
+}
+
+.duel .test_form {
+  width: 100%;
+  display: block;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 6px rgba(61, 61, 61, 0.04);
+  border-radius: 15px;
+  padding: 15px 40px;
+  margin-bottom: 50px;
+}
+.duel .test_form div{
+  width: 100%;
+  margin: 15px 0;
+}
+.duel .test_form div input[type="radio"] + svg {
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.duel .test_form div label::before{
+  display:block;
+  width:40px;
+  height:40px;
+}
+.duel .test_form div label .svg_icon_radio{
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+.duel .test_form div label .svg_icon_radio:hover{
+  fill: #567BF3;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+input[class="radio_input"]{
+  display: none;
+}
+.duel .test_form div label{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.duel .test_form div label span{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border: 1px solid #DADADA;
+  box-sizing: border-box;
+  border-radius: 0px 5px 5px 0px;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: auto;
+  font-size: 24px;
+  color: #222E34;
+  font-style: normal;
+  font-weight: normal;
+  vertical-align: center;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+input[class="radio_input"]:hover + label .svg_icon_radio,
+input[class="radio_input"]:checked + label .svg_icon_radio,
+input[class="radio_input"]:focus + label .svg_icon_radio{
+  fill: #567BF3;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+input[class="radio_input"]:hover + label span,
+input[class="radio_input"]:checked + label span,
+input[class="radio_input"]:focus + label span {
+  border-color: #567BF3;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+  .duel .test_form div label.right_option .svg_icon_radio{
+    fill: #5DE2A8 !important;
+  }
+  .duel .test_form div label.right_option span{
+    border: 1px solid #5DE2A8;
+  }
+
+  .duel .test_form div label.incorrect_option svg{
+    opacity: 0;
+  }
+  .duel .test_form div label.incorrect_option span{
+    border: 1px solid #F44336;
+  }
+  .duel .test_form div label.incorrect_option span::before{
+    content: "";
+    display: block;
+    position: absolute;
+    left: -60px;
+    height: 40px;
+    width: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0C8.97156 0 0 8.97156 0 20C0 31.0284 8.97156 40 20 40C31.0284 40 40 31.0284 40 20C40 8.97156 31.0284 0 20 0Z' fill='%23F44336'/%3E%3Cpath d='M27.3651 25.009C28.0167 25.6608 28.0167 26.714 27.3651 27.3659C27.0401 27.6909 26.6135 27.8541 26.1865 27.8541C25.7599 27.8541 25.3333 27.6909 25.0083 27.3659L20 22.3573L14.9918 27.3659C14.6668 27.6909 14.2401 27.8541 13.8135 27.8541C13.3866 27.8541 12.9599 27.6909 12.6349 27.3659C11.9834 26.714 11.9834 25.6608 12.6349 25.009L17.6434 20.0007L12.6349 14.9925C11.9834 14.3407 11.9834 13.2875 12.6349 12.6356C13.2868 11.9841 14.3399 11.9841 14.9918 12.6356L20 17.6442L25.0083 12.6356C25.6601 11.9841 26.7133 11.9841 27.3651 12.6356C28.0167 13.2875 28.0167 14.3407 27.3651 14.9925L22.3566 20.0007L27.3651 25.009Z' fill='%23FAFAFA'/%3E%3C/svg%3E%0A");
+  }
+
+form.boolean{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+form.boolean input{
+  display: none;
+}
+form.boolean label{
+  width: 385px;
+  height: 80px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 28px;
+  line-height: 80px;
+  text-align: center;
+  color: #567BF3;
+  margin: 0 45px;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}
+
+input[class="boolean"]:hover + label,
+input[class="boolean"]:checked + label,
+input[class="boolean"]:focus + label{
+  background: #EEF2FE;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+}

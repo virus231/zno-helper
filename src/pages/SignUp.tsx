@@ -28,7 +28,6 @@ const phoneNumberMask = [
 ];
 
 function SignUp(): JSX.Element {
-    const [activeCode, setActiveCode] = useState(false)
     const [activeReferal, setActiveReferal] = useState(false)
     const state = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -58,9 +57,6 @@ function SignUp(): JSX.Element {
 
     const validUsername = useSelector((state) => state.validation.usernameValid)
 
-    const showCode = () => {
-        setActiveCode(!false)
-    }
 
     const showReferal = () => {
         setActiveReferal(!false)
@@ -152,7 +148,7 @@ function SignUp(): JSX.Element {
                                             <Form.Group as={Col} md="12" controlId="validationFormikPhone">
                                                 <Form.Label>Номер телефону</Form.Label>
                                                 <InputGroup>
-                                                    <div className="d-flex ">
+                                                    <div className="d-flex w-100 ">
                                                         <InputGroup.Prepend>
                                                             <InputGroup.Text id="inputGroupPrepend3">
                                                                 <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +228,7 @@ function SignUp(): JSX.Element {
                                             <Form.Group as={Col} md="12" controlId="validationFormikPhone">
                                                 <Form.Label>Номер телефону</Form.Label>
                                                 <InputGroup>
-                                                    <div className="d-flex ">
+                                                    <div className="d-flex w-100">
                                                         <InputGroup.Prepend>
                                                             <InputGroup.Text id="inputGroupPrepend3">
                                                                 <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,9 +252,10 @@ function SignUp(): JSX.Element {
                                                             onChange={handleChange}
                                                         />
                                                     </div>
-                                                    <div className="form-group text-center">
-                                                            <CodeInput />
-                                                        <button onClick={showCode} type="button" className="text-center btn">Підтвердити</button>
+                                                    <div className="form-group mt-3 text-center">
+                                                        <p>Код підтеврдження</p>
+                                                        <CodeInput />
+                                                        <button type="button" className="text-center btn">Надіслати код ще раз</button>
                                                     </div>
                                                     <Form.Control.Feedback type="invalid">
                                                     </Form.Control.Feedback>
