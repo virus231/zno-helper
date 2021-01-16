@@ -8,7 +8,7 @@ export {default as Tests} from './Tests';
 export {default as DuelStart} from './duel/DuelStart';
 export {default as DuelJoin} from './duel/DuelJoin';
 export {default as DuelTest} from './duel/DuelTest';
-export {default as CreateTest} from './CreateTest';
+export {default as CreateTests} from './CreateTests';
 export {default as Test} from './Test';
 export {default as Subjects} from './Subjects';
 

@@ -14,11 +14,11 @@ function DuelTest():JSX.Element {
                      <h1 className="duel_h1">Що спричиняє заболочування на великих площах у басейні річки Амазонки?</h1>
                 </div>
 
-                <SingleAnswer />
+                {/* <SingleAnswer /> */}
 
                 {/*<MultiAnswer />*/}
 
-                {/*<Boolean />*/}
+                <Boolean />
 
                 <Button  className="button_main">Далі</Button>
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.scss';
-import  {Switch, Route, Redirect} from 'react-router-dom';
-import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTest, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
+import {Switch, Route, Redirect} from 'react-router-dom';
+import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
 import SideBar from './components/SideBar'
+// import SingleAnswer from "./components/SingleAnswer";
+import CreateTest from "./pages/CreateTest";
+
 
 import './pages/styles/main.scss'
 
@@ -17,7 +20,9 @@ function App():JSX.Element {
                 <div className="d-flex align-items-center justify-content-center home">
                     <SideBar/>
                     <Route exact path="/subjects" component={Subjects}/>
-                    <Route exact path="/create-test" component={CreateTest}/>
+                    <Route exact path="/create-test" component={CreateTests}/>
+                    <Route exact path="/create-test/single-answer" component={CreateTest}/>
+
                     <Route exact path="/subject/:id" component={Subject}/>
                     <Route exact path="/home" component={Home}/>
                     <Route exact path="/duel-start" component={DuelStart}/>

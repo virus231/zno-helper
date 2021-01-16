@@ -74,7 +74,7 @@ function LogIn():JSX.Element {
                                         <Form.Group as={Col} md="12" controlId="validationFormikPhone">
                                             <Form.Label>Номер телефону</Form.Label>
                                             <InputGroup>
-                                                <div className="d-flex ">
+                                                <div className="d-flex w-100">
                                                     <InputGroup.Prepend>
                                                         <InputGroup.Text id="inputGroupPrepend3">
                                                             <svg width="22" height="24" viewBox="0 0 22 24" fill="none"
@@ -130,7 +130,7 @@ function LogIn():JSX.Element {
                                     <div className="form-group text-center">
                                         <button type="submit" className="btn btn-primary btn-register mr-2 px-5">Увійти</button>
                                         <p>Ще не маєш профілю?
-                                            <Link to="/signup" className="ml-2">
+                                            <Link to="/" className="ml-2">
                                                 Створити
                                             </Link>
                                         </p>

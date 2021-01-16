@@ -36,12 +36,14 @@ function Subjects() {
                     </Col>
 
                     <Col lg="4">
-                        <Card>
-                            <CardImg top src="https://place-hold.it/300x200" />
-                            <CardBody className="text-center">
-                                <p>Створити тест</p>
-                            </CardBody>
-                        </Card>
+                        <Link to="/create-test">
+                            <Card>
+                                <CardImg top src="https://place-hold.it/300x200" />
+                                <CardBody className="text-center">
+                                    <p>Створити тест</p>
+                                </CardBody>
+                            </Card>
+                        </Link>
                     </Col>
 
                 </Row>

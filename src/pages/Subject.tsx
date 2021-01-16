@@ -1,7 +1,15 @@
 import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import ThemeCart from '../components/ThemeCart';
+import {ThemeCart} from '../components/ThemeCart';
+
+const themes = [
+    {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"}
+]
 
 function Subject():JSX.Element {
     return (
@@ -28,12 +36,14 @@ function Subject():JSX.Element {
                    </Col>
                 </Row>
                 <Row className="mt-3">
-                    <ThemeCart/>
-                    <ThemeCart/>
-                    <ThemeCart/>
-                    <ThemeCart/>
-                    <ThemeCart/>
-                    <ThemeCart/>
+                    {
+                        themes &&
+                        themes.map((theme, index) => {
+                            return (
+                                <ThemeCart key={`${theme}_${index}`} theme={theme}/>
+                            )
+                        })
+                    }
                 </Row>
             </Container>
 

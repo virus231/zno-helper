@@ -54,12 +54,10 @@ function SignUp(): JSX.Element {
         handleChange(e)
     }
 
-
     const validUsername = useSelector((state) => state.validation.usernameValid)
 
-
     const showReferal = () => {
-        setActiveReferal(!false)
+        setActiveReferal(!activeReferal)
     }
 
     return (
