@@ -61,9 +61,9 @@ function CreateTest():JSX.Element {
                         </CardHeader>
                         {/*<CreateSingleAnswer/>*/}
                         {/*<CreateMultiAnswer/>*/}
-                        {/*<CreateBooleanAnswer/>*/}
+                        <CreateBooleanAnswer/>
 
-                        <CreateAccordenceAnswer/>
+                        {/*<CreateAccordenceAnswer/>*/}
 
                     </Card>
                 </Col>

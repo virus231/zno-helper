@@ -5,7 +5,6 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
-import {LoginAuthAction} from "../redux/actions/action";
 
 interface FormValues {
     number: string;
@@ -32,7 +31,7 @@ const phoneNumberMask = [
 
 function LogIn():JSX.Element {
     const dispatch = useDispatch()
-    const onLogInUser = (fields) => dispatch(LoginAuthAction(fields))
+    // const onLogInUser = (fields) => dispatch(LoginAuthAction(fields))
 
     const initialValues: FormValues = {
         number: '',
@@ -50,6 +49,10 @@ function LogIn():JSX.Element {
     })
 
     type User = Yup.InferType<typeof userSchema>;
+
+    function onLogInUser(e) {
+        e.preventDefault()
+    }
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">

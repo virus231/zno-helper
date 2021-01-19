@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import CodeInput from '../components/CodeInput'
-import { checkUsername, register } from "./styles/auth/thunks";
+import {checkEmail, checkUsername, register} from "./styles/auth/thunks";
 import { RegisterBody } from '../utils/interfaces'
 
 
@@ -28,9 +28,11 @@ const phoneNumberMask = [
 ];
 
 function SignUp(): JSX.Element {
-    const [activeReferal, setActiveReferal] = useState(false)
-    const state = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const state = useSelector(state => state.auth)
+
+
+    const [activeReferal, setActiveReferal] = useState(false)
     const onRegisterUser = (values) => dispatch(register(values))
 
     const initialValues: RegisterBody = {
@@ -48,13 +50,20 @@ function SignUp(): JSX.Element {
 
     type User = Yup.InferType<typeof userSchema>;
 
-    const validateUsername = (e: React.ChangeEvent<any>, handleChange) => {
+    const validateUsername = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
         const username = e.target.value
         dispatch(checkUsername(username))
         handleChange(e)
     }
 
+    const validateEmail = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
+        const email = e.target.value
+        dispatch(checkEmail(email))
+        handleChange(e)
+    }
+
     const validUsername = useSelector((state) => state.validation.usernameValid)
+    console.log(validUsername)
 
     const showReferal = () => {
         setActiveReferal(!activeReferal)
@@ -107,7 +116,7 @@ function SignUp(): JSX.Element {
                                                         aria-describedby="inputGroupPrepend"
                                                         name="username"
                                                         value={values.username}
-                                                        onChange={handleChange}
+                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => validateUsername(e, handleChange)}
                                                         isInvalid={!!errors.username}
                                                     />
                                                     <Form.Control.Feedback type="invalid">
@@ -133,7 +142,7 @@ function SignUp(): JSX.Element {
                                                         aria-describedby="inputGroupPrepend2"
                                                         name="email"
                                                         value={values.email}
-                                                        onChange={handleChange}
+                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => validateEmail(e, handleChange)}
                                                         isInvalid={!!errors.email}
                                                     />
                                                     <Form.Control.Feedback type="invalid">
