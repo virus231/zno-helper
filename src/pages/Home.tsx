@@ -2,7 +2,6 @@ import React from 'react';
 import {Col, Container, Row} from 'react-bootstrap';
 import {SubjectCart} from "../components/SubjectCart";
 import {Card, CardBody } from "shards-react";
-import history from "../assets/images/history.png";
 
 const subjects = [
     {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"},
