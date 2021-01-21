@@ -17,7 +17,6 @@ export const defaultError = 'Somthing went wrong!'
 
 export default createReducer(initialState, builder =>
     builder.addCase(register.pending, (state) => {
-        console.log(state)
         state.loading = true
         state.error = null
     })

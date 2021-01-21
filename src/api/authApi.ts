@@ -2,7 +2,6 @@ import { axios } from "../utils/axios"
 import { AuthResponse, CheckResponse, LoginBody, RegisterBody, SmsResponse } from "../utils/interfaces"
 
 export const registerUser = async (body:RegisterBody):Promise<AuthResponse> => {
-    console.log(body)
     return axios.post('/auth/sign-up',body)
 }
 

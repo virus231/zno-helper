@@ -14,6 +14,26 @@ input[type=number] {
   color: white !important;
 }
 
+.input-group-text {
+  background: #fff;
+  border: none;
+}
+
+.input-group-prepend {
+  background: #FFFFFF;
+  //box-shadow: 0px 2px 6px rgba(121, 121, 121, 0.5) !important;
+  box-shadow: 5px 1px 6px 0px rgba(121, 121, 121, 0.5) !important;
+}
+
+.form-control {
+  background: #FFFFFF;
+  box-shadow: 5px 1px 6px 0px rgba(121, 121, 121, 0.5) !important;
+
+  border-bottom-right-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+  border: none;
+}
+
 .promo {
   height: 100vh;
   background: url('../../assets/images/signup-bg.png') no-repeat;
@@ -53,6 +73,64 @@ input[type=number] {
     color: white !important;
 }
 
+.btn-register {
+  background: linear-gradient(180deg, #2A5FFF 0%, #2A6AFF 100%);
+  box-shadow: 0px 2px 6px rgba(61, 61, 61, 0.04);
+  border-radius: 10px;
+  padding: 15px 80px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  transition: background .33s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 64.94px;
+    height: 64.94px;
+    top: -30px;
+    padding: 20px;
+    border: 7px solid rgba(255, 255, 255, 0.99);
+    border-radius: 50px;
+    box-sizing: border-box;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 64.94px;
+    height: 64.94px;
+    bottom: -40px;
+    left: -20px;
+    padding: 20px;
+    border: 10px solid rgba(255, 255, 255, 0.99);
+    border-radius: 50px;
+    box-sizing: border-box;
+  }
+
+  &:hover {
+    background: linear-gradient(180deg, #1a53ff 0%, #1359ff 100%);
+
+  }
+}
+
+.btn-register + p {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  color: #848A9D;
+}
+
+.btn-register + p span {
+  display: inline-block;
+
+}
+
+.btn-register + p a {
+  display: inline-block;
+}
+
 input {
     padding: .5rem;
     font-size: 16px;
@@ -62,15 +140,26 @@ input {
     border: 1px solid #ccc;
 }
 
-input:focus {
-    border-color: #007eff;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 0 3px rgba(0, 126, 255, 0.1);
-    outline: none;
-}
+//input:focus {
+//    border-color: #007eff;
+//    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+//    0 0 0 3px rgba(0, 126, 255, 0.1);
+//    outline: none;
+//}
 
 input.error {
     border-color: red;
+}
+
+.input-number {
+  background: #FFFFFF;
+  box-shadow: 5px 1px 6px 0px rgba(121, 121, 121, 0.5) !important;
+
+  border-bottom-right-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border: none;
 }
 
 label {
@@ -343,6 +432,7 @@ label {
 
 .referal {
   cursor: pointer;
+  color: #567BF3;
 }
 
 // Test
