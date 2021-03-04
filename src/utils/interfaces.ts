@@ -67,11 +67,11 @@ export interface TestWrap extends TestBlock
     title: string,
     subject: string,
     userId: number,
-    tags?: Tags[] | null,
+    tags?: Tag[] | null,
     tests: Test[]
 }
 
-export interface Tags extends TestBlock
+export interface Tag extends TestBlock
 {
     subject: string,
     title: string
@@ -79,7 +79,7 @@ export interface Tags extends TestBlock
 
 export interface Test extends TestBlock
 {
-    title: string,
+    title: Block,
     content: string,
     explanation: string,
     time: number
@@ -155,7 +155,7 @@ export interface TestBoolean extends TestContent
 
 export interface TestAccordence extends TestContent
 {
-    accordancies: string[]
+    accordancies: { [key: string]: string; }
 }
 
 
