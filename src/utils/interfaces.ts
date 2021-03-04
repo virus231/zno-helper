@@ -44,3 +44,130 @@ export interface Validation {
     usernameError: string | null,
     loading:boolean
 }
+
+// Subjects
+enum ESubject {
+    GEOGRAPHY,
+    HISTORY_OF_UKRAINE,
+    UKRAINIAN_LANGUAGE,
+    UKRAINIAN_LITERATURE,
+    MATHEMATICS,
+    ENGLISH,
+    BIOLOGY,
+    PHYSICS,
+    CHEMISTRY
+}
+
+interface TestBlock {
+    type: ESubject
+}
+
+export interface TestWrap extends TestBlock
+{
+    title: string,
+    subject: string,
+    userId: number,
+    tags?: Tags[] | null,
+    tests: Test[]
+}
+
+export interface Tags extends TestBlock
+{
+    subject: string,
+    title: string
+}
+
+export interface Test extends TestBlock
+{
+    title: string,
+    content: string,
+    explanation: string,
+    time: number
+}
+
+
+// Block Content
+
+enum EInfoTypes {
+    TEXT,
+    IMAGE,
+    VIDEO,
+    AUDIO
+}
+
+interface Block{
+    type: EInfoTypes
+}
+
+export interface BlockText extends Block 
+{
+    text: String
+}
+
+export interface BlockImage extends Block 
+{
+    title: String
+    imageUrl: String
+}
+
+export interface BlockVideo extends Block 
+{
+    videoUrl: String
+}
+
+export interface BlockAudio extends Block 
+{
+    audioUrl: String
+}
+
+
+// Test Content
+enum ETestType {
+    SINGLE_ANSWER,
+    SINGLE_IMAGES_ANSWER,
+    MULTI_ANSWER,
+    MULTI_IMAGES_ANSWER,
+    BOOLEAN,
+    ACCORDANCE
+}
+
+interface TestContent {
+    type: ETestType
+}
+
+export interface TestSingleAnswer extends TestContent
+{
+    options: string[],
+    answer: string
+}
+
+export interface TestMultiAnswer extends TestContent
+{
+    options: string[],
+    answer: string[]
+}
+
+export interface TestBoolean extends TestContent
+{
+    question: string,
+    answer: boolean
+}
+
+export interface TestAccordence extends TestContent
+{
+    accordancies: string[]
+}
+
+
+export interface TestSingleImagesAnswer extends TestContent
+{
+    images: string[],
+    answer: string
+}
+
+export interface TestMultiImagesAnswer extends TestContent
+{
+    images: string[],
+    answer: string[]
+}
+

@@ -5,8 +5,6 @@ import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTest
 import SideBar from './components/SideBar'
 // import SingleAnswer from "./components/SingleAnswer";
 import CreateTest from "./pages/CreateTest";
-
-
 import './pages/styles/main.scss'
 
 function App():JSX.Element {
