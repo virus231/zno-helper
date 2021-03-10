@@ -6,8 +6,6 @@ import CreateMultiAnswer from "../components/create-test-templates/CreateMultiAn
 import CreateBooleanAnswer from '../components/create-test-templates/CreateBooleanAnswer';
 import CreateAccordenceAnswer from '../components/create-test-templates/CreateAccordenceAnswer';
 
-
-
 function CreateTest():JSX.Element {
 
 
