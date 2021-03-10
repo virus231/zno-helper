@@ -46,7 +46,7 @@ export interface Validation {
 }
 
 // Subjects
-enum ESubject {
+export enum ESubject {
     GEOGRAPHY,
     HISTORY_OF_UKRAINE,
     UKRAINIAN_LANGUAGE,
@@ -171,3 +171,12 @@ export interface TestMultiImagesAnswer extends TestContent
     answer: string[]
 }
 
+export interface AddTestData {
+    test: Test,
+    testWrapId:string
+}
+
+export interface GetTagsData{
+    subject: ESubject,
+    query:string
+}
