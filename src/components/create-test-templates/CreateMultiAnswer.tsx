@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function CreateMultiAnswer(props):JSX.Element {
     const classes = useStyles();
 
-    console.log(props)
-
     return (
         <>
             <CardBody className="question-input">

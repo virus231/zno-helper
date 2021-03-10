@@ -36,9 +36,7 @@ export default function CreateSingleAnswer(props):JSX.Element {
     console.log(props)
 
     return (
-        <Container>
-            <Row>
-                <Col lg={{span: 12}}>
+        <>
                     <CardBody className="question-input">
                         <div className="w-100">
                             <TextField
@@ -169,9 +167,7 @@ export default function CreateSingleAnswer(props):JSX.Element {
                             />
                         </div>
                     </CardBody>
-                </Col>
-             </Row>
-        </Container>
+                </>
 
     )
 }

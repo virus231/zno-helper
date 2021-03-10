@@ -26,7 +26,7 @@ function Home():JSX.Element {
                         subjects &&
                         subjects.map((subject, index) => {
                             return (
-                                <SubjectCart key={`${subject}_${index}`} subjects={subjects}/>
+                                <SubjectCart key={`${subject}_${index}`} subject={subject}/>
                             )
                         })
                     }

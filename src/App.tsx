@@ -17,16 +17,15 @@ function App():JSX.Element {
                 <Route exact path="/choice-subjects" component={ChoiceSubjects}/>
                 <div className="d-flex align-items-center justify-content-center home">
                     <SideBar/>
-                    <Route exact path="/subjects" component={Subjects}/>
+                    <Route exact path="/home" component={Home}/>
+                    <Route exact path="/tests/:id" component={Tests}/>
+                    <Route exact path="/subject/:id" component={Subject}/>
                     <Route exact path="/create-test" component={CreateTests}/>
                     <Route exact path="/create-test/single-answer" component={CreateTest}/>
-
-                    <Route exact path="/subject/:id" component={Subject}/>
-                    <Route exact path="/home" component={Home}/>
+                    {/* <Route exact path="/subject/:id" component={Subject}/> */}
                     <Route exact path="/duel-start" component={DuelStart}/>
                     <Route exact path="/duel-join/:id" component={DuelJoin}/>
                     <Route exact path="/duel-test" component={DuelTest}/>
-                    <Route exact path="/tests/:id" component={Tests}/>
                 </div>
                 <Redirect to="/signup"/>
             </Switch>
