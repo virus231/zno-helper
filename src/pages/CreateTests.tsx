@@ -19,57 +19,26 @@ import CreateAccordenceAnswer from "../components/create-test-templates/CreateAc
 
 function CreateTests(props): JSX.Element {
     const [active, setActive] = React.useState<boolean>(false);
-    const [showSingleTest, setShowSingleTest] = React.useState<boolean>(false)
-    const [showMultiTest, setShowMultiTest] = React.useState<boolean>(false)
-    const [showBooleanTest, setShowBooleanTest] = React.useState<boolean>(false)
-    const [showAccordenceTest, setShowAccordenceTest] = React.useState<boolean>(false)
+    const [testMode,setTestMode] = React.useState('')
+    const renderTest = React.useCallback(
+        () => {
 
-    const showSingle = () => {
-        setShowSingleTest(!false)
-    }
+            switch (testMode) {
+                case 'single': 
+                    return <CreateSingleAnswer />
+                case 'multi':
+                    return <CreateMultiAnswer />
+                case 'boolean':
+                    return <CreateBooleanAnswer />
+                case 'accordence':
+                    return <CreateAccordenceAnswer />
+                default:
+                    return <div/>
 
-    const showMulti = () => {
-        setShowMultiTest(!false)
-    }
-
-    const showBoolean = () => {
-        setShowBooleanTest(!false)
-    }
-
-    const showAccordence = () => {
-        setShowAccordenceTest(!false)
-    }
-    const renderTest = () => {
-        if(showSingleTest) {
-            return (
-                <>
-                    <CreateSingleAnswer/>
-                </>
-            )
-        }
-        if(showMultiTest) {
-            return (
-                <>
-                    <CreateMultiAnswer/>
-                </>
-            )
-        }
-        if(showBooleanTest) {
-            return (
-                <>
-                    <CreateBooleanAnswer/>
-                </>
-            )
-        }
-
-        if(showAccordenceTest) {
-            return (
-                <>
-                    <CreateAccordenceAnswer/>
-                </>
-            )
-        }
-    }
+            }
+        },
+        [testMode]
+    ) 
 
     function showAnswer() {
         setActive(!active);
@@ -110,7 +79,7 @@ function CreateTests(props): JSX.Element {
                         </Row>
                     </Container>
                         <Col lg={3}>
-                            <div onClick={showSingle} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
+                            <div onClick={ () => setTestMode('single')} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
                                 <span>
                                     <svg
                                     width="62"
@@ -170,7 +139,7 @@ function CreateTests(props): JSX.Element {
                             
                         </Col>
                         <Col lg={3}>
-                            <div onClick={showMulti} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                            <div onClick={() => setTestMode('multi')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="79"
@@ -229,7 +198,7 @@ function CreateTests(props): JSX.Element {
                             </div>
                         </Col>
                         <Col lg={3}>
-                            <div onClick={showBoolean} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                            <div onClick={() => setTestMode('boolean')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="80"
@@ -272,7 +241,7 @@ function CreateTests(props): JSX.Element {
                             </div>
                         </Col>
                         <Col lg={3}>
-                            <div onClick={showAccordence} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
+                            <div onClick={() => setTestMode('accordence')} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="98"
