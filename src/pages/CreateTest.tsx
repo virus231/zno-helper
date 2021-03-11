@@ -1,14 +1,8 @@
 import React from 'react';
 import {OverlayTrigger, Row, Col, Tooltip, Container} from 'react-bootstrap';
-import CreateSingleAnswer from '../components/create-test-templates/CreateSingleAnswer';
 import { FormInput, Card, CardBody, CardHeader, CardFooter, FormSelect,  Button, InputGroup, InputGroupAddon} from "shards-react";
-import CreateMultiAnswer from "../components/create-test-templates/CreateMultiAnswer";
-import CreateBooleanAnswer from '../components/create-test-templates/CreateBooleanAnswer';
-import CreateAccordenceAnswer from '../components/create-test-templates/CreateAccordenceAnswer';
 
 function CreateTest():JSX.Element {
-
-
     return (
         <Container>
             <Row>
@@ -57,12 +51,6 @@ function CreateTest():JSX.Element {
 
                             </div>
                         </CardHeader>
-                        <CreateSingleAnswer/>
-                        {/*<CreateMultiAnswer/>*/}
-                        {/*<CreateBooleanAnswer/>*/}
-
-                        {/*<CreateAccordenceAnswer/>*/}
-
                     </Card>
                 </Col>
                 <Col lg={{ span: 4 }}>

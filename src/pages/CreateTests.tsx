@@ -10,19 +10,32 @@ import {
     Button,
     InputGroup,
     InputGroupAddon,
+    Collapse
 } from "shards-react";
-import { Link } from "react-router-dom";
 import CreateSingleAnswer from "../components/create-test-templates/CreateSingleAnswer"
 import CreateMultiAnswer from "../components/create-test-templates/CreateMultiAnswer";
 import CreateBooleanAnswer from "../components/create-test-templates/CreateBooleanAnswer";
 import CreateAccordenceAnswer from "../components/create-test-templates/CreateAccordenceAnswer";
 
 function CreateTests(props): JSX.Element {
-    const [active, setActive] = React.useState<boolean>(false);
     const [testMode,setTestMode] = React.useState('')
-    const renderTest = React.useCallback(
-        () => {
+    const [collapseTweet, setCollapseTweet] = React.useState<boolean>(true)
+    const [collapseTags, setCollapseTags] = React.useState<boolean>(true)
+    const [collapsePhoto, setCollapsePhoto] = React.useState<boolean>(true)
 
+    const toggleTweet = () => {
+        setCollapseTweet(!collapseTweet)
+    }
+
+    const toggleTags = () => {
+        setCollapseTags(!collapseTags)
+    }
+
+    const togglePhoto = () => {
+        setCollapsePhoto(!collapsePhoto)
+    }
+
+    const renderTest = React.useCallback(() => {
             switch (testMode) {
                 case 'single': 
                     return <CreateSingleAnswer />
@@ -36,17 +49,12 @@ function CreateTests(props): JSX.Element {
                     return <div/>
 
             }
-        },
-        [testMode]
+        },[testMode]
     ) 
-
-    function showAnswer() {
-        setActive(!active);
-    }
 
     return (
         <Container fluid>
-            <Row>
+            <Row className="align-items-center">
                 <Col lg={{ span: 7, offset: 1 }}>
                     <Row>
                         <Col md={{ span: 4 }}>
@@ -71,23 +79,25 @@ function CreateTests(props): JSX.Element {
                         </Col>
                     </Row>
                     <Row>
-                    <Container>
-                        <Row>
-                            <Col lg={{span: 12}}>
-                                {renderTest()}
-                            </Col>
-                        </Row>
-                    </Container>
-                        <Col lg={3}>
-                            <div onClick={ () => setTestMode('single')} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
+                        <Container>
+                            <Row>
+                                <Col lg={{span: 12}}>
+                                    {renderTest()}
+                                </Col>
+                            </Row>
+                        </Container>
+                        <Container className="mt-3">
+                            <Row>
+                                <Col lg={3}>
+                                    <div onClick={ () => setTestMode('single')} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
                                 <span>
                                     <svg
-                                    width="62"
-                                    height="82"
-                                    viewBox="0 0 72 92"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
+                                        width="62"
+                                        height="82"
+                                        viewBox="0 0 72 92"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
                                     <path
                                         d="M64.2749 22.166C63.5444 22.166 62.9522 22.7582 62.9522 23.4887V82.8664C62.9522 82.9166 62.9115 82.9574 62.8612 82.9574H16.2079C15.4774 82.9574 14.8852 83.5496 14.8852 84.2801C14.8852 85.0106 15.4774 85.6028 16.2079 85.6028H62.8612C64.3702 85.6028 65.5976 84.3753 65.5976 82.8664V23.4887C65.5976 22.7582 65.0054 22.166 64.2749 22.166Z"
                                         fill="#567BF3"
@@ -134,12 +144,12 @@ function CreateTests(props): JSX.Element {
                                     />
                                 </svg>
                                 </span>
-                                <p className="variation-block__name mt-2">Одна відповідь</p>
-                            </div>
-                            
-                        </Col>
-                        <Col lg={3}>
-                            <div onClick={() => setTestMode('multi')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                                        <p className="variation-block__name mt-2">Одна відповідь</p>
+                                    </div>
+
+                                </Col>
+                                <Col lg={3}>
+                                    <div onClick={() => setTestMode('multi')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="79"
@@ -194,11 +204,11 @@ function CreateTests(props): JSX.Element {
                                         />
                                     </svg>
                                 </span>
-                                <p className="variation-block__name mt-2">Кілька відповідей</p>
-                            </div>
-                        </Col>
-                        <Col lg={3}>
-                            <div onClick={() => setTestMode('boolean')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                                        <p className="variation-block__name mt-2">Кілька відповідей</p>
+                                    </div>
+                                </Col>
+                                <Col lg={3}>
+                                    <div onClick={() => setTestMode('boolean')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="80"
@@ -237,11 +247,11 @@ function CreateTests(props): JSX.Element {
                                         />
                                     </svg>
                                 </span>
-                                <p className="variation-block__name mt-2">Вірно чи ні</p>
-                            </div>
-                        </Col>
-                        <Col lg={3}>
-                            <div onClick={() => setTestMode('accordence')} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
+                                        <p className="variation-block__name mt-2">Вірно чи ні</p>
+                                    </div>
+                                </Col>
+                                <Col lg={3}>
+                                    <div onClick={() => setTestMode('accordence')} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="98"
@@ -288,9 +298,11 @@ function CreateTests(props): JSX.Element {
                                         />
                                     </svg>
                                 </span>
-                                <p className="variation-block__name mt-2">Відповідність</p>
-                            </div>
-                        </Col>
+                                        <p className="variation-block__name mt-2">Відповідність</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Row>
                 </Col>
 
@@ -298,7 +310,9 @@ function CreateTests(props): JSX.Element {
                     <Card>
                         <CardHeader className="d-flex justify-content-between align-items-center">
                             Опублікувати
-              <svg
+                            <svg
+                                style={{cursor: 'pointer'}}
+                                onClick={toggleTweet}
                                 width="16"
                                 height="14"
                                 viewBox="0 0 16 14"
@@ -308,79 +322,84 @@ function CreateTests(props): JSX.Element {
                                 <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA" />
                             </svg>
                         </CardHeader>
-                        <CardBody>
-                            <ul className="pl-0">
-                                <li className="my-3 d-flex justify-content-between align-items-center">
-                                    <svg
-                                        className="mr-3"
-                                        width="35"
-                                        height="35"
-                                        viewBox="0 0 19 19"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M11.5775 1.28613L0 12.8637V15.4877H2.624L14.2016 3.91017L11.5775 1.28613ZM2.16288 14.3745H1.11328V13.3249L11.5776 2.86057L12.6272 3.91017L2.16288 14.3745Z"
-                                            fill="#222E34"
-                                        />
-                                        <path
-                                            d="M19 16.6011H0V17.7144H19V16.6011Z"
-                                            fill="#222E34"
-                                        />
-                                        <path
-                                            d="M19 14.3745H5.56641V15.4878H19V14.3745Z"
-                                            fill="#222E34"
-                                        />
-                                    </svg>
-                  Статус:
-                  <FormSelect className="ml-3">
-                                        <option value="first">Чернетка</option>
-                                        <option value="second">This is the second option.</option>
-                                        <option value="third" disabled>
-                                            This option is disabled.
-                    </option>
-                                    </FormSelect>
-                                </li>
-                                <li className="my-3 d-flex justify-content-between align-items-center">
-                                    <svg
-                                        className="mr-3"
-                                        width="34"
-                                        height="35"
-                                        viewBox="0 0 17 18"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M16.892 8.64983C16.7401 8.42986 13.1215 3.26367 8.49992 3.26367C3.87833 3.26367 0.259583 8.42986 0.107877 8.64962C-0.0359591 8.85831 -0.0359591 9.14135 0.107877 9.35004C0.259583 9.57001 3.87833 14.7362 8.49992 14.7362C13.1215 14.7362 16.7401 9.56998 16.892 9.35022C17.036 9.14156 17.036 8.85831 16.892 8.64983ZM8.49992 13.5494C5.09563 13.5494 2.14715 10.1205 1.27434 8.99953C2.14602 7.87759 5.08832 4.45048 8.49992 4.45048C11.904 4.45048 14.8523 7.87878 15.7255 9.00034C14.8538 10.1222 11.9115 13.5494 8.49992 13.5494Z"
-                                            fill="black"
-                                        />
-                                        <path
-                                            d="M8.49986 5.43945C6.64573 5.43945 5.13721 7.03671 5.13721 8.99991C5.13721 10.9631 6.64573 12.5604 8.49986 12.5604C10.354 12.5604 11.8625 10.9631 11.8625 8.99991C11.8625 7.03671 10.354 5.43945 8.49986 5.43945ZM8.49986 11.3735C7.2637 11.3735 6.25811 10.3087 6.25811 8.99991C6.25811 7.69107 7.26374 6.62629 8.49986 6.62629C9.73598 6.62629 10.7416 7.69107 10.7416 8.99991C10.7416 10.3087 9.73601 11.3735 8.49986 11.3735Z"
-                                            fill="black"
-                                        />
-                                    </svg>
-                  Видимість:
-                  <FormSelect className="ml-3">
-                                        <option value="first">Публічно</option>
-                                        <option value="second">Пример</option>
-                                    </FormSelect>
-                                </li>
-                            </ul>
-                        </CardBody>
-                        <CardFooter>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <Button outline pill theme="danger">
-                                    Видалити
-                </Button>
-                                <Button pill>Опублікувати</Button>
-                            </div>
-                        </CardFooter>
+                        <Collapse open={collapseTweet}>
+                            <CardBody>
+                                <ul className="pl-0">
+                                    <li className="my-3 d-flex justify-content-between align-items-center">
+                                        <svg
+                                            className="mr-3"
+                                            width="35"
+                                            height="35"
+                                            viewBox="0 0 19 19"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M11.5775 1.28613L0 12.8637V15.4877H2.624L14.2016 3.91017L11.5775 1.28613ZM2.16288 14.3745H1.11328V13.3249L11.5776 2.86057L12.6272 3.91017L2.16288 14.3745Z"
+                                                fill="#222E34"
+                                            />
+                                            <path
+                                                d="M19 16.6011H0V17.7144H19V16.6011Z"
+                                                fill="#222E34"
+                                            />
+                                            <path
+                                                d="M19 14.3745H5.56641V15.4878H19V14.3745Z"
+                                                fill="#222E34"
+                                            />
+                                        </svg>
+                                        Статус:
+                                        <FormSelect className="ml-3">
+                                            <option value="first">Чернетка</option>
+                                            <option value="second">This is the second option.</option>
+                                            <option value="third" disabled>
+                                                This option is disabled.
+                                            </option>
+                                        </FormSelect>
+                                    </li>
+                                    <li className="my-3 d-flex justify-content-between align-items-center">
+                                        <svg
+                                            className="mr-3"
+                                            width="34"
+                                            height="35"
+                                            viewBox="0 0 17 18"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M16.892 8.64983C16.7401 8.42986 13.1215 3.26367 8.49992 3.26367C3.87833 3.26367 0.259583 8.42986 0.107877 8.64962C-0.0359591 8.85831 -0.0359591 9.14135 0.107877 9.35004C0.259583 9.57001 3.87833 14.7362 8.49992 14.7362C13.1215 14.7362 16.7401 9.56998 16.892 9.35022C17.036 9.14156 17.036 8.85831 16.892 8.64983ZM8.49992 13.5494C5.09563 13.5494 2.14715 10.1205 1.27434 8.99953C2.14602 7.87759 5.08832 4.45048 8.49992 4.45048C11.904 4.45048 14.8523 7.87878 15.7255 9.00034C14.8538 10.1222 11.9115 13.5494 8.49992 13.5494Z"
+                                                fill="black"
+                                            />
+                                            <path
+                                                d="M8.49986 5.43945C6.64573 5.43945 5.13721 7.03671 5.13721 8.99991C5.13721 10.9631 6.64573 12.5604 8.49986 12.5604C10.354 12.5604 11.8625 10.9631 11.8625 8.99991C11.8625 7.03671 10.354 5.43945 8.49986 5.43945ZM8.49986 11.3735C7.2637 11.3735 6.25811 10.3087 6.25811 8.99991C6.25811 7.69107 7.26374 6.62629 8.49986 6.62629C9.73598 6.62629 10.7416 7.69107 10.7416 8.99991C10.7416 10.3087 9.73601 11.3735 8.49986 11.3735Z"
+                                                fill="black"
+                                            />
+                                        </svg>
+                                        Видимість:
+                                        <FormSelect className="ml-3">
+                                            <option value="first">Публічно</option>
+                                            <option value="second">Пример</option>
+                                        </FormSelect>
+                                    </li>
+                                </ul>
+                            </CardBody>
+                            <CardFooter>
+                                <div className="d-flex justify-content-between align-items-center">
+                                    <Button outline pill theme="danger">
+                                        Видалити
+                                    </Button>
+                                    <Button pill>Опублікувати</Button>
+                                </div>
+                            </CardFooter>
+                        </Collapse>
+
                     </Card>
 
                     <Card className="mt-4">
                         <CardHeader className="d-flex justify-content-between align-items-center">
                             Теги до тесту
-              <svg
+                            <svg
+                                style={{cursor: 'pointer'}}
+                                onClick={toggleTags}
                                 width="16"
                                 height="14"
                                 viewBox="0 0 16 14"
@@ -390,26 +409,27 @@ function CreateTests(props): JSX.Element {
                                 <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA" />
                             </svg>
                         </CardHeader>
-                        <CardBody>
-                            <InputGroup>
-                                <FormInput placeholder="Введіть назву тега..." />
-                                <InputGroupAddon type="append">
-                                    <Button theme="secondary">Додати</Button>
-                                </InputGroupAddon>
-                            </InputGroup>
-                            <div>
-                                <span className="font-italic">Розділіть теги комами</span>
-                                <p>
+                        <Collapse open={collapseTags}>
+                            <CardBody>
+                                <InputGroup>
+                                    <FormInput placeholder="Введіть назву тега..." />
+                                    <InputGroupAddon type="append">
+                                        <Button theme="secondary">Додати</Button>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                                <div>
+                                    <span className="font-italic">Розділіть теги комами</span>
+                                    <p>
                                     <span className="tag">
                                         Назва тегу
                     <svg
-                                            className="ml-2"
-                                            width="14"
-                                            height="14"
-                                            viewBox="0 0 14 14"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
+                        className="ml-2"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
                                             <path
                                                 d="M7 14C3.14005 14 0 10.86 0 7C0 3.14005 3.14005 0 7 0C10.86 0 14 3.14005 14 7C14 10.86 10.86 14 7 14ZM7 0.875C3.62251 0.875 0.875 3.62251 0.875 7C0.875 10.3775 3.62251 13.125 7 13.125C10.3775 13.125 13.125 10.3775 13.125 7C13.125 3.62251 10.3775 0.875 7 0.875Z"
                                                 fill="#222E34"
@@ -424,55 +444,62 @@ function CreateTests(props): JSX.Element {
                                             />
                                         </svg>
                                     </span>
-                                </p>
-                            </div>
-                        </CardBody>
+                                    </p>
+                                </div>
+                            </CardBody>
+
+                        </Collapse>
                     </Card>
 
                     <Card className="mt-4">
                         <CardHeader className="d-flex justify-content-between align-items-center">
                             Зображення - обкладинка
-              <svg
-                                width="16"
-                                height="14"
-                                viewBox="0 0 16 14"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA" />
-                            </svg>
+                          <svg
+                              style={{cursor: 'pointer'}}
+                              onClick={togglePhoto}
+                              width="16"
+                              height="14"
+                              viewBox="0 0 16 14"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                              >
+                              <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA" />
+                          </svg>
                         </CardHeader>
-                        <CardBody>
-                            <label className="custom-file-upload py-5">
-                                <input type="file" className="" />
-                                <svg
-                                    className="mr-3"
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 22 22"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M11 0L7.85718 3.14284H10.2143V7.85713H11.7858V3.14284H14.1429L11 0Z"
-                                        fill="#567BF3"
-                                    />
-                                    <path
-                                        d="M11 22.0002L14.1429 18.8574H11.7858V14.1431H10.2143V18.8574H7.85718L11 22.0002Z"
-                                        fill="#567BF3"
-                                    />
-                                    <path
-                                        d="M22 10.9998L18.8571 7.85693V10.2141H14.1428V11.7855H18.8571V14.1426L22 10.9998Z"
-                                        fill="#567BF3"
-                                    />
-                                    <path
-                                        d="M0 10.9998L3.14284 14.1426V11.7855H7.85713V10.2141H3.14284V7.85693L0 10.9998Z"
-                                        fill="#567BF3"
-                                    />
-                                </svg>
-                Перетягніть зображення сюди
-              </label>
-                        </CardBody>
+                        <Collapse open={collapsePhoto}>
+                            <CardBody>
+                                <label className="custom-file-upload py-5">
+                                    <input type="file" className="" />
+                                    <svg
+                                        className="mr-3"
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 22 22"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M11 0L7.85718 3.14284H10.2143V7.85713H11.7858V3.14284H14.1429L11 0Z"
+                                            fill="#567BF3"
+                                        />
+                                        <path
+                                            d="M11 22.0002L14.1429 18.8574H11.7858V14.1431H10.2143V18.8574H7.85718L11 22.0002Z"
+                                            fill="#567BF3"
+                                        />
+                                        <path
+                                            d="M22 10.9998L18.8571 7.85693V10.2141H14.1428V11.7855H18.8571V14.1426L22 10.9998Z"
+                                            fill="#567BF3"
+                                        />
+                                        <path
+                                            d="M0 10.9998L3.14284 14.1426V11.7855H7.85713V10.2141H3.14284V7.85693L0 10.9998Z"
+                                            fill="#567BF3"
+                                        />
+                                    </svg>
+                                    Перетягніть зображення сюди
+                                </label>
+                            </CardBody>
+
+                        </Collapse>
                     </Card>
                 </Col>
             </Row>
