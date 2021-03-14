@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import {
     FormInput,
@@ -16,13 +16,17 @@ import CreateSingleAnswer from "../components/create-test-templates/CreateSingle
 import CreateMultiAnswer from "../components/create-test-templates/CreateMultiAnswer";
 import CreateBooleanAnswer from "../components/create-test-templates/CreateBooleanAnswer";
 import CreateAccordenceAnswer from "../components/create-test-templates/CreateAccordenceAnswer";
+import { Content, ESubject, Test, TestWrap,LocalTest } from "../utils/interfaces";
+
+
 
 function CreateTests(props): JSX.Element {
     const [testMode,setTestMode] = React.useState('')
     const [collapseTweet, setCollapseTweet] = React.useState<boolean>(true)
     const [collapseTags, setCollapseTags] = React.useState<boolean>(true)
     const [collapsePhoto, setCollapsePhoto] = React.useState<boolean>(true)
-
+    const [testWrap, setTestWrap] = React.useState({ title: '', tests: [] as LocalTest[], type: ESubject.HISTORY_OF_UKRAINE, tags: [], subject: ESubject.HISTORY_OF_UKRAINE, userId: 10 })
+    
     const toggleTweet = () => {
         setCollapseTweet(!collapseTweet)
     }
@@ -34,22 +38,146 @@ function CreateTests(props): JSX.Element {
     const togglePhoto = () => {
         setCollapsePhoto(!collapsePhoto)
     }
+    const setTestsHelper = (tests:LocalTest[]) => setTestWrap(testWrap => ({
+        ...testWrap,
+        tests
+    }))
+    
 
-    const renderTest = React.useCallback(() => {
-            switch (testMode) {
+    const changeTestCollapseState = (id:number) => {
+        let tests = [...testWrap.tests].map((test: LocalTest) => test.id === id ? ({ ...test, collapsed: !test.collapsed }) : {...test,collapsed:false})
+        setTestsHelper(tests)
+    }
+    const removeTest = (id: number) => {
+        console.log('id to delete', id)
+        let tests = [...testWrap.tests].filter((test: LocalTest) => test.id !== id)
+        setTestsHelper(tests)
+    }
+    const setTestWrapTitle = (title: string) => setTestWrap(testWrap => ({ ...testWrap, title }))
+    const setTestExplanation = (id: number, explanation: string) => {
+        const tests = [...testWrap.tests].map((test) => test.id === id ? ({ ...test, explanation }) : test)
+        setTestsHelper(tests)
+    }
+    const setTestTitle = (id: number, title: string) => {
+        const tests = [...testWrap.tests].map((test) => test.id === id ? ({ ...test, title }) : test)
+        setTestsHelper(tests)
+    }
+    const testBodyPicker = (mode: string) => {
+        const questions = [{
+            text: '',
+            selected: false,
+        },
+            {
+                text: '',
+                selected:false
+        }
+        ]
+        switch (mode) {
+            case 'multi': 
+                return {
+                    questions,
+                    answers:[]
+                }
+            case 'boolean': 
+                return {
+                    question: '',
+                    answer:null
+                }
+            case 'accordance':
+                return {
+                    accordancies:{}
+                }
+            default: 
+                return {
+                    questions ,
+                    answer:''
+                }
+        }
+    }
+    const addTest = (mode:string) => {
+        let tests = [...testWrap.tests]
+        if (tests.length) {
+            tests = tests.map(test => ({ ...test, collapsed:false}))
+        }
+        let newTest:LocalTest = {
+            id:tests.length + 1,
+            content: testBodyPicker(mode),
+            explanation: '',
+            time: 0,
+            title: '',
+            type: ESubject.HISTORY_OF_UKRAINE,
+            mode,
+            collapsed:true
+        } 
+        tests.push(newTest)
+        setTestsHelper(tests)
+
+    }
+
+    const handleChangeTestMode = (idx: number, mode: string) => {
+        let tests = [...testWrap.tests]
+        console.log('test,body', tests[idx], mode, testBodyPicker(mode))
+        tests[idx].mode = mode
+        tests[idx].content = testBodyPicker(mode)
+        console.log('newTests',tests)
+        setTestsHelper(tests)
+    }
+
+
+    const renderTest = React.useCallback((test:LocalTest,idx:number) => {
+            switch (test.mode) {
                 case 'single': 
-                    return <CreateSingleAnswer />
+                    return <CreateSingleAnswer
+                        testIndex={idx}
+                        changeTitle={setTestTitle}
+                        changeExplanation={setTestExplanation}
+                        test={test} removeTest={removeTest}
+                        changeCollapseState={changeTestCollapseState}
+                        tests={testWrap.tests}
+                        updateTests={setTestsHelper}
+                        changeMode={handleChangeTestMode}
+                    />
                 case 'multi':
-                    return <CreateMultiAnswer />
+                    return <CreateMultiAnswer
+                        testIndex={idx}
+                        changeTitle={setTestTitle}
+                        changeExplanation={setTestExplanation}
+                        test={test}
+                        removeTest={removeTest}
+                        changeCollapseState={changeTestCollapseState}
+                        tests={testWrap.tests}
+                        updateTests={setTestsHelper}
+                        changeMode={handleChangeTestMode}
+                    />
                 case 'boolean':
-                    return <CreateBooleanAnswer />
+                    return <CreateBooleanAnswer
+                        testIndex={idx}
+                        changeTitle={setTestTitle}
+                        changeExplanation={setTestExplanation}
+                        test={test}
+                        removeTest={removeTest}
+                        changeCollapseState={changeTestCollapseState}
+                        tests={testWrap.tests}
+                        updateTests={setTestsHelper}
+                        changeMode={handleChangeTestMode}
+                    />
                 case 'accordence':
-                    return <CreateAccordenceAnswer />
+                    return <CreateAccordenceAnswer
+                        testIndex={idx}
+                        changeTitle={setTestTitle}
+                        changeExplanation={setTestExplanation}
+                        test={test}
+                        removeTest={removeTest}
+                        changeCollapseState={changeTestCollapseState}
+                        tests={testWrap.tests}
+                        updateTests={setTestsHelper}
+                        changeMode={handleChangeTestMode}
+                    />
                 default:
                     return <div/>
 
             }
-        },[testMode]
+        },[testMode,testWrap.tests]
     ) 
 
     return (
@@ -81,15 +209,19 @@ function CreateTests(props): JSX.Element {
                     <Row>
                         <Container>
                             <Row>
-                                <Col lg={{span: 12}}>
-                                    {renderTest()}
+                                <Col lg={{ span: 12 }}>
+                                    {
+                                        testWrap.tests.length > 0 && 
+                                        testWrap.tests.map( (test,idx) => renderTest(test,idx))
+                                    }
+                                    {/* {renderTest()} */}
                                 </Col>
                             </Row>
                         </Container>
                         <Container className="mt-3">
                             <Row>
                                 <Col lg={3}>
-                                    <div onClick={ () => setTestMode('single')} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
+                                    <div onClick={ () => addTest('single')} className="variation-block py-4 d-flex flex-column text-center align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="62"
@@ -149,7 +281,7 @@ function CreateTests(props): JSX.Element {
 
                                 </Col>
                                 <Col lg={3}>
-                                    <div onClick={() => setTestMode('multi')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                                    <div onClick={() => addTest('multi')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="79"
@@ -208,7 +340,7 @@ function CreateTests(props): JSX.Element {
                                     </div>
                                 </Col>
                                 <Col lg={3}>
-                                    <div onClick={() => setTestMode('boolean')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
+                                    <div onClick={() => addTest('boolean')} className="variation-block py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="80"
@@ -251,7 +383,7 @@ function CreateTests(props): JSX.Element {
                                     </div>
                                 </Col>
                                 <Col lg={3}>
-                                    <div onClick={() => setTestMode('accordence')} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
+                                    <div onClick={() => addTest('accordence')} className="variation-block px-4 py-4 d-flex flex-column align-items-center justify-content-between">
                                 <span>
                                     <svg
                                         width="98"

@@ -65,7 +65,7 @@ interface TestBlock {
 export interface TestWrap extends TestBlock
 {
     title: string,
-    subject: string,
+    subject: ESubject,
     userId: number,
     tags?: Tag[] | null,
     tests: Test[]
@@ -79,13 +79,13 @@ export interface Tag extends TestBlock
 
 export interface Test extends TestBlock
 {
-    title: Block,
-    content: string,
+    title: string,
+    content: Content,
     explanation: string,
     time: number
 }
 
-
+export type Content  =  TestSingleAnswer | TestMultiAnswer | TestBoolean | TestAccordence | TestSingleImagesAnswer | TestMultiImagesAnswer | {}
 // Block Content
 
 enum EInfoTypes {
@@ -93,6 +93,25 @@ enum EInfoTypes {
     IMAGE,
     VIDEO,
     AUDIO
+}
+
+export interface LocalTest extends Test {
+    collapsed: boolean,
+    mode: string,
+    id: number,
+    content:any
+}
+type TestUpdateFunction = (id: number) => void
+export interface TestProps  {
+    test: LocalTest
+    removeTest: TestUpdateFunction
+    changeCollapseState: TestUpdateFunction
+    testIndex: number
+    changeTitle: (id:number,title:string) => void
+    changeExplanation: (id: number, explanation: string) => void
+    tests: LocalTest[]
+    updateTests: (tests: LocalTest[]) => void
+    changeMode: (idx:number,mode:string) => void
 }
 
 interface Block{

@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import {Card, CardBody, CardHeader,FormSelect, Collapse } from "shards-react";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import { TestProps } from '../../utils/interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -23,13 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function CreateBooleanAnswer(props):JSX.Element {
+export default function CreateBooleanAnswer({test,removeTest,changeCollapseState,testIndex,changeExplanation,changeTitle, changeMode, tests, updateTests }:TestProps):JSX.Element {
     const classes = useStyles();
-    const [collapse, setCollapse] = React.useState<boolean>(true)
 
     const toggle = () => {
-        setCollapse(!collapse)
+        changeCollapseState(test.id)
     }
+    const changeTestTitle = (title: string) => changeTitle(test.id, title)
+    const changeTestExplanation = (explanation:string) => changeExplanation(test.id,explanation)
+    const deleteTest = () => removeTest(test.id)
 
     return (
         <Card>
@@ -40,24 +43,29 @@ export default function CreateBooleanAnswer(props):JSX.Element {
                             <svg onClick={toggle} style={{cursor: 'pointer'}} className="mr-3" width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA"/>
                             </svg>
-                            Запитання 1
+                            Запитання {testIndex + 1}
                         </h5>
                     </div>
                     <div className="d-flex align-items-baseline justify-content-between">
-                        <FormSelect className="ml-3 w-100">
-                            <option value="first">Одна відповідь</option>
-                            <option value="second">Кілька відповідей</option>
-                            <option value="third">
+                    <FormSelect onChange={e => {
+                            console.log('event',e.target.value)
+                            changeMode(testIndex, e.target.value)
+                        }}
+                            value={test.mode}
+                            className="ml-3 w-100">
+                            <option value="single">Одна відповідь</option>
+                            <option value="multi">Кілька відповідей</option>
+                            <option value="boolean">
                                 Вірно чи ні
-                            </option>
-                            <option value="four">
+                                        </option>
+                            <option value='accordence'>
                                 Відповідність
-                            </option>
+                                        </option>
                         </FormSelect>
 
-                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити Запитання 1</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити Запитання {testIndex + 1}</Tooltip>}>
                             <p className="ml-3 delete">
-                                <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg onClick={deleteTest} width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0)">
                                         <path d="M16.9583 24.9998H5.04167C3.77758 24.9998 2.75 23.8311 2.75 22.3957V7.81234C2.75 7.52484 2.95533 7.2915 3.20833 7.2915H18.7917C19.0447 7.2915 19.25 7.52484 19.25 7.81234V22.3957C19.25 23.8311 18.2224 24.9998 16.9583 24.9998ZM3.66667 8.33317V22.3957C3.66667 23.2571 4.28358 23.9582 5.04167 23.9582H16.9583C17.7164 23.9582 18.3333 23.2571 18.3333 22.3957V8.33317H3.66667Z" fill="#F44336" />
                                         <path d="M20.6251 8.33333H1.37508C1.12208 8.33333 0.916748 8.1 0.916748 7.8125V5.72917C0.916748 4.29375 1.94433 3.125 3.20842 3.125H18.7917C20.0558 3.125 21.0834 4.29375 21.0834 5.72917V7.8125C21.0834 8.1 20.8781 8.33333 20.6251 8.33333ZM1.83341 7.29167H20.1667V5.72917C20.1667 4.86771 19.5498 4.16667 18.7917 4.16667H3.20842C2.45033 4.16667 1.83341 4.86771 1.83341 5.72917V7.29167Z" fill="#F44336" />
@@ -79,13 +87,14 @@ export default function CreateBooleanAnswer(props):JSX.Element {
 
                 </div>
             </CardHeader>
-            <Collapse open={collapse}>
+            <Collapse open={test.collapsed}>
                 <CardBody className="question-input">
                     <div className="w-100">
                         <TextField
                             className="d-flex"
                             id="outlined-search"
                             label="Напишіть ваше запитанння тут"
+                            onChange={e => changeTestExplanation(e.target.value)}
                             type="text"
                             variant="outlined"
                         />
@@ -117,6 +126,7 @@ export default function CreateBooleanAnswer(props):JSX.Element {
                         <TextField
                             id="outlined-multiline-static"
                             label="Напишіть пояснення"
+                            onChange={e => changeTestExplanation(e.target.value)}
                             multiline
                             rows={2}
                             variant="outlined"
