@@ -182,10 +182,10 @@ function CreateTests(props): JSX.Element {
 
     return (
         <Container fluid>
-            <Row className="align-items-center">
-                <Col lg={{ span: 7, offset: 1 }}>
+            <Row className="">
+                <Col lg={{ span: 5, offset: 3 }}>
                     <Row>
-                        <Col md={{ span: 4 }}>
+                        <Col md={{ span: 5 }}>
                             <h3>Створення тесту</h3>
                         </Col>
                     </Row>

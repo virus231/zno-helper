@@ -14,8 +14,8 @@ const subjects = [
 function Home():JSX.Element {
 
     return (
-        <section className="mt-5">
-            <Container className="mt-5">
+        <section className="">
+            <Container className="">
                 <Row>
                     <Col lg={4}>
                         <h2>Предмети</h2>
