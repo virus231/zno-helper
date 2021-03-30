@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import CodeInput from '../../../components/CodeInput'
-import {checkEmail, checkUsername,checkPhone, register, sendSmsToPhone} from "./thunks";
+import {checkEmail, checkUsername, checkPhone, register, sendSmsToPhone, validateCode} from "./thunks";
 import { RegisterBody } from '../../../utils/interfaces'
 
 
@@ -28,11 +28,11 @@ const phoneNumberMask = [
 ];
 
 function SignUp(): JSX.Element {
+    const dispatch = useDispatch()
     const [username, setUserName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [phone, setPhone] = useState<string>("")
     const [verif, setVerif] = useState<boolean>(true)
-    const dispatch = useDispatch()
     const state = useSelector(state => state.auth)
 
     const [activeReferal, setActiveReferal] = useState(false)
@@ -84,6 +84,16 @@ function SignUp(): JSX.Element {
         setActiveReferal(!activeReferal)
     }
 
+    const handleCode = (e) => {
+        e.preventDefault()
+        const response = {
+            deviceId: Math.floor(Math.random() * 16) + 5,
+            phone: phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1),
+            code: "882982"
+        }
+        dispatch(validateCode(response))
+    }
+
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">
@@ -105,7 +115,7 @@ function SignUp(): JSX.Element {
                                 onRegisterUser(values)
                             }}
                             render={({ errors, status, touched, handleChange, handleSubmit,
-                                handleBlur, values }) => (
+                                         handleBlur, values }) => (
                                 <>
                                     {
                                         verif ? (
@@ -284,7 +294,7 @@ function SignUp(): JSX.Element {
                                                 </div>
                                             </Form>
                                         ) : (
-                                            <Form className="d-block">
+                                            <Form noValidate onSubmit={handleCode} className="d-block">
                                                 <h3>Верифікація телефону</h3>
                                                 <Form.Row className="mt-5">
                                                     <Form.Group as={Col} md="12" controlId="validationFormikPhone">
@@ -333,7 +343,7 @@ function SignUp(): JSX.Element {
                                                     </Form.Group>
                                                 </Form.Row>
                                                 <div className="text-center">
-                                                    <button className="btn px-5 btn-verification">
+                                                    <button type="submit" className="btn px-5 btn-verification">
                                                         Верифікація
                                                     </button>
                                                 </div>

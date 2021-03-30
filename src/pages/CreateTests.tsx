@@ -181,8 +181,8 @@ function CreateTests(props): JSX.Element {
     ) 
 
     return (
-        <Container fluid>
-            <Row className="">
+        <Container fluid style={{padding: '100px 0', overflow: 'hidden'}}>
+            <Row>
                 <Col lg={{ span: 5, offset: 3 }}>
                     <Row>
                         <Col md={{ span: 5 }}>

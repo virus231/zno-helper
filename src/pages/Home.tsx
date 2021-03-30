@@ -14,7 +14,7 @@ const subjects = [
 function Home():JSX.Element {
 
     return (
-        <section className="">
+        <section className="home">
             <Container className="">
                 <Row>
                     <Col lg={4}>

@@ -30,6 +30,10 @@ export interface SmsResponse {
     code: string
 }
 
+export interface CheckCode {
+    response: object
+}
+
 export interface StateHadnlers {
     error: string | null,
     loading: boolean

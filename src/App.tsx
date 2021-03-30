@@ -1,11 +1,10 @@
 import React from 'react';
-import './App.scss';
 import {Switch, Route, Redirect} from 'react-router-dom';
-import {SignUp, LogIn, ResetPassword, Subjects, Home, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
+import {SignUp, LogIn, ResetPassword, Home, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
 import SideBar from './components/SideBar/SideBar'
-// import SingleAnswer from "./components/SingleAnswer";
-import CreateTest from "./pages/CreateTest";
 import './pages/styles/main.scss'
+import './App.scss';
+
 
 function App():JSX.Element {
     return (
