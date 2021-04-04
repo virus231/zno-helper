@@ -201,12 +201,15 @@ label {
 }
 
 .home {
-   height: 100vh;
+  padding: 100px 0;
+   //height: 100vh;
   // align-items: center;
+
 }
 
 .profile {
   &-block {
+    height: 250px;
     &__img {
       border-radius: 50%;
     }
@@ -288,13 +291,16 @@ label {
     }
   }
 
-  .close-sidebar {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    color: #DDDDDD;
-    cursor: pointer;
-  }
+
+}
+
+.close-sidebar {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  color: #DDDDDD;
+  cursor: pointer;
+  text-align: center;
 }
 
 .sidebar {

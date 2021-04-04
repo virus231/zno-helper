@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
@@ -33,13 +33,18 @@ function SignUp(): JSX.Element {
     const [phone, setPhone] = useState<string>("")
     const [verif, setVerif] = useState<boolean>(true)
     const dispatch = useDispatch()
-    const state = useSelector(state => state.auth)
-
+    const state = useSelector((state:RootStateOrAny) => state.auth)
     const [activeReferal, setActiveReferal] = useState(false)
     const onRegisterUser = (values) => {
-        dispatch(register(values))
-        dispatch(sendSmsToPhone(phone))
-        setVerif(false)
+        try {
+            console.log('values',{values})
+            dispatch(register(values))
+            dispatch(sendSmsToPhone(phone))
+            setVerif(false)      
+        } catch (error) {
+            console.log('error registering user',values)
+        }
+      
     }
 
     const initialValues: RegisterBody = {
@@ -78,7 +83,7 @@ function SignUp(): JSX.Element {
         handleChange(e)
     }
 
-    const validUsername = useSelector((state) => state.validation.usernameValid)
+    const validUsername = useSelector((state:RootStateOrAny) => state.validation.usernameValid)
 
     const showReferal = () => {
         setActiveReferal(!activeReferal)
