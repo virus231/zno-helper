@@ -39,7 +39,7 @@ const MultiOption = ({text,selected,idx,setOptionText,numOfQuestions,changeSelec
         variant="outlined"
         size="small"
     />
-        { numOfQuestions && <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити варіант відповіді</Tooltip>}>
+        { numOfQuestions > 3 && <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити варіант відповіді</Tooltip>}>
             <Delete click={() => removeOption(idx)} />
     </OverlayTrigger>}
 </p>

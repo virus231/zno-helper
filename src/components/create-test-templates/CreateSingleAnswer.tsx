@@ -49,7 +49,7 @@ const OptionContent = ({ text, selected, idx, setOptionText, numOfQuestions, cha
             size="small"
         />
 
-        { numOfQuestions && <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити варіант відповіді</Tooltip>}>
+        { numOfQuestions > 2 && <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Видалити варіант відповіді</Tooltip>}>
             <Delete click={() => removeOption(idx)} />
         </OverlayTrigger>}
     </p>

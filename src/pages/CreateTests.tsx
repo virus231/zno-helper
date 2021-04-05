@@ -57,7 +57,9 @@ function CreateTests(props): JSX.Element {
             const test = transformTestWrapToFormat(testWrap)
             const res =   await  dispatch(createTestWrap(test))
               console.log('test',res)    
-        } catch {}
+        } catch (e) {
+            console.log('testWrapError',e)
+        }
         
     }
 
@@ -124,7 +126,11 @@ function CreateTests(props): JSX.Element {
         {
             text: '',
             selected: false
-        }
+            },
+            {
+                text: '',
+                selected: false
+            }
         ]
         switch (mode) {
             case testTypes.MULTI_ANSWER:
