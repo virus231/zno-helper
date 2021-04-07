@@ -66,10 +66,10 @@ interface TestBlock {
     type: ESubject
 }
 
-export interface TestWrap extends TestBlock
+export interface TestWrap
 {
     title: string,
-    subject: ESubject,
+    subject: string,
     userId: number,
     tags?: Tag[] | null,
     tests: Test[]
@@ -83,9 +83,15 @@ export interface Tag extends TestBlock
 
 export interface Test extends TestBlock
 {
-    title: string,
+    title: {
+        type: string,
+        text:string
+    },
     content: Content,
-    explanation: string,
+    explanation: {
+        type: string,
+        text:string
+    },
     time: number
 }
 
@@ -99,11 +105,10 @@ enum EInfoTypes {
     AUDIO
 }
 
-export interface LocalTest extends Test {
+export interface LocalTest extends Omit<Test,'type'>{
     collapsed: boolean,
-    mode: string,
     id: number,
-    content:any
+    content: any
 }
 
 type TestUpdateFunction = (id: number) => void
@@ -201,6 +206,6 @@ export interface AddTestData {
 }
 
 export interface GetTagsData{
-    subject: ESubject,
+    subject: string,
     query:string
 }
