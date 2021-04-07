@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { checkValidity, loginUser, registerUser, sendSms, validateSms } from "../../../api/authApi";
+import { transformPhone } from "../../../helpers/authHelpers";
 import { AuthResponse, CheckCode, CheckResponse, LoginBody, RegisterBody, SmsResponse } from "../../../utils/interfaces";
 
 
@@ -16,7 +17,7 @@ export const checkEmail = createAsyncThunk<CheckResponse,string>('checkEmail',
     (email) => checkValidity('email',email)
 )
 export const checkPhone = createAsyncThunk<CheckResponse,string>('checkPhone', (phone) => {
-        return checkValidity('phone', phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1))
+        return checkValidity('phone',transformPhone(phone))
     }
 )
 
@@ -25,7 +26,7 @@ export const checkUsername = createAsyncThunk<CheckResponse,string>('checkUserna
 )
 
 export const sendSmsToPhone = createAsyncThunk<SmsResponse,string>('getSms',
-    (phone) => sendSms(phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1))
+   async (phone) =>await  sendSms(phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1))
 )
 
 export const validateCode = createAsyncThunk<CheckCode, object>('validateCode',

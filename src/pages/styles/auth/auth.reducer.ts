@@ -22,6 +22,7 @@ export default createReducer(initialState, builder =>
     })
         .addCase(register.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
+            console.log('Registered',action.payload)
             const { token, id, email, username, roles } = action.payload
             state.loading = false
             state.error = null

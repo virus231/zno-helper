@@ -8,6 +8,8 @@ import MaskedInput from "react-text-mask";
 import CodeInput from '../../../components/CodeInput'
 import {checkEmail, checkUsername, checkPhone, register, sendSmsToPhone, validateCode} from "./thunks";
 import { RegisterBody } from '../../../utils/interfaces'
+import { transformPhone } from "../../../helpers/authHelpers";
+import { sendSms } from "../../../api/authApi";
 
 
 const phoneNumberMask = [
@@ -34,14 +36,25 @@ function SignUp(): JSX.Element {
     const [email, setEmail] = useState<string>("")
     const [phone, setPhone] = useState<string>("")
     const [verif, setVerif] = useState<boolean>(true)
+    const [authTemp, setAuthTemp] = useState<RegisterBody>({
+        email: '',
+        otpnum: 0,
+        password: '',
+        phone: '',
+        username:''
+    })
+    const [smsCode, setSmsCode] = useState(0)
     const state = useSelector((state:RootStateOrAny) => state.auth)
     const [activeReferal, setActiveReferal] = useState(false)
 
-    const onRegisterUser = (values) => {
+    const onRegisterUser = async (values) => {
         try {
-            console.log('values',{values})
-            dispatch(register(values))
-            dispatch(sendSmsToPhone(phone))
+            console.log('values', { values })
+            values.phone = transformPhone(values.phone)
+            // dispatch(register(values))
+            const smsCode = await sendSms(values.phone)
+            values.otpnum = smsCode.code
+            setAuthTemp(values)
             setVerif(false)      
         } catch (error) {
             console.log('error registering user',values)
@@ -53,7 +66,8 @@ function SignUp(): JSX.Element {
         username: '',
         email: '',
         phone: '',
-        password: ''
+        password: '',
+        otpnum:0
     };
 
     const userSchema = Yup.object({
@@ -92,14 +106,15 @@ function SignUp(): JSX.Element {
     }
 
     const checkCode = (values) => {
-        const response = {
-            deviceId: Math.floor(Math.random() * 16) + 5,
-            phone: phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1),
-            code: "559071"
-        }
-        dispatch(validateCode(response))
-        values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
-        dispatch(register(values))
+        // const response = {
+        //     deviceId: Math.floor(Math.random() * 16) + 5,
+        //     phone: phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1),
+        //     code: "559071"
+        // }
+        // dispatch(validateCode(response))
+        // values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
+
+        dispatch(register(authTemp))
     }
 
 
@@ -342,7 +357,7 @@ function SignUp(): JSX.Element {
                                                             </div>
                                                             <div className="form-group mt-3 text-center">
                                                                 <p>Код підтеврдження</p>
-                                                                <CodeInput />
+                                                                <CodeInput code={authTemp?.otpnum} />
                                                                 <button type="button" className="text-center btn">Надіслати код ще раз</button>
                                                             </div>
                                                             <Form.Control.Feedback type="invalid">
@@ -351,7 +366,7 @@ function SignUp(): JSX.Element {
                                                     </Form.Group>
                                                 </Form.Row>
                                                 <div className="text-center">
-                                                    <button type="submit" className="btn px-5 btn-verification">
+                                                    <button type="button" onClick={checkCode} className="btn px-5 btn-verification">
                                                         Верифікація
                                                     </button>
                                                 </div>

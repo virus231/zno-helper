@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactCodeInput from 'react-verification-code-input';
 
-function CodeInput():JSX.Element {
+function CodeInput({code}):JSX.Element {
     return (
-        <ReactCodeInput />
+        <ReactCodeInput values={code.toString().split('')} />
     )
 }
 
