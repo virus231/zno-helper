@@ -1,0 +1,1 @@
+export const transformPhone = ( phone:string ) => phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
