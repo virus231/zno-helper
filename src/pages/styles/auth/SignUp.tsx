@@ -36,10 +36,12 @@ function SignUp(): JSX.Element {
     const state = useSelector(state => state.auth)
 
     const [activeReferal, setActiveReferal] = useState(false)
+
     const onRegisterUser = (values) => {
         dispatch(register(values))
         dispatch(sendSmsToPhone(phone))
         setVerif(false)
+        checkCode(values)
     }
 
     const initialValues: RegisterBody = {
@@ -84,14 +86,15 @@ function SignUp(): JSX.Element {
         setActiveReferal(!activeReferal)
     }
 
-    const handleCode = (e) => {
-        e.preventDefault()
+    const checkCode = (values) => {
         const response = {
             deviceId: Math.floor(Math.random() * 16) + 5,
             phone: phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1),
-            code: "882982"
+            code: "559071"
         }
         dispatch(validateCode(response))
+        values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
+        dispatch(register(values))
     }
 
 
@@ -112,7 +115,7 @@ function SignUp(): JSX.Element {
                             initialValues={initialValues}
                             validationSchema={userSchema}
                             onSubmit={(values, actions) => {
-                                onRegisterUser(values)
+                                onRegisterUser(values);
                             }}
                             render={({ errors, status, touched, handleChange, handleSubmit,
                                          handleBlur, values }) => (
@@ -294,7 +297,7 @@ function SignUp(): JSX.Element {
                                                 </div>
                                             </Form>
                                         ) : (
-                                            <Form noValidate onSubmit={handleCode} className="d-block">
+                                            <Form noValidate onSubmit={handleSubmit} className="d-block">
                                                 <h3>Верифікація телефону</h3>
                                                 <Form.Row className="mt-5">
                                                     <Form.Group as={Col} md="12" controlId="validationFormikPhone">

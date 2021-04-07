@@ -105,6 +105,7 @@ export interface LocalTest extends Test {
     id: number,
     content:any
 }
+
 type TestUpdateFunction = (id: number) => void
 export interface TestProps  {
     test: LocalTest
