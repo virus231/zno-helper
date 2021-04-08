@@ -36,7 +36,7 @@ input[type=number] {
 
 .promo {
   height: 100vh;
-  background: url('../../assets/images/signup-bg.png') no-repeat;
+  background: url('../assets/images/signup-bg.png') no-repeat;
   background-size: cover;
 
   &-col {
@@ -177,7 +177,7 @@ label {
 // ResetPassword
 .reset {
   height: 100vh;
-  background: url('../../assets/images/reset-bg.png') no-repeat;
+  background: url('../assets/images/reset-bg.png') no-repeat;
   background-size: contain;
 
   &-title {

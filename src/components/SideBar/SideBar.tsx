@@ -7,6 +7,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from "react-pro-sidebar";
+import { useSelector } from 'react-redux'
 import { FaList, FaRegHeart, FaUserFriends } from "react-icons/fa";
 import {FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
@@ -15,6 +16,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "./SideBar.scss";
 import { Link } from 'react-router-dom';
 import {AiOutlineUserAdd, MdExitToApp} from "react-icons/all";
+import { authSelector } from "../../store/selectors";
 
 
 export default function SideBar():JSX.Element {
@@ -22,15 +24,15 @@ export default function SideBar():JSX.Element {
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
+    const {username} = useSelector(authSelector)
+
 
     return (
         <>
             <div id="header">
-                {/* collapsed props to change menu size using menucollapse state */}
                 <ProSidebar collapsed={menuCollapse}>
                     <SidebarHeader>
                         <div className="logotext">
-                            {/* small and big change using menucollapse state */}
                             {/*<p>{menuCollapse ? "Logo" : "Big Logo"}</p>*/}
                         </div>
                         <div className="profile-block text-center mt-5">
@@ -39,7 +41,7 @@ export default function SideBar():JSX.Element {
                             ) : (
                                 <>
                                     <img className="profile-block__img mt-5" src="https://source.unsplash.com/user/erondu/110x110" alt="Logo"/>
-                                    <h6 className="profile-block__name mt-2">Username</h6>
+                                    <h6 className="profile-block__name mt-2">{username}</h6>
                                     <p className="profile-block__period">Пробний період</p>
                                 </>
                             )}

@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import authReducer from "../pages/styles/auth/auth.reducer";
-import validationReducer from "../pages/styles/auth/validation.reducer";
+import authReducer from "./reducers/auth.reducer";
+import validationReducer from "./reducers/validation.reducer";
 
 
 export const rootReducer = combineReducers({

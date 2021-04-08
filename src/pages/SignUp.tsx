@@ -5,11 +5,12 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
-import CodeInput from '../../../components/CodeInput'
-import {checkEmail, checkUsername, checkPhone, register, sendSmsToPhone, validateCode} from "./thunks";
-import { RegisterBody } from '../../../utils/interfaces'
-import { transformPhone } from "../../../helpers/authHelpers";
-import { sendSms } from "../../../api/authApi";
+import CodeInput from '../components/CodeInput'
+import {checkEmail, checkUsername, checkPhone, register, sendSmsToPhone, validateCode} from "../store/actions/thunks";
+import { RegisterBody } from '../utils/interfaces'
+import { transformPhone } from "../helpers/authHelpers";
+import { sendSms } from "../api/authApi";
+import {authSelector} from "../store/selectors";
 
 
 const phoneNumberMask = [
@@ -32,6 +33,7 @@ const phoneNumberMask = [
 export const SignUp = (): JSX.Element => {
     const dispatch = useDispatch()
     let history = useHistory();
+    // const {token} = useSelector(authSelector)
 
 
     const [username, setUserName] = useState<string>("")
@@ -116,8 +118,9 @@ export const SignUp = (): JSX.Element => {
         // values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
         try {
             dispatch(register(authTemp))
-            history.push("/home");
-
+            // if(token) {
+            //     history.push("/home")
+            // }
         } catch(e) {
             console.log("e", e)
         }

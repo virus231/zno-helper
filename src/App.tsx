@@ -6,9 +6,10 @@ import {ResetPassword, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, D
 import SideBar from './components/SideBar/SideBar'
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import './pages/styles/main.scss'
+import './pages/main.scss'
 import './App.scss';
 import { Spinner } from './components/Spinner';
+import { authSelector } from './store/selectors';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,18 +21,19 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SignUp = lazy(() => import('./pages/styles/auth/SignUp').then(({ SignUp }) => ({ default: SignUp })))
+const SignUp = lazy(() => import('./pages/SignUp').then(({ SignUp }) => ({ default: SignUp })))
 const LogIn = lazy(() => import('./pages/LogIn').then(({ LogIn }) => ({ default: LogIn })))
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 
 function App():JSX.Element {
     const classes = useStyles();
-    const loading = useSelector(({auth: {loading}}) => console.log(loading))
+    const {loading} = useSelector(authSelector)
+    console.log(loading)
 
     
     return (
         <Suspense fallback={<Spinner/>}>
-            <Backdrop className={classes.backdrop} open={!!loading}>
+            <Backdrop className={classes.backdrop} open={loading}>
               <CircularProgress color="inherit" />
             </Backdrop>
             <div className="App">

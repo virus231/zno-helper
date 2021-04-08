@@ -1,6 +1,6 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
-import { AuthResponse, StateHadnlers } from "../../../utils/interfaces";
-import { checkEmail, login, register, sendSmsToPhone } from "./thunks";
+import { AuthResponse, StateHadnlers } from "../../utils/interfaces";
+import { checkEmail, login, register, sendSmsToPhone } from "../actions/thunks";
 
 const initialState: AuthResponse & StateHadnlers = {
     email: '',
@@ -26,6 +26,8 @@ export default createReducer(initialState, builder =>
             const { token, id, email, username, roles } = action.payload
             state.loading = false
             state.error = null
+            // state.token = token
+            state.username = username
         })
         .addCase(register.rejected, (state, { error }) => {
             state.loading = false

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { checkValidity, loginUser, registerUser, sendSms, validateSms } from "../../../api/authApi";
-import { transformPhone } from "../../../helpers/authHelpers";
-import { AuthResponse, CheckCode, CheckResponse, LoginBody, RegisterBody, SmsResponse } from "../../../utils/interfaces";
+import { checkValidity, loginUser, registerUser, sendSms, validateSms } from "../../api/authApi";
+import { transformPhone } from "../../helpers/authHelpers";
+import { AuthResponse, CheckCode, CheckResponse, LoginBody, RegisterBody, SmsResponse } from "../../utils/interfaces";
 
 
 export const register = createAsyncThunk<AuthResponse, RegisterBody>('register', (data) =>  {
