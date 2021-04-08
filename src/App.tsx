@@ -1,20 +1,39 @@
-import React, {lazy, Suspense, useEffect} from 'react';
-
+import React, {lazy, Suspense} from 'react';
+import { useSelector } from 'react-redux'
+import CircularProgress from '@material-ui/core/CircularProgress';  
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {ResetPassword, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
 import SideBar from './components/SideBar/SideBar'
+import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import './pages/styles/main.scss'
 import './App.scss';
 import { Spinner } from './components/Spinner';
+
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        backdrop: {
+            zIndex: theme.zIndex.drawer + 1,
+            color: '#fff',
+        },
+    }),
+);
 
 const SignUp = lazy(() => import('./pages/styles/auth/SignUp').then(({ SignUp }) => ({ default: SignUp })))
 const LogIn = lazy(() => import('./pages/LogIn').then(({ LogIn }) => ({ default: LogIn })))
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 
 function App():JSX.Element {
+    const classes = useStyles();
+    const loading = useSelector(({auth: {loading}}) => console.log(loading))
+
+    
     return (
         <Suspense fallback={<Spinner/>}>
+            <Backdrop className={classes.backdrop} open={!!loading}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <div className="App">
                 <Switch>
                     <Route exact path="/" component={SignUp}/>
