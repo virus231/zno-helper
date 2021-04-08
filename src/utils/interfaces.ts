@@ -3,8 +3,10 @@ export interface AuthResponse {
     id: number,
     email: string,
     username: string,
-    roles:string[]
+    roles: string[]
+    isAuth?:string
 }
+
 
 export interface RegisterBody{
     email: string,
