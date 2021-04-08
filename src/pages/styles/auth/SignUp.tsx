@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
@@ -29,8 +29,10 @@ const phoneNumberMask = [
     /\d/
 ];
 
-function SignUp(): JSX.Element {
+export const SignUp = (): JSX.Element => {
     const dispatch = useDispatch()
+    let history = useHistory();
+
 
     const [username, setUserName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
@@ -51,7 +53,6 @@ function SignUp(): JSX.Element {
         try {
             console.log('values', { values })
             values.phone = transformPhone(values.phone)
-            // dispatch(register(values))
             const smsCode = await sendSms(values.phone)
             values.otpnum = smsCode.code
             setAuthTemp(values)
@@ -113,8 +114,13 @@ function SignUp(): JSX.Element {
         // }
         // dispatch(validateCode(response))
         // values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
+        try {
+            dispatch(register(authTemp))
+            history.push("/home");
 
-        dispatch(register(authTemp))
+        } catch(e) {
+            console.log("e", e)
+        }
     }
 
 
@@ -383,6 +389,3 @@ function SignUp(): JSX.Element {
         </section>
     )
 }
-
-
-export default SignUp

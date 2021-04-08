@@ -1,7 +1,7 @@
-export {default as Home} from './Home';
+// export {default as Home} from './Home';
 export {default as LogIn} from './LogIn';
 export {default as ResetPassword} from './ResetPassword';
-export {default as SignUp} from './styles/auth/SignUp';
+// export {default as SignUp} from './styles/auth/SignUp';
 export {default as Subjects} from './Subjects';
 export {default as ChoiceSubjects} from './ChoiceSubjects';
 export {default as Tests} from './Tests';

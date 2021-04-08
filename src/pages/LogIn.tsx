@@ -29,7 +29,7 @@ const phoneNumberMask = [
 ];
 
 
-function LogIn():JSX.Element {
+export const LogIn = ():JSX.Element => {
     const dispatch = useDispatch()
     // const onLogInUser = (fields) => dispatch(LoginAuthAction(fields))
 

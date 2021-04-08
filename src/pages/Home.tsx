@@ -11,7 +11,7 @@ const subjects = [
     {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"}
 ]
 
-function Home():JSX.Element {
+export const Home = ():JSX.Element => {
 
     return (
         <section className="home">
@@ -50,6 +50,3 @@ function Home():JSX.Element {
         </section>
     )
 }
-
-
-export default Home
