@@ -33,7 +33,7 @@ const phoneNumberMask = [
 export const SignUp = (): JSX.Element => {
     const dispatch = useDispatch()
     let history = useHistory();
-    // const {token} = useSelector(authSelector)
+    const {token} = useSelector(authSelector)
 
 
     const [username, setUserName] = useState<string>("")
@@ -117,13 +117,16 @@ export const SignUp = (): JSX.Element => {
         // dispatch(validateCode(response))
         // values.phone = values.phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1)
         try {
+            console.log(authTemp)
             dispatch(register(authTemp))
-            // if(token) {
-            //     history.push("/home")
-            // }
+            
         } catch(e) {
             console.log("e", e)
         }
+    }
+    console.log(token)
+    if(token) {
+        history.push("/home")
     }
 
 

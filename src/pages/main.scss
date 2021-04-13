@@ -115,7 +115,6 @@ input[type=number] {
 }
 
 .btn-register + p {
-  font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
@@ -565,7 +564,7 @@ form.boolean-answer input{
 }
 form.boolean-answer label{
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid #567BF3;
   border-radius: 10px;
   font-weight: 500;
   font-size: 24px;

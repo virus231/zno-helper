@@ -16,7 +16,7 @@ function DuelTest():JSX.Element {
 
                 {/* <SingleAnswer /> */}
 
-                {/*<MultiAnswer />*/}
+                {/* <MultiAnswer /> */}
 
                 <Boolean />
 

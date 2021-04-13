@@ -10,6 +10,7 @@ const inWhiteList = (url: string): boolean => {
     const match = whiteList.find((i) => url.includes(i))
     return !!match
 }
+    
 const tokenValid = (token?: string): boolean => {
     if(!token) return false
     try {

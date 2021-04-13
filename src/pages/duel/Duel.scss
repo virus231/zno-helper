@@ -15,23 +15,20 @@
   margin-bottom: 50px;
 
   .duel_h1{
-    font-family: "Inter", serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 36px;
+    font-size: 26px;
     line-height: 44px;
     color: #6B8CBE;
   };
 };
 
 .button_main {
-  width: 380px;
-  height: 100px;
+  padding: 15px 55px;
   border-radius: 15px;
-  font-size: 36px;
+  font-size: 2px;
   color: #fff;
   text-align: center;
-  font-family: "Inter", serif;
   margin: 0 auto;
   display: block;
 }
@@ -44,7 +41,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Inter", serif;
 }
 
 .duel .invite_by{
@@ -188,6 +184,7 @@ form.boolean{
   align-items: center;
   justify-content: center;
   margin-bottom: 100px;
+  box-sizing: border-box;
 }
 form.boolean input{
   display: none;
@@ -198,7 +195,7 @@ form.boolean label{
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 7px;
   font-size: 28px;
   line-height: 80px;
   text-align: center;
@@ -213,6 +210,7 @@ input[class="boolean"]:hover + label,
 input[class="boolean"]:checked + label,
 input[class="boolean"]:focus + label{
   background: #EEF2FE;
+  border: 1px solid #567BF3;
   transition: all 0.2s;
   -webkit-transition: all 0.2s;
 }

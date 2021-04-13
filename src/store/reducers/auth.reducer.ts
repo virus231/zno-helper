@@ -26,7 +26,7 @@ export default createReducer(initialState, builder =>
             const { token, id, email, username, roles } = action.payload
             state.loading = false
             state.error = null
-            // state.token = token
+            state.token = token
             state.username = username
         })
         .addCase(register.rejected, (state, { error }) => {

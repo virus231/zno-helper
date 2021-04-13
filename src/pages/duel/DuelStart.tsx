@@ -7,7 +7,6 @@ import "./Duel.scss"
 
 const useStyles = makeStyles((theme) => ({
     root: {
-
         textAlign: "center",
         '& .btn-copy': {
             background: "#EEF2FE",
@@ -43,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: "50px"
     },
     duel_h1:{
-        fontFamily: "Inter",
         fontStyle: "normal",
         fontWeight: "normal",
         fontSize: "36px",
@@ -51,27 +49,24 @@ const useStyles = makeStyles((theme) => ({
         color: "#6B8CBE",
     },
     button_copy: {
-        width: "100%",
-        height: "70px",
+        padding: "15px 45px",
         textAlign: "center",
+        margin: "0 auto",
         display: "block",
         background: "#EEF2FE",
         border: "1px solid rgba(0, 0, 0, 0.1)",
         borderRadius: "10px",
         fontWeight: 500,
-        fontFamily: "Inter",
-        fontSize: "28px",
+        fontSize: "22px",
         color: "#567BF3",
         marginBottom: "50px"
     },
     button_main: {
-        width: "380px",
-        height: "100px",
+        padding: "15px 45px",
         borderRadius: "15px",
-        fontSize: "36px",
+        fontSize: "26px",
         color: "#fff",
         textAlign: "center",
-        fontFamily: "Inter",
         margin: "0 auto",
         display: "block",
     },
@@ -84,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
         height: "200px",
         color: "rgba(255, 255, 255, 0.8)",
         fontSize: "36px",
-        fontFamily: "Inter",
         textAlign: "center",
         display: "flex",
         alignItems: "center",

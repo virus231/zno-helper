@@ -59,7 +59,9 @@ function DuelStart():JSX.Element {
                                 <Button disabled variant="primary">Розпочати Дуель</Button>
                             </p>
                             {/*<span>{copySuccess}</span>*/}
-                            {copySuccess && "Есть"}
+                            <span>
+                                {copySuccess && "Есть"}
+                            </span>
                         </Jumbotron>
                     </Col>
                 </Row>
