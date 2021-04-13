@@ -28,8 +28,6 @@ const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Ho
 function App():JSX.Element {
     const classes = useStyles();
     const {loading} = useSelector(authSelector)
-    console.log(loading)
-
     
     return (
         <Suspense fallback={<Spinner/>}>

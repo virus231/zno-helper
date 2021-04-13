@@ -1,11 +1,14 @@
 import React, {useState} from "react";
-import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {Link, useHistory} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
 import {checkPhone, login} from '../store/actions/thunks'
 import * as Yup from "yup";
 import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
+import {transformPhone} from '../helpers/authHelpers'
+import {authSelector} from "../store/selectors";
+
 
 interface FormValues {
     phone: string;
@@ -33,6 +36,10 @@ const phoneNumberMask = [
 export const LogIn = ():JSX.Element => {
     const dispatch = useDispatch()
     const [phone, setPhone] = useState<string>("")
+    const {token} = useSelector(authSelector)
+    let history = useHistory();
+
+
 
     const initialValues: FormValues = {
         phone: '',
@@ -63,10 +70,16 @@ export const LogIn = ():JSX.Element => {
         console.log(values)
         try {
             console.log(values)
+            values.phone = transformPhone(values.phone)
+            console.log(values)
             dispatch(login(values))
         } catch(e) {
             console.log("login error", e)
         }
+    }
+
+    if(token) {
+        history.push("/home")
     }
 
     return (
@@ -152,7 +165,7 @@ export const LogIn = ():JSX.Element => {
                                         </Form.Group>
                                     </Form.Row>
                                     <div className="form-group text-center">
-                                        <button type="submit" onSubmit={onLogInUser}className="btn btn-primary btn-register mr-2 py-2 px-5">Увійти</button>
+                                        <button type="submit" onSubmit={onLogInUser} className="btn btn-primary btn-register mr-2 py-2 px-5">Увійти</button>
                                         <p>Ще не маєш профілю?
                                             <Link to="/" className="ml-2">
                                                 Створити

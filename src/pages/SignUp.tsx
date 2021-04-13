@@ -108,7 +108,7 @@ export const SignUp = (): JSX.Element => {
         setActiveReferal(!activeReferal)
     }
 
-    const checkCode = (values) => {
+    const checkCode = () => {
         // const response = {
         //     deviceId: Math.floor(Math.random() * 16) + 5,
         //     phone: phone.replace(/[-\s.,$_)(]/g, '').toString().substring(1),
@@ -124,7 +124,6 @@ export const SignUp = (): JSX.Element => {
             console.log("e", e)
         }
     }
-    console.log(token)
     if(token) {
         history.push("/home")
     }
