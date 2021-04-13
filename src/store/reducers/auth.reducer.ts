@@ -39,8 +39,8 @@ export default createReducer(initialState, builder =>
         })
         .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
-            // state.loading = false
-            // state.error = null
+            state.loading = false
+            state.error = null
         })
         .addCase(login.rejected, (state, { error }) => {
             state.loading = false

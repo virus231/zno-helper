@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
+import {checkPhone, login} from '../store/actions/thunks'
 import * as Yup from "yup";
 import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 
 interface FormValues {
-    number: string;
+    phone: string;
     password: string;
 }
 
@@ -31,27 +32,41 @@ const phoneNumberMask = [
 
 export const LogIn = ():JSX.Element => {
     const dispatch = useDispatch()
-    // const onLogInUser = (fields) => dispatch(LoginAuthAction(fields))
+    const [phone, setPhone] = useState<string>("")
 
     const initialValues: FormValues = {
-        number: '',
+        phone: '',
         password: '',
     };
 
+    const validatePhone = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
+        dispatch(checkPhone(phone))
+        handleChange(e)
+    }
+
     const userSchema = Yup.object({
-        number: Yup.string().max(11).min(3)
+        // phone: Yup.string().max(11).min(3)
             // .test('Phone test', 'Phone number must be valid', (val) => {
             //     val = val.replace(/[\s\-]/g, '');
             //     return val.match(/^((\+?3)?8)?((0\(\d{2}\)?)|(\(0\d{2}\))|(0\d{2}))\d{7}$/) != null;
             // })
-            .required('Required'),
+            // .required('Required'),
         password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     })
 
+
+    const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)
+
     type User = Yup.InferType<typeof userSchema>;
 
-    function onLogInUser(e) {
-        e.preventDefault()
+    function onLogInUser(values) {
+        console.log(values)
+        try {
+            console.log(values)
+            dispatch(login(values))
+        } catch(e) {
+            console.log("login error", e)
+        }
     }
 
     return (
@@ -70,9 +85,11 @@ export const LogIn = ():JSX.Element => {
                         <Formik
                             initialValues={initialValues}
                             validationSchema={userSchema}
-                            onSubmit={onLogInUser}
-                            render={({ errors, status, values, touched, handleChange }) => (
-                                <Form noValidate>
+                            onSubmit={(values) => {
+                                onLogInUser(values)
+                            }}
+                            render={({ errors, status, values, touched, handleChange, handleSubmit }) => (
+                                <Form noValidate onSubmit={handleSubmit}>
                                     <Form.Row>
                                         <Form.Group as={Col} md="12" controlId="validationFormikPhone">
                                             <Form.Label>Номер телефону</Form.Label>
@@ -95,12 +112,21 @@ export const LogIn = ():JSX.Element => {
                                                     <MaskedInput
                                                         mask={phoneNumberMask}
                                                         id="phone"
+                                                        name="phone"
                                                         className="input-number"
                                                         aria-describedby="inputGroupPrepend3"
                                                         placeholder="Ваш номер"
                                                         type="tel"
-                                                        onChange={handleChange}
+                                                        autoComplete="off"
+                                                        value={phone}
+                                                        onFocus={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
+                                                        onBlur={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
+                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePhone(e)}
+                                                        isInvalid={!!errors.phone}
                                                     />
+                                                    <Form.Control.Feedback type="invalid">
+                                                        {errors.phone}
+                                                    </Form.Control.Feedback>
                                                 </div>
 
                                             </InputGroup>
@@ -114,6 +140,7 @@ export const LogIn = ():JSX.Element => {
                                                     type="password"
                                                     placeholder="Ваш пароль"
                                                     name="password"
+                                                    autoComplete="off"
                                                     value={values.password}
                                                     onChange={handleChange}
                                                     isInvalid={!!errors.password}
@@ -122,13 +149,10 @@ export const LogIn = ():JSX.Element => {
                                                     {errors.password}
                                                 </Form.Control.Feedback>
                                             </InputGroup>
-                                            <p>
-                                                <Link to="/reset">Відновити пароль</Link>
-                                            </p>
                                         </Form.Group>
                                     </Form.Row>
                                     <div className="form-group text-center">
-                                        <button type="submit" className="btn btn-primary btn-register mr-2 py-2 px-5">Увійти</button>
+                                        <button type="submit" onSubmit={onLogInUser}className="btn btn-primary btn-register mr-2 py-2 px-5">Увійти</button>
                                         <p>Ще не маєш профілю?
                                             <Link to="/" className="ml-2">
                                                 Створити
