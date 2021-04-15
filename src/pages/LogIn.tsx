@@ -8,6 +8,7 @@ import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import {transformPhone} from '../helpers/authHelpers'
 import {authSelector} from "../store/selectors";
+import { showAlert } from "../store/actions/alerts.actions";
 
 
 interface FormValues {
@@ -67,13 +68,14 @@ export const LogIn = ():JSX.Element => {
     type User = Yup.InferType<typeof userSchema>;
 
     function onLogInUser(values) {
-        console.log(values)
         try {
-            console.log(values)
             values.phone = transformPhone(values.phone)
-            console.log(values)
             dispatch(login(values))
+            setTimeout(() => {
+                dispatch(showAlert("Success", "success"))
+            },2000)
         } catch(e) {
+            dispatch(showAlert("Error", "error"))
             console.log("login error", e)
         }
     }

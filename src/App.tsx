@@ -11,6 +11,7 @@ import './App.scss';
 import { Spinner } from './components/Spinner';
 import { authSelector } from './store/selectors';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import { SimpleAlert } from './components/Alert/Alert';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +37,7 @@ function App():JSX.Element {
               <CircularProgress color="inherit" />
             </Backdrop>
             <div className="App">
+                <SimpleAlert alert={""}/>
                 <Switch>
                     <Route exact path="/" component={SignUp}/>
                     <Route exact path="/login" component={LogIn}/>

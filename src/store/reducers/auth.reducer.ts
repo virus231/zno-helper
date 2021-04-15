@@ -13,7 +13,7 @@ const initialState: AuthResponse & StateHadnlers = {
 }
 
 
-export const defaultError = 'Somthing went wrong!'
+export const defaultError = 'Something went wrong!'
 
 export default createReducer(initialState, builder =>
     builder.addCase(register.pending, (state) => {

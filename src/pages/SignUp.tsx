@@ -119,7 +119,7 @@ export const SignUp = (): JSX.Element => {
         try {
             console.log(authTemp)
             dispatch(register(authTemp))
-            
+
         } catch(e) {
             console.log("e", e)
         }
