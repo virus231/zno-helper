@@ -10,6 +10,7 @@ import './pages/main.scss'
 import './App.scss';
 import { Spinner } from './components/Spinner';
 import { authSelector } from './store/selectors';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,13 +43,13 @@ function App():JSX.Element {
                     <Route exact path="/choice-subjects" component={ChoiceSubjects}/>
                     <div className="d-flex align-items-center justify-content-center home">
                         <SideBar/>
-                        <Route exact path="/home" component={Home}/>
-                        <Route exact path="/tests/:id" component={Tests}/>
-                        <Route exact path="/subject/:id" component={Subject}/>
-                        <Route exact path="/create-test" component={CreateTests}/>
-                        <Route exact path="/duel-start" component={DuelStart}/>
-                        <Route exact path="/duel-join/:id" component={DuelJoin}/>
-                        <Route exact path="/duel-test" component={DuelTest}/>
+                        <PrivateRoute exact path="/home" component={Home}/>
+                        <PrivateRoute exact path="/tests/:id" component={Tests}/>
+                        <PrivateRoute exact path="/subject/:id" component={Subject}/>
+                        <PrivateRoute exact path="/create-test" component={CreateTests}/>
+                        <PrivateRoute exact path="/duel-start" component={DuelStart}/>
+                        <PrivateRoute exact path="/duel-join/:id" component={DuelJoin}/>
+                        <PrivateRoute exact path="/duel-test" component={DuelTest}/>
                     </div>
                     <Redirect to="/signup"/>
                 </Switch>
