@@ -11,6 +11,7 @@ import { RegisterBody } from '../utils/interfaces'
 import { transformPhone } from "../helpers/authHelpers";
 import { sendSms } from "../api/authApi";
 import {authSelector} from "../store/selectors";
+import { showAlert } from "../store/actions/alerts.actions";
 
 
 const phoneNumberMask = [
@@ -58,7 +59,8 @@ export const SignUp = (): JSX.Element => {
             const smsCode = await sendSms(values.phone)
             values.otpnum = smsCode.code
             setAuthTemp(values)
-            setVerif(false)      
+            setVerif(false)
+
         } catch (error) {
             console.log('error registering user',values)
         }
@@ -119,13 +121,16 @@ export const SignUp = (): JSX.Element => {
         try {
             console.log(authTemp)
             dispatch(register(authTemp))
-
         } catch(e) {
             console.log("e", e)
+            dispatch(showAlert("Error", "error"))
+
         }
     }
+
     if(token) {
         history.push("/home")
+        dispatch(showAlert("Success", "success"))
     }
 
 

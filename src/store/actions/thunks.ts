@@ -17,7 +17,7 @@ export const checkEmail = createAsyncThunk<CheckResponse,string>('checkEmail',
     (email) => checkValidity('email',email)
 )
 export const checkPhone = createAsyncThunk<CheckResponse,string>('checkPhone', (phone) => {
-        return checkValidity('phone',transformPhone(phone))
+        return checkValidity('phone',phone)
     }
 )
 

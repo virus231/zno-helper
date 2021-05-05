@@ -48,8 +48,8 @@ function App():JSX.Element {
                         <PrivateRoute exact path="/home" component={Home}/>
                         <PrivateRoute exact path="/tests/:id" component={Tests}/>
                         <PrivateRoute exact path="/subject/:id" component={Subject}/>
-                        <PrivateRoute exact path="/create-test" component={CreateTests}/>
-                        <PrivateRoute exact path="/duel-start" component={DuelStart}/>
+                        <Route exact path="/create-test" component={CreateTests}/>
+                        <Route exact path="/duel-start" component={DuelStart}/>
                         <PrivateRoute exact path="/duel-join/:id" component={DuelJoin}/>
                         <PrivateRoute exact path="/duel-test" component={DuelTest}/>
                     </div>

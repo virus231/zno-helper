@@ -9,6 +9,7 @@ import MaskedInput from "react-text-mask";
 import {transformPhone} from '../helpers/authHelpers'
 import {authSelector} from "../store/selectors";
 import { showAlert } from "../store/actions/alerts.actions";
+import { checkValidity } from "../api/authApi";
 
 
 interface FormValues {
@@ -40,8 +41,6 @@ export const LogIn = ():JSX.Element => {
     const {token} = useSelector(authSelector)
     let history = useHistory();
 
-
-
     const initialValues: FormValues = {
         phone: '',
         password: '',
@@ -53,12 +52,6 @@ export const LogIn = ():JSX.Element => {
     }
 
     const userSchema = Yup.object({
-        // phone: Yup.string().max(11).min(3)
-            // .test('Phone test', 'Phone number must be valid', (val) => {
-            //     val = val.replace(/[\s\-]/g, '');
-            //     return val.match(/^((\+?3)?8)?((0\(\d{2}\)?)|(\(0\d{2}\))|(0\d{2}))\d{7}$/) != null;
-            // })
-            // .required('Required'),
         password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     })
 
@@ -67,13 +60,17 @@ export const LogIn = ():JSX.Element => {
 
     type User = Yup.InferType<typeof userSchema>;
 
-    function onLogInUser(values) {
+    async function onLogInUser(values) {
         try {
-            values.phone = transformPhone(values.phone)
-            dispatch(login(values))
-            setTimeout(() => {
-                dispatch(showAlert("Success", "success"))
-            },2000)
+            if(values.phone) {
+                values.phone = transformPhone(values.phone)
+                const phone = await checkValidity('phone',values.phone);
+                console.log(values)
+                if(phone.valid) {
+                    dispatch(showAlert("Такого номера не існує в системі", "error"))
+                }
+                dispatch(login(values))
+            }
         } catch(e) {
             dispatch(showAlert("Error", "error"))
             console.log("login error", e)
@@ -82,6 +79,7 @@ export const LogIn = ():JSX.Element => {
 
     if(token) {
         history.push("/home")
+        dispatch(showAlert("Вхід успішний!", "success"))
     }
 
     return (

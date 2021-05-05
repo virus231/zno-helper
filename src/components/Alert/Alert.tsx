@@ -3,10 +3,11 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Alert, { Color } from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch, useSelector} from 'react-redux'
-import { alertSelector } from '../../store/selectors';
+import { alertSelector, authSelector } from '../../store/selectors';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,37 +33,29 @@ export const SimpleAlert:FC<Alert> = ({alert}) => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const {alerts} = useSelector(alertSelector)
+    const {token} = useSelector(authSelector)
     const color:Color = "warning"
     const alertColor:Color = alerts.type
 
-    console.log(alertColor)
 
     if(!alerts.text) {
-        return  null
+        return null
     }
+
+    const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
     return (
         <div className={classes.root}>
-            <Collapse in={open}>
-                <Alert
-                    variant="filled"
-                    severity={alertColor??color}
-                    action={
-                        <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            size="small"
-                            onClick={() => {
-                                setOpen(false);
-                            }}
-                        >
-                            <CloseIcon fontSize="inherit" />
-                        </IconButton>
-                    }
-                >
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={alertColor??color}>
                     {alerts.text}
                 </Alert>
-            </Collapse>
+            </Snackbar>
         </div>
     )
 }
