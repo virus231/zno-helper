@@ -43,15 +43,15 @@ function App():JSX.Element {
                     <Route exact path="/login" component={LogIn}/>
                     <Route exact path="/reset" component={ResetPassword}/>
                     <Route exact path="/choice-subjects" component={ChoiceSubjects}/>
-                    <div className="d-flex align-items-center justify-content-center home">
+                    <div className="d-flex align-items-center justify-content-center my-5">
                         <SideBar/>
-                        <PrivateRoute exact path="/home" component={Home}/>
-                        <PrivateRoute exact path="/tests/:id" component={Tests}/>
-                        <PrivateRoute exact path="/subject/:id" component={Subject}/>
+                        <Route exact path="/home" component={Home}/>
                         <Route exact path="/create-test" component={CreateTests}/>
                         <Route exact path="/duel-start" component={DuelStart}/>
-                        <PrivateRoute exact path="/duel-join/:id" component={DuelJoin}/>
-                        <PrivateRoute exact path="/duel-test" component={DuelTest}/>
+                        <Route exact path="/duel-test" component={DuelTest}/>
+                        <Route exact path="/tests/:id" component={Tests}/>
+                        <Route exact path="/subject/:id" component={Subject}/>
+                        <Route exact path="/duel-join/:id" component={DuelJoin}/>
                     </div>
                     <Redirect to="/signup"/>
                 </Switch>

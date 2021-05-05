@@ -107,10 +107,10 @@ export default function CreateSingleAnswer({ test, removeTest, changeCollapseSta
         updateTests(newTests)
     }
 
-
     const deleteTest = () => removeTest(test.id)
     const changeTestTitle = (title: string) => changeTitle(test.id, title)
     const changeTestExplanation = (explanation: string) => changeExplanation(test.id, explanation)
+
     return (
         <Card>
             <CardHeader>
@@ -125,7 +125,7 @@ export default function CreateSingleAnswer({ test, removeTest, changeCollapseSta
                     </div>
                     <div className="d-flex align-items-baseline justify-content-between">
                     <TypePicker
-                        changeMode={changeMode}
+                            changeMode={changeMode}
                             currentType={test.content.type}
                             testIndex={testIndex}
                         />

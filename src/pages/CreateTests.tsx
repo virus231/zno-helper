@@ -36,6 +36,7 @@ function CreateTests(props): JSX.Element {
     const [tagOptions, setTagOptions] = React.useState<string[]>([])
     const dispatch = useDispatch()
     const [currentTagQuery,setCurrentTagQuery] = React.useState('')
+
     const getTagsByChar = async (query: string) => {
         try {
             setCurrentTagQuery(query)
@@ -632,14 +633,16 @@ function CreateTests(props): JSX.Element {
                                         renderInput={(params) => (
                                             <TextField {...params} label="Введіть назву тега..."
                                                 value={currentTagQuery}
-                                                onChange={(e) => getTagsByChar(e.target.value)}
-                                                margin="normal" variant="outlined" />
+                                                       size="small"
+                                                onChange={(e) => getTagsByChar(e.target.value)} variant="outlined" />
                                         )}
                                     />
-                                    {/* <FormInput placeholder="Введіть назву тега..." /> */}
                                     <InputGroupAddon type="append">
-                                        <Button onClick={addTag} theme="secondary">Додати</Button>
+                                        <Button onClick={addTag} variant="contained" color="primary">
+                                            Додати
+                                        </Button>
                                     </InputGroupAddon>
+
                                 </InputGroup>
                                
                                 <div>

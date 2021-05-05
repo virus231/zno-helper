@@ -3,7 +3,7 @@ import jwtDecode , {JwtPayload} from "jwt-decode";
 import { BASE_URL, BASE_TEST_URL } from "../api/config";
 
 export const axios = BaseAxios.create({ baseURL: BASE_URL })
-export const testAPi = BaseAxios.create({baseURL:BASE_TEST_URL})
+export const testAPi = BaseAxios.create({baseURL: BASE_TEST_URL})
 const whiteList = ['auth',]
 
 const inWhiteList = (url: string): boolean => {

@@ -45,7 +45,6 @@ export default createReducer(initialState, builder =>
             state.username = username
             state.loading = false
             state.error = null
-            console.log("fulfilled")
         })
         .addCase(login.rejected, (state, { error }) => {
             state.loading = false
