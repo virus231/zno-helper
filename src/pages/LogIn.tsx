@@ -36,10 +36,10 @@ const phoneNumberMask = [
 
 
 export const LogIn = ():JSX.Element => {
-    const dispatch = useDispatch()
-    const [phone, setPhone] = useState<string>("")
-    const {token} = useSelector(authSelector)
     let history = useHistory();
+    const dispatch = useDispatch()
+    const {token} = useSelector(authSelector)
+    const [phone, setPhone] = useState<string>("")
 
     const initialValues: FormValues = {
         phone: '',
@@ -111,7 +111,7 @@ export const LogIn = ():JSX.Element => {
                                                     <InputGroup.Prepend>
                                                         <InputGroup.Text id="inputGroupPrepend3">
                                                             <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <g clip-path="url(#clip0)">
+                                                                <g clipPath="url(#clip0)">
                                                                     <path d="M21.2012 1.15363L16.7325 0.0286319C16.2469 -0.0932431 15.7485 0.183319 15.5508 0.680194L13.4883 5.93019C13.3079 6.38957 13.4282 6.92863 13.7848 7.24269L16.3887 9.56769C14.8419 13.163 12.1391 16.1536 8.77467 17.8739L6.64342 15.0333C6.35123 14.6443 5.86138 14.513 5.44029 14.7099L0.627791 16.9599C0.168026 17.1802 -0.0854899 17.7239 0.0262288 18.2536L1.05748 23.1286C1.1649 23.6349 1.5774 24.0005 2.06295 24.0005C13.0672 24.0005 22.0004 14.2739 22.0004 2.25051C22.0004 1.72551 21.6696 1.27082 21.2012 1.15363Z" fill="#929292" />
                                                                 </g>
                                                                 <defs>
