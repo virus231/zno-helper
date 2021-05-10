@@ -5,16 +5,16 @@ import {Card, CardBody } from "shards-react";
 
 const subjects = [
     {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"},
-    {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"},
-    {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"},
-    {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"},
-    {name: "Історія України", img: "https://source.unsplash.com/user/erondu/300x200"}
+    {name: "Укр. література та мова", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {name: "Математика", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {name: "Біологія", img: "https://source.unsplash.com/user/erondu/300x200"},
+    {name: "Фізика", img: "https://source.unsplash.com/user/erondu/300x200"}
 ]
 
 export const Home = ():JSX.Element => {
 
     return (
-        <section className="home">
+        <section className="home my-5">
             <Container className="">
                 <Row>
                     <Col lg={4}>

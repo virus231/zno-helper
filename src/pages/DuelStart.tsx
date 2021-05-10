@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom'
 import {Button, Col, Container, Jumbotron, Row} from 'react-bootstrap';
 import {makeStyles} from "@material-ui/core/styles";
 import { Card, CardBody, Badge, Alert  } from 'shards-react'
@@ -43,6 +44,7 @@ function DuelStart():JSX.Element {
     return (
         <section className="duel">
             <Container>
+
                 <Row>
                     <Col lg={{span: 10 }}>
                         <Jumbotron className={classes.root}>

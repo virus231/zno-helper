@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import {Link} from 'react-router-dom';
 import {Button, Col, Container, Jumbotron, Row} from 'react-bootstrap';
 import {makeStyles} from "@material-ui/core/styles";
 import { Card, CardBody, Badge, Alert  } from 'shards-react'
 import "./Duel.scss"
+import useCopyToClipboard from '../../hooks/useCopyToClipboard';
+import { CopyButton } from '../../components/CopyButton';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -108,101 +111,58 @@ const useStyles = makeStyles((theme) => ({
             color: "#F44336",
             textDecoration: "none"
         },
+    },
+    link: {
+        color: 'white',
+        transition: 'all .3s',
+        '&:hover': {
+            color: "#d5d5d5",
+            textDecoration: 'none'
+        }
     }
 }));
 
-function DuelStart():JSX.Element {
+function DuelStart(props: any):JSX.Element {
     const classes = useStyles();
+    const [isCopied, handleCopy] = useCopyToClipboard(3000);
     const [copySuccess, setCopySuccess] = useState<string>('');
 
 
-    const copyLink = () => {
-        const link = navigator.clipboard.writeText('Copy this text to clipboard')
-        // setCopySuccess(link)
-    };
-
     return (
         <section className="duel">
-            <Container className={classes.main_container}>
-                <div className={classes.header_div}>
-                     <h1 className={classes.duel_h1}>Географія як наука, розвиток географічних досліджень</h1>
-                </div>
-
-                <button className={classes.button_copy} onClick={copyLink}>
-                    Копіювати посилання для дуелі
-                </button>
-
-                <Button className={classes.button_main}>Розпочати Дуель</Button>
-
-                <Row>
-                    <Card className={classes.convas}>
-                            <CardBody className={classes.convas_body}>
-                                <p hidden={false}>Очікуються інші учасники...</p>
-                                {/*<a className={classes.participant}  href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>*/}
-                                {/*<a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>*/}
-                                {/*<a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>*/}
-                                {/*<a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>*/}
-                            </CardBody>
-                    </Card>
+            <Container fluid>
+                <Row className="my-5">
+                    <Col lg={{span: 5}}>
+                        <Link className={classes.link} to='/home'>
+                            Повернутись на головну
+                        </Link>
+                    </Col>
                 </Row>
+            </Container>
+            <Container>
+                <Row style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <Col lg={{span: 7}}>
+                        <div className={classes.header_div}>
+                            <h1 className={classes.duel_h1}>Географія як наука, розвиток географічних досліджень</h1>
+                        </div>
 
-                {/*<Row>*/}
-                {/*    <Col lg={{span: 10 }}>*/}
-                {/*        <Jumbotron className={classes.root}>*/}
-                {/*            <h1>Географія як наука, розвиток географічних досліджень</h1>*/}
-                {/*            <p>*/}
-                {/*                <button*/}
-                {/*                    className="btn-copy p-3"*/}
-                {/*                    onClick={copyLink}*/}
-                {/*                >*/}
-                {/*                    Копіювати посилання для дуелі*/}
-                {/*                </button>*/}
-                {/*            </p>*/}
-                {/*            <p>*/}
-                {/*                <Button disabled variant="primary">Розпочати Дуель</Button>*/}
-                {/*            </p>*/}
-                {/*            /!*<span>{copySuccess}</span>*!/*/}
-                {/*            {copySuccess && "Есть"}*/}
-                {/*        </Jumbotron>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
+                        <CopyButton code="Copy Link"/>
 
-                {/*<Row>*/}
-                {/*    <Col lg={{span: 6, offset: 2 }}>*/}
-                {/*        <Card className="text-center">*/}
-                {/*            <CardBody>*/}
-                {/*                Очікуються інші учасники...*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
+                        <Button className={classes.button_main}>Розпочати Дуель</Button>
 
-                {/*<Row className={classes.root}>*/}
-                {/*    <Col className="text-center" lg={{span: 6, offset: 2}}>*/}
-                {/*        <QuestionCard/>*/}
-                {/*        <Button className="mt-3">Далі</Button>*/}
-                {/*    </Col>*/}
-                {/*    <div className="info-result">*/}
-                {/*        <Card>*/}
-                {/*            <CardBody>*/}
-                {/*                <Alert theme="warning">*/}
-                {/*                    Sviatossss:*/}
-                {/*                    4*/}
-                {/*                </Alert>*/}
-                {/*                <Alert theme="info">*/}
-                {/*                    Vladoss:*/}
-                {/*                    3*/}
-                {/*                </Alert>*/}
-                {/*                <Alert theme="dark">*/}
-                {/*                    Yurets:*/}
-                {/*                    2*/}
-                {/*                </Alert>*/}
-                {/*            </CardBody>*/}
-                {/*        </Card>*/}
-                {/*    </div>*/}
-
-                {/*</Row>*/}
-
+                        <Row>
+                            <Card className={classes.convas}>
+                                <CardBody className={classes.convas_body}>
+                                    <p hidden={false}>Очікуються інші учасники...</p>
+                                    <a className={classes.participant}  href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>
+                                    <a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>
+                                    <a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>
+                                    <a className={classes.participant} href={"http://localhost:3000/duel/remove"}>Vasia Petrovych</a>
+                                </CardBody>
+                            </Card>
+                        </Row>
+                    </Col>
+                </Row>
             </Container>
         </section>
 

@@ -59,6 +59,11 @@ export default function SideBar():JSX.Element {
                                     Друзі
                                 </Link>
                             </MenuItem>
+                            <MenuItem icon={<FaUserFriends />}>
+                                <Link to="/duel-start">
+                                    Дуель
+                                </Link>
+                            </MenuItem>
                             <MenuItem icon={<AiOutlineUserAdd />}>
                                 <Link to="/home">
                                     Запросити друга

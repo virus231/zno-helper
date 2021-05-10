@@ -8,7 +8,7 @@ interface Props {
     subject: any
 }
 
-export const SubjectCart:FC<Props> = ({subject}) => {
+export const SubjectCart = ({subject}: Props) => {
     return (
         <Col lg={4}>
             <Link to={`/subject/${subject.name}`} className="subject-cart">

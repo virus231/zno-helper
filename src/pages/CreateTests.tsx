@@ -27,12 +27,18 @@ import {useDispatch} from 'react-redux'
 import { createTestWrap } from "../store/actions/tests.actions";
 
 
-function CreateTests(props): JSX.Element {
+function CreateTests({match: {params}}): JSX.Element {
     const [testMode, setTestMode] = React.useState('')
     const [collapseTweet, setCollapseTweet] = React.useState<boolean>(true)
     const [collapseTags, setCollapseTags] = React.useState<boolean>(true)
     const [collapsePhoto, setCollapsePhoto] = React.useState<boolean>(true)
-    const [testWrap, setTestWrap] = React.useState({ title: '', tests: [] as LocalTest[], tags: [] as string[], subject: "MATHEMATICS", userId: 10 })
+    const [testWrap, setTestWrap] = React.useState({
+        title: '',
+        tests: [] as LocalTest[],
+        tags: [] as string[],
+        subject: params.id,
+        userId: 10
+    })
     const [tagOptions, setTagOptions] = React.useState<string[]>([])
     const dispatch = useDispatch()
     const [currentTagQuery,setCurrentTagQuery] = React.useState('')
@@ -194,10 +200,8 @@ function CreateTests(props): JSX.Element {
     }
 
 
-    useEffect(
-        () => {
+    useEffect(() => {
             console.log('testsChaged', testWrap)
-
         }, [testWrap.tests]
     )
 

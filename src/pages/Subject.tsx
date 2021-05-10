@@ -37,7 +37,7 @@ function Subject({match:{params}}) {
                     </Col>
 
                     <Col lg="4">
-                        <Link to="/create-test">
+                        <Link to={`/create-test/${params.id}`}>
                             <Card>
                                 <CardImg top src="https://place-hold.it/300x200" />
                                 <CardBody className="text-center">
