@@ -11,7 +11,7 @@ const inWhiteList = (url: string): boolean => {
     return !!match
 }
     
-const tokenValid = (token?: string): boolean => {
+export const tokenValid = (token?: string): boolean => {
     if(!token) return false
     try {
         const currentDate = new Date()

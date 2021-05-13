@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Link, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
+import NumberFormat from 'react-number-format';
 import { Formik, Field, ErrorMessage } from 'formik';
 import {checkPhone, login} from '../store/actions/thunks'
 import * as Yup from "yup";
@@ -14,6 +15,7 @@ import { checkValidity } from "../api/authApi";
 
 interface FormValues {
     phone: string;
+    formattedValue?: string
     password: string;
 }
 
@@ -39,7 +41,9 @@ export const LogIn = ():JSX.Element => {
     let history = useHistory();
     const dispatch = useDispatch()
     const {token} = useSelector(authSelector)
-    const [phone, setPhone] = useState<string>("")
+    const [valuess, setValuess] = useState<FormValues>({} as FormValues)
+
+    const nextDisabled = !valuess.formattedValue || valuess.formattedValue.includes('_');
 
     const initialValues: FormValues = {
         phone: '',
@@ -47,7 +51,7 @@ export const LogIn = ():JSX.Element => {
     };
 
     const validatePhone = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
-        dispatch(checkPhone(phone))
+        dispatch(checkPhone(valuess.phone))
         handleChange(e)
     }
 
@@ -56,20 +60,22 @@ export const LogIn = ():JSX.Element => {
     })
 
 
-    const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)
-
     type User = Yup.InferType<typeof userSchema>;
 
     async function onLogInUser(values) {
         try {
-            if(values.phone) {
-                values.phone = transformPhone(values.phone)
-                const phone = await checkValidity('phone',values.phone);
-                console.log(values)
-                if(phone.valid) {
+            if(valuess.phone) {
+                console.log(valuess.phone)
+                const value = await checkValidity('phone', valuess.phone);
+                if(value.valid) {
                     dispatch(showAlert("Такого номера не існує в системі", "error"))
                 }
-                dispatch(login(values))
+                const mainValues: FormValues = {
+                    phone: valuess.phone,
+                    password: values.password
+                }
+                console.log(mainValues)
+                dispatch(login(mainValues))
             }
         } catch(e) {
             dispatch(showAlert("Error", "error"))
@@ -81,6 +87,8 @@ export const LogIn = ():JSX.Element => {
         history.push("/home")
         dispatch(showAlert("Вхід успішний!", "success"))
     }
+
+    console.log(valuess.phone)
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">
@@ -122,19 +130,22 @@ export const LogIn = ():JSX.Element => {
                                                             </svg>
                                                         </InputGroup.Text>
                                                     </InputGroup.Prepend>
-                                                    <MaskedInput
-                                                        mask={phoneNumberMask}
-                                                        id="phone"
+                                                    <NumberFormat
                                                         name="phone"
+                                                        placeholder="+380 (67) 124-1234"
+                                                        format="+380 (##) ###-####"
+                                                        mask="_"
+                                                        allowEmptyFormatting
                                                         className="input-number"
-                                                        aria-describedby="inputGroupPrepend3"
-                                                        placeholder="Ваш номер"
-                                                        type="tel"
                                                         autoComplete="off"
-                                                        value={phone}
+                                                        value={valuess.phone}
+                                                        onValueChange={({formattedValue, value}) => setValuess({
+                                                            phone: value,
+                                                            password: "",
+                                                            formattedValue
+                                                        })}
                                                         onFocus={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
                                                         onBlur={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
-                                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePhone(e)}
                                                         isInvalid={!!errors.phone}
                                                     />
                                                     <Form.Control.Feedback type="invalid">
@@ -165,7 +176,13 @@ export const LogIn = ():JSX.Element => {
                                         </Form.Group>
                                     </Form.Row>
                                     <div className="form-group text-center">
-                                        <button type="submit" onSubmit={onLogInUser} className="btn btn-primary btn-register mr-2 py-2 px-5">Увійти</button>
+                                        <button
+                                            disabled={nextDisabled}
+                                            type="submit"
+                                            onSubmit={onLogInUser}
+                                            className="btn btn-primary btn-register mr-2 py-2 px-5">
+                                            Увійти
+                                        </button>
                                         <p>Ще не маєш профілю?
                                             <Link to="/" className="ml-2">
                                                 Створити

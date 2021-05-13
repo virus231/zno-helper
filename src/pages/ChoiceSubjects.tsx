@@ -2,6 +2,9 @@ import React, { useState} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useSelector } from 'react-redux'
+import { authSelector } from "../store/selectors";
+
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -16,12 +19,14 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 
 function Subjects():JSX.Element {
+    const {username} = useSelector(authSelector)
+
     return (
         <section className="subjects pt-5">
             <Container>
                 <Row className="text-center">
                     <Col xs="12">
-                        <h3>Username вибери предмети для складання ЗНО</h3>
+                        <h3>{username} вибери предмети для складання ЗНО</h3>
                         <p>Ти будеш готуватись по цим предметах</p>
                     </Col>
                 </Row>

@@ -40,7 +40,7 @@ export default createReducer(initialState, builder =>
         .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
             // console.log(action.payload)
-            const {token, email, username} = action.payload
+            const {token, email, username} = action.payload || {}
             state.token = token
             state.username = username
             state.loading = false

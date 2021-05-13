@@ -4,6 +4,7 @@ import { useSelector, useDispatch, RootStateOrAny } from 'react-redux'
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup";
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
 import MaskedInput from "react-text-mask";
 import CodeInput from '../components/CodeInput'
 import {checkEmail, checkUsername, checkPhone, register, sendSmsToPhone, validateCode} from "../store/actions/thunks";
@@ -13,7 +14,10 @@ import { sendSms } from "../api/authApi";
 import {authSelector} from "../store/selectors";
 import { showAlert } from "../store/actions/alerts.actions";
 
-
+interface FormValues {
+    phone: string;
+    formattedValue?: string
+}
 const phoneNumberMask = [
     "(",
     /[1-10]/,
@@ -35,7 +39,9 @@ export const SignUp = (): JSX.Element => {
     const dispatch = useDispatch()
     let history = useHistory();
     const {token} = useSelector(authSelector)
+    const [valuess, setValuess] = useState<FormValues>({} as FormValues)
 
+    const nextDisabled = !valuess.formattedValue || valuess.formattedValue.includes('_');
 
     const [username, setUserName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
@@ -48,17 +54,23 @@ export const SignUp = (): JSX.Element => {
         phone: '',
         username:''
     })
+
     const [smsCode, setSmsCode] = useState(0)
     const state = useSelector((state:RootStateOrAny) => state.auth)
     const [activeReferal, setActiveReferal] = useState(false)
 
     const onRegisterUser = async (values) => {
         try {
-            console.log('values', { values })
-            values.phone = transformPhone(values.phone)
-            const smsCode = await sendSms(values.phone)
+            const smsCode = await sendSms(valuess.phone)
             values.otpnum = smsCode.code
-            setAuthTemp(values)
+            setAuthTemp({
+                email: values.email,
+                otpnum: values.otpnum,
+                password: values.password,
+                phone:  valuess.phone,
+                username: values.username,
+            })
+            console.log(authTemp)
             setVerif(false)
 
         } catch (error) {
@@ -86,7 +98,7 @@ export const SignUp = (): JSX.Element => {
 
     const onChangeName = (e: React.ChangeEvent<HTMLInputElement>): void => setUserName(e.target.value)
     const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => setEmail(e.target.value)
-    const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)
+    // const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)
 
 
     const validateUsername = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
@@ -100,7 +112,7 @@ export const SignUp = (): JSX.Element => {
     }
 
     const validatePhone = (e: React.ChangeEvent<HTMLInputElement>, handleChange) => {
-        dispatch(checkPhone(phone))
+        dispatch(checkPhone(valuess.phone))
         handleChange(e)
     }
 
@@ -245,20 +257,21 @@ export const SignUp = (): JSX.Element => {
                                                                         </svg>
                                                                     </InputGroup.Text>
                                                                 </InputGroup.Prepend>
-                                                                <MaskedInput
-                                                                    mask={phoneNumberMask}
-                                                                    id="phone"
+                                                                <NumberFormat
                                                                     name="phone"
+                                                                    placeholder="+380 (67) 124-1234"
+                                                                    format="+380 (##) ###-####"
+                                                                    mask="_"
+                                                                    allowEmptyFormatting
                                                                     className="input-number"
-                                                                    aria-describedby="inputGroupPrepend3"
-                                                                    placeholder="Ваш номер"
-                                                                    type="tel"
                                                                     autoComplete="off"
-
-                                                                    value={phone}
+                                                                    value={valuess.phone}
+                                                                    onValueChange={({formattedValue, value}) => setValuess({
+                                                                        phone: value,
+                                                                        formattedValue
+                                                                    })}
                                                                     onFocus={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
                                                                     onBlur={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
-                                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePhone(e)}
                                                                     isInvalid={!!errors.phone}
                                                                 />
                                                                 <Form.Control.Feedback type="invalid">
@@ -306,7 +319,10 @@ export const SignUp = (): JSX.Element => {
                                                     </Form.Group>
                                                 </Form.Row>
                                                 <div className="mt-5 text-center">
-                                                    <button type="submit" className="btn btn-primary btn-register mr-2">
+                                                    <button
+                                                        disabled={nextDisabled}
+                                                        type="submit"
+                                                        className="btn btn-primary btn-register mr-2">
                                                         Зареєструватися
                                                     </button>
                                                     <p className="mt-3">
@@ -354,20 +370,21 @@ export const SignUp = (): JSX.Element => {
                                                                         </svg>
                                                                     </InputGroup.Text>
                                                                 </InputGroup.Prepend>
-                                                                <MaskedInput
-                                                                    mask={phoneNumberMask}
-                                                                    id="phone"
+                                                                <NumberFormat
                                                                     name="phone"
+                                                                    placeholder="+380 (67) 124-1234"
+                                                                    format="+380 (##) ###-####"
+                                                                    mask="_"
+                                                                    allowEmptyFormatting
                                                                     className="input-number"
-                                                                    aria-describedby="inputGroupPrepend3"
-                                                                    placeholder="Ваш номер"
-                                                                    type="tel"
                                                                     autoComplete="off"
-
-                                                                    value={phone}
+                                                                    value={valuess.phone}
+                                                                    onValueChange={({formattedValue, value}) => setValuess({
+                                                                        phone: value,
+                                                                        formattedValue
+                                                                    })}
                                                                     onFocus={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
                                                                     onBlur={(e: React.ChangeEvent<HTMLInputElement>): void => validatePhone(e, handleChange)}
-                                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangePhone(e)}
                                                                     isInvalid={!!errors.phone}
                                                                 />
                                                             </div>
@@ -382,7 +399,10 @@ export const SignUp = (): JSX.Element => {
                                                     </Form.Group>
                                                 </Form.Row>
                                                 <div className="text-center">
-                                                    <button type="button" onClick={checkCode} className="btn px-5 btn-verification">
+                                                    <button
+                                                        type="button"
+                                                        onClick={checkCode}
+                                                        className="btn px-5 btn-verification">
                                                         Верифікація
                                                     </button>
                                                 </div>
