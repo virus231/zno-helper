@@ -40,7 +40,7 @@ const phoneNumberMask = [
 export const LogIn = ():JSX.Element => {
     let history = useHistory();
     const dispatch = useDispatch()
-    const {token} = useSelector(authSelector)
+    const {token, error} = useSelector(authSelector)
     const [valuess, setValuess] = useState<FormValues>({} as FormValues)
 
     const nextDisabled = !valuess.formattedValue || valuess.formattedValue.includes('_');
@@ -67,9 +67,9 @@ export const LogIn = ():JSX.Element => {
             if(valuess.phone) {
                 console.log(valuess.phone)
                 const value = await checkValidity('phone', valuess.phone);
-                if(value.valid) {
-                    dispatch(showAlert("Такого номера не існує в системі", "error"))
-                }
+                // if(value.valid) {
+                //     dispatch(showAlert("Такого номера не існує в системі", "error"))
+                // }
                 const mainValues: FormValues = {
                     phone: valuess.phone,
                     password: values.password
@@ -78,17 +78,18 @@ export const LogIn = ():JSX.Element => {
                 dispatch(login(mainValues))
             }
         } catch(e) {
-            dispatch(showAlert("Error", "error"))
+            dispatch(showAlert({text:error,type: "error"}))
             console.log("login error", e)
         }
     }
 
     if(token) {
         history.push("/home")
-        dispatch(showAlert("Вхід успішний!", "success"))
+        dispatch(showAlert({text:"Вхід успішний!",type: "success"}))
+    } else if(error) {
+        dispatch(showAlert({text:"Телефон або пароль невірний",type: "error"}))
     }
 
-    console.log(valuess.phone)
 
     return (
         <section className="signup promo d-flex justify-content-center align-items-start pt-5">

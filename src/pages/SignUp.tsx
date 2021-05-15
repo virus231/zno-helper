@@ -61,6 +61,7 @@ export const SignUp = (): JSX.Element => {
 
     const onRegisterUser = async (values) => {
         try {
+            // console.log(valuess.phone)
             const smsCode = await sendSms(valuess.phone)
             values.otpnum = smsCode.code
             setAuthTemp({
@@ -135,14 +136,14 @@ export const SignUp = (): JSX.Element => {
             dispatch(register(authTemp))
         } catch(e) {
             console.log("e", e)
-            dispatch(showAlert("Error", "error"))
+            dispatch(showAlert({text:'Error',type:'error'}))
 
         }
     }
 
     if(token) {
         history.push("/home")
-        dispatch(showAlert("Success", "success"))
+        dispatch(showAlert({text:"Success",type: "success"}))
     }
 
 

@@ -1,6 +1,7 @@
 import BaseAxios from "axios";
 import jwtDecode , {JwtPayload} from "jwt-decode";
 import { BASE_URL, BASE_TEST_URL } from "../api/config";
+import { store } from "../store/store";
 
 export const axios = BaseAxios.create({ baseURL: BASE_URL })
 export const testAPi = BaseAxios.create({baseURL: BASE_TEST_URL})
@@ -42,12 +43,13 @@ axios.interceptors.response.use(
         return response.data
     },
     async (error) => {
-        // const { token } = store.getState().login
+        // console.log('state',{state:store})
+        const token = null
         if (
             error &&
             error.response &&
             (error.response.status === 401 || error.response.status === 403)
-            // && token
+             && token
         ) {
             // eslint-disable-next-line no-void
             // void store.dispatch(doLogout())

@@ -9,12 +9,13 @@ export default function useCopyToClipboard(resetInterval): any {
 
     const handleCopy = React.useCallback((text) => {
         if (typeof text === "string" || typeof text == "number") {
+            console.log(text)
             copy(text.toString());
             setCopied(true);
-            dispatch(showAlert("Успішно скопійовано", "success"))
+            dispatch(showAlert({text:"Успішно скопійовано",type: "success"}))
         } else {
             setCopied(false);
-            dispatch(showAlert("Виникла помилка", "error"))
+            dispatch(showAlert({text:"Виникла помилка",type: "error"}))
 
         }
     }, []);

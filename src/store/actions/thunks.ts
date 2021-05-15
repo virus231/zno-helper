@@ -10,7 +10,14 @@ export const register = createAsyncThunk<AuthResponse, RegisterBody>('register',
 
 export const login = createAsyncThunk<AuthResponse, LoginBody>(
     'login',
-    (data) => loginUser(data)
+    (data) => {
+        try {
+            return  loginUser(data)
+        }catch (e) {
+            throw new Error(e)
+        }
+
+    }
 )
 
 export const checkEmail = createAsyncThunk<CheckResponse,string>('checkEmail',
