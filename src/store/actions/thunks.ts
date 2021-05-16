@@ -39,3 +39,4 @@ export const sendSmsToPhone = createAsyncThunk<SmsResponse,string>('getSms',
 export const validateCode = createAsyncThunk<CheckCode, object>('validateCode',
     (response) => validateSms(response)
 )
+

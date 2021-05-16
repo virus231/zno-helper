@@ -1,16 +1,16 @@
 import React, {lazy, Suspense} from 'react';
 import { useSelector } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress';  
-import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
+import {Switch, Redirect, withRouter} from 'react-router-dom';
 import {ResetPassword, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest} from './pages/index'
 import SideBar from './components/SideBar/SideBar'
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Spinner } from './components/Spinner';
 import { authSelector } from './store/selectors';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { SimpleAlert } from './components/Alert/Alert';
 import './pages/main.scss'
+import PageRoute from './components/PageRoute/PageRoute';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,7 +28,7 @@ const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Ho
 
 function App(props: any) {
     const classes = useStyles();
-    const {loading} = useSelector(authSelector)
+    const {loading,token} = useSelector(authSelector)
 
     const hideSidebar = props.location.pathname !== '/duel-start'
 
@@ -41,22 +41,22 @@ function App(props: any) {
             <div className="App">
                 <SimpleAlert alert={""}/>
                 <Switch>
-                    <Route exact path="/" component={SignUp}/>
-                    <Route exact path="/login" component={LogIn}/>
-                    <Route exact path="/reset" component={ResetPassword}/>
-                    <Route exact path="/choice-subjects" component={ChoiceSubjects}/>
+                    <PageRoute exact path="/" component={SignUp} isPublic/>
+                    <PageRoute exact path="/login" component={LogIn} isPublic />
+                    <PageRoute exact path="/reset" component={ResetPassword} isPublic/>
+                    <PageRoute exact path="/choice-subjects" component={ChoiceSubjects}/>
                     <div className="d-flex align-items-center justify-content-center">
                         {hideSidebar && <SideBar/>}
-                        <Route exact path="/home" component={Home}/>
-                        <Route exact path="/duel-start" component={DuelStart}/>
-                        <Route exact path="/duel-test" component={DuelTest}/>
-                        <Route exact path="/create-test/:id" component={CreateTests}/>
-                        <Route exact path="/tests/:id" component={Tests}/>
-                        <Route exact path="/subject/:id" component={Subject}/>
-                        <Route exact path="/duel-join/:id" component={DuelJoin}/>
+                        <PageRoute exact path="/home" component={Home}/>
+                        <PageRoute exact path="/duel-start" component={DuelStart}/>
+                        <PageRoute exact path="/duel-test" component={DuelTest}/>
+                        <PageRoute exact path="/create-test/:id" component={CreateTests}/>
+                        <PageRoute exact path="/tests/:id" component={Tests}/>
+                        <PageRoute exact path="/subject/:id" component={Subject}/>
+                        <PageRoute exact path="/duel-join/:id" component={DuelJoin}/>
                     </div>
-                    <Redirect to="/signup"/>
                 </Switch>
+                <Redirect  to='/home'/>
             </div>
         </Suspense>
     );

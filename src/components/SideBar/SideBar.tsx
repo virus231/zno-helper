@@ -7,7 +7,7 @@ import {
     SidebarFooter,
     SidebarContent,
 } from "react-pro-sidebar";
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { FaList, FaRegHeart, FaUserFriends } from "react-icons/fa";
 import {FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
@@ -17,6 +17,8 @@ import "./SideBar.scss";
 import { Link } from 'react-router-dom';
 import {AiOutlineUserAdd, MdExitToApp} from "react-icons/all";
 import { authSelector } from "../../store/selectors";
+import {useHistory} from 'react-router' 
+import { logoutUser } from "../../store/reducers/auth.reducer";
 
 
 export default function SideBar():JSX.Element {
@@ -24,6 +26,8 @@ export default function SideBar():JSX.Element {
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
     };
+    const history = useHistory()
+    const dispatch = useDispatch()
     const {username} = useSelector(authSelector)
 
 
@@ -102,8 +106,12 @@ export default function SideBar():JSX.Element {
                     </p>
                     <SidebarFooter>
                         <Menu iconShape="square">
-                            <MenuItem icon={<FiLogOut />}>
-                                Вийти
+                            <MenuItem icon={<FiLogOut />} >
+                                <p onClick={() => {
+                                    console.log('loggin user out')
+                                    dispatch(logoutUser())
+                                    history.push('/')
+                                }}>Вийти</p>
                             </MenuItem>
                         </Menu>
                     </SidebarFooter>
