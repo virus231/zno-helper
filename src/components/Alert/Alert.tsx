@@ -32,12 +32,12 @@ interface Alert {
 
 export const SimpleAlert:FC<Alert> = ({alert}) => {
     const classes = useStyles();
-    const {alerts} = useSelector(alertSelector)
-    const {token, error} = useSelector(authSelector)
+    const {alerts,error} = useSelector(alertSelector)
+    const {token} = useSelector(authSelector)
     const dispatch = useDispatch()
     const color:Color = "warning"
     const alertColor:Color = alerts.type
-
+    console.log('alerts from state',alerts)
 
     if(!alerts.text) {
         return null
