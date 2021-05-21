@@ -23,11 +23,11 @@ export const ThemeCart:FC<Props> = ({theme}) => {
                 <CardBody>
                     <CardTitle>{theme.title}</CardTitle>
                     <p>{theme.descr}</p>
-                    <Button>
-                        <Link to="/test/2">
+                    <Link to="/test/2">
+                        <Button>
                             Пройти Тест
-                        </Link>
-                    </Button>
+                        </Button>
+                    </Link>
                 </CardBody>
                 <CardFooter>Card footer</CardFooter>
             </Card>

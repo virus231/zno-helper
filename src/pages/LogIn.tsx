@@ -62,7 +62,7 @@ export const LogIn = ():JSX.Element => {
                 dispatch(login(mainValues))
             }
         } catch(e) {
-            dispatch(showAlert({text:error,type: "error"}))
+            dispatch(showAlert({text: "Помилка",type: "error"}))
             console.log("login error", e)
         }
     }

@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import CloseIcon from '@material-ui/icons/Close';
 import {useDispatch, useSelector} from 'react-redux'
 import { alertSelector, authSelector } from '../../store/selectors';
-import {hideAlert, resetError } from '../../store/reducers/alert.reducer';
+import { resetError } from '../../store/reducers/alert.reducer';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,10 +37,10 @@ export const SimpleAlert:FC<Alert> = ({alert}) => {
 
     const dispatch = useDispatch()
     const color:Color = "warning"
-    const alertColor:Color = alerts.type
+    const alertColor = alerts?.type
     console.log('alerts from state',alerts)
 
-    if(!alerts.text) {
+    if(!alerts?.text) {
         return null
     }
 
@@ -48,14 +48,14 @@ export const SimpleAlert:FC<Alert> = ({alert}) => {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(hideAlert())
+        dispatch(resetError())
     };
 
 
     return (
         <div className={classes.root}>
             <Snackbar open={visible} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={alertColor??color}>
+                <Alert onClose={handleClose} severity={color}>
                     {alerts.text}
                 </Alert>
             </Snackbar>
