@@ -2,6 +2,7 @@ import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { CheckResponse, Validation } from "../../utils/interfaces";
 import { checkEmail, checkPhone, checkUsername } from "../actions/thunks";
 import { defaultError } from './auth.reducer'
+
 const initialState: Validation = {
     emailValid: true,
     phoneValid: true,

@@ -51,7 +51,7 @@ function CreateTests({match: {params}}): JSX.Element {
                 setTagOptions([])
                 return
             }
-            const queriedTags = await getTagsByFirstChatacters({ subject: 'MATHEMATICS', query })
+            const queriedTags = await getTagsByFirstChatacters({ subject: params.id, query })
             setTagOptions(queriedTags.map(el => el.title))
             console.log('queried tags', queriedTags)
         } catch (error) {
@@ -62,7 +62,7 @@ function CreateTests({match: {params}}): JSX.Element {
     const publishTest = async () => {
         try {
             const test = transformTestWrapToFormat(testWrap)
-            const res =   await  dispatch(createTestWrap(test))
+            const res = await dispatch(createTestWrap(test))
               console.log('test',res)    
         } catch (e) {
             console.log('testWrapError',e)
@@ -121,7 +121,7 @@ function CreateTests({match: {params}}): JSX.Element {
         const tests = [...testWrap.tests].map((test) => test.id === id ? ({
             ...test, title: {
                 type: 'TEXT',
-                text:title,
+                text: title,
         } }) : test)
         setTestsHelper(tests)
     }

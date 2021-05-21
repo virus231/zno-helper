@@ -19,6 +19,7 @@ import {AiOutlineUserAdd, MdExitToApp} from "react-icons/all";
 import { authSelector } from "../../store/selectors";
 import {useHistory} from 'react-router' 
 import { logoutUser } from "../../store/reducers/auth.reducer";
+import { showAlert } from "../../store/actions/alerts.actions";
 
 
 export default function SideBar():JSX.Element {
@@ -30,6 +31,11 @@ export default function SideBar():JSX.Element {
     const dispatch = useDispatch()
     const {username} = useSelector(authSelector)
 
+    const logOut = () => {
+        dispatch(logoutUser())
+        history.push('/login')
+        dispatch(showAlert({text: 'Вихід з системи', type: 'success'}))
+    }
 
     return (
         <>
@@ -59,18 +65,8 @@ export default function SideBar():JSX.Element {
                                 </Link>
                             </MenuItem>
                             <MenuItem icon={<FaUserFriends />}>
-                                <Link to="/home">
-                                    Друзі
-                                </Link>
-                            </MenuItem>
-                            <MenuItem icon={<FaUserFriends />}>
                                 <Link to="/duel-start">
                                     Дуель
-                                </Link>
-                            </MenuItem>
-                            <MenuItem icon={<AiOutlineUserAdd />}>
-                                <Link to="/home">
-                                    Запросити друга
                                 </Link>
                             </MenuItem>
                             <MenuItem icon={<FiSettings />}>
@@ -107,11 +103,7 @@ export default function SideBar():JSX.Element {
                     <SidebarFooter>
                         <Menu iconShape="square">
                             <MenuItem icon={<FiLogOut />} >
-                                <p onClick={() => {
-                                    console.log('loggin user out')
-                                    dispatch(logoutUser())
-                                    history.push('/')
-                                }}>Вийти</p>
+                                <p onClick={logOut}>Вийти</p>
                             </MenuItem>
                         </Menu>
                     </SidebarFooter>

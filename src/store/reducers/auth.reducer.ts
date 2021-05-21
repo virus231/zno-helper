@@ -15,6 +15,7 @@ const initialState: AuthResponse & StateHadnlers = {
 
 export const defaultError = 'Something went wrong!'
 export const logoutUser = createAction('logout')
+
 export default createReducer(initialState, builder =>
     builder.addCase(register.pending, (state) => {
         state.loading = true
@@ -22,7 +23,6 @@ export default createReducer(initialState, builder =>
     })
         .addCase(register.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
-            console.log('Registered',action.payload)
             const { token, id, email, username, roles } = action.payload
             state.loading = false
             state.error = null
@@ -40,7 +40,6 @@ export default createReducer(initialState, builder =>
         })
         .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
-            console.log(action)
             const {token, email, username} = action.payload
             state.token = token
             state.username = username
@@ -66,16 +65,12 @@ export default createReducer(initialState, builder =>
         })
     
         .addCase(logoutUser, state => {
-            console.log('state before',state)
             state.email = ''
             state.error = null
             state.id = 0
             state.token = ''
             state.roles = []
             state.loading = false
-            console.log('state after',state)
             localStorage.removeItem('userData')
         })
-
-
 )

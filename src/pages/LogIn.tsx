@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import {transformPhone} from '../helpers/authHelpers'
-import {authSelector} from "../store/selectors";
+import {authSelector, alertSelector} from "../store/selectors";
 import { showAlert } from "../store/actions/alerts.actions";
 import { checkValidity } from "../api/authApi";
 
@@ -19,28 +19,12 @@ interface FormValues {
     password: string;
 }
 
-const phoneNumberMask = [
-    "(",
-    /[1-10]/,
-    /\d/,
-    /\d/,
-    ")",
-    " ",
-    /\d/,
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/
-];
-
 
 export const LogIn = ():JSX.Element => {
     let history = useHistory();
     const dispatch = useDispatch()
     const {token, error} = useSelector(authSelector)
+    // const {errorAlert} = useSelector(alertSelector)
     const [valuess, setValuess] = useState<FormValues>({} as FormValues)
 
     const nextDisabled = !valuess.formattedValue || valuess.formattedValue.includes('_');
@@ -84,6 +68,7 @@ export const LogIn = ():JSX.Element => {
     }
 
     if(token) {
+        console.log(token)
         history.push("/home")
         dispatch(showAlert({text:"Вхід успішний!",type: "success"}))
     } else if(error) {

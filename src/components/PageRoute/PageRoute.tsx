@@ -11,7 +11,6 @@ interface Props extends RouteProps {
 
 const PageRoute: FC<Props> = ({ component: Component,isPublic = false, ...rest }) => {
     const { token } = useSelector(authSelector)
-    console.log('got token',{token})
 
     if(!isPublic)
     return(

@@ -4,7 +4,7 @@ export interface AuthResponse {
     email: string,
     username: string,
     roles: string[]
-    isAuth?:string
+    isAuth?: string
 }
 
 
@@ -210,5 +210,5 @@ export interface AddTestData {
 
 export interface GetTagsData{
     subject: string,
-    query:string
+    query: string
 }

@@ -1,4 +1,5 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
+import { TestWrap } from "../../utils/interfaces";
 import {
   fetchAllTests, fetchTagsByFirstChatacters, fetchTestsById,
   fetchTestsBySubject, fetchTestsByUserId, addTestToTestWrap,
@@ -6,30 +7,24 @@ import {
 } from "../actions/tests.actions";
 
 
-const initialState = {
-    email: '',
-    id: 0,
-    roles: [],
-    token: '',
-    username: '',
-    error: null,
-    loading: false
+const initialState: TestWrap = {
+    userId: 0,
+    title: "",
+    subject: "",
+    tests: [],
+    tags: null,
 }
 
 
-export const defaultError = 'Somthing went wrong!'
+export const defaultError = 'Something went wrong!'
 
 export default createReducer(initialState, builder =>
-  builder.addCase(fetchAllTests.pending, state => {
-     
+  builder.addCase(createTestWrap.pending, state => {
   })
-    .addCase(fetchAllTests.fulfilled, (state, { payload }) => {
-    
+    .addCase(createTestWrap.fulfilled, (state, { payload }) => {
+        console.log("payload", payload)
     })
-    .addCase(fetchAllTests.rejected, (state, { error }) => {
-      
+    .addCase(createTestWrap.rejected, (state, { error }) => {
+        console.log("error", error)
     })
-  
-
-
 )
