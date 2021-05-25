@@ -2,7 +2,7 @@ import React, {lazy, Suspense} from 'react';
 import { useSelector } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress';  
 import {Switch, Redirect, withRouter} from 'react-router-dom';
-import {ResetPassword, Subject, Tests, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest, Test} from './pages/index'
+import {ResetPassword, Subject, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest, Test, Tests} from './pages/index'
 import SideBar from './components/SideBar/SideBar'
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -25,12 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
 const SignUp = lazy(() => import('./pages/SignUp').then(({ SignUp }) => ({ default: SignUp })))
 const LogIn = lazy(() => import('./pages/LogIn').then(({ LogIn }) => ({ default: LogIn })))
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+// const Tests = lazy(() => import('./pages/Tests').then(({ Tests }) => ({ default: Tests })))
+// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 
 function App(props: any) {
     const classes = useStyles();
     const {loading,token} = useSelector(authSelector)
 
     const hideSidebar = props.location.pathname !== '/duel-start'
+    const hdSidebar = props.location.pathname !== '/test/:id'
+    console.log(props)
 
     return (
         <Suspense fallback={<Spinner/>}>
@@ -44,7 +52,7 @@ function App(props: any) {
                     <PageRoute exact path="/login" component={LogIn} isPublic />
                     <PageRoute exact path="/reset" component={ResetPassword} isPublic/>
                     <PageRoute exact path="/choice-subjects" component={ChoiceSubjects}/>
-                    <div className=" align-items-center justify-content-center">
+                    <div className="">
                         {hideSidebar && <SideBar/>}
                         <PageRoute exact path="/home" component={Home}/>
                         <PageRoute exact path="/duel-start" component={DuelStart}/>

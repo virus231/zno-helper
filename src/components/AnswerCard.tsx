@@ -52,7 +52,7 @@ const AnswerCard: React.FC<Props> = ({question, answers, callback, userAnswer, q
 }
 
 export const Wrapper = styled.div`
-  max-width: 1100px;
+  //max-width: 1100px;
   background: #ebfeff;
   border-radius: 10px;
   border: 2px solid #0085a3;

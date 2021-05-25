@@ -1,10 +1,13 @@
+import CircularProgress from '@material-ui/core/CircularProgress'
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import {Difficulty, fetchQuizQuestions, QuestionState } from '../api/testsApi'
+import {fetchQuizQuestions } from '../api/testsApi'
 import AnswerCard from '../components/AnswerCard'
 import Question from '../components/Question'
 import { Spinner } from '../components/Spinner'
+import background from '../assets/images/test-bg.jpg'
+import {Difficulty,QuestionState} from '../utils/interfaces'
 
 
 export type AnswerObject = {
@@ -70,13 +73,14 @@ function Test() {
 
 
     return (
-        <section className="test d-flex align-items-center justify-content-center">
+        <section style={{ backgroundImage: `url(${background})` }} className="test d-flex align-items-center justify-content-center">
             <Container>
                 <Row>
                     <Col lg={{ span: 10, offset: 2}}>
                         <div className="text-center wrapper-test p-5">
-                            <h1>Питання</h1>
-                            <h3>Тест по:</h3>
+                            <h1 className="text-white">Питання</h1>
+                            <h3 className="text-white">Тест по:</h3>
+                            {userAnswers.length === TOTAL_QUESTIONS ? "Вже 10 питання": ""}
                             {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
                                 <button
                                     className="btn btn-primary"
@@ -86,8 +90,8 @@ function Test() {
                                 </button>
                             ) : null}
 
-                            {!gameOver ? <p className="score">Балів: {score} </p> : null }
-                            {loading ? <Spinner/> : null}
+                            {!gameOver ? <p className="score text-white">Балів: {score} </p> : null }
+                            {loading ? <CircularProgress color="secondary" /> : null}
                             { !loading && !gameOver && (
                                 <AnswerCard
                                     questionNumber={number + 1}
@@ -99,7 +103,7 @@ function Test() {
                                 />) }
                             { !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
                                 <button
-                                    className="next"
+                                    className="btn btn-primary mt-5"
                                     onClick={nextQuestion}
                                 >
                                     Наступне запитання

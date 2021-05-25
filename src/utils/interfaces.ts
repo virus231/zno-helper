@@ -221,3 +221,20 @@ export type Question = {
     question: string;
     type: string;
 }
+
+export type QuestionState = Question & { answers: string[] }
+export enum Difficulty {
+    EASY = "easy",
+    MEDIUM = "medium",
+    HARD = "hard"
+}
+
+export  interface Subjects {
+    subjects: GetSubject[]
+}
+
+export interface GetSubject {
+    id: string,
+    subject: string,
+    title: string
+}

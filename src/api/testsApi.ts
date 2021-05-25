@@ -1,19 +1,11 @@
 import { testAPi } from "../utils/axios";
-import { AddTestData, GetTagsData, TestWrap ,ESubject, Tag, Question} from "../utils/interfaces";
+import { AddTestData, GetTagsData, TestWrap ,ESubject, Tag, Question, Difficulty} from "../utils/interfaces";
 
 export const shuffleArray = (array: any[]) => {
     return [...array].sort(() => Math.random() - 0.5)
 }
 
 
-
-export type QuestionState = Question & { answers: string[] }
-
-export enum Difficulty {
-    EASY = "easy",
-    MEDIUM = "medium",
-    HARD = "hard"
-}
 
 export const fetchQuizQuestions = async (amount: number, difficulty: Difficulty) => {
     const endpoint = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`

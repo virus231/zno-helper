@@ -29,7 +29,6 @@ export const ThemeCart:FC<Props> = ({theme}) => {
                         </Button>
                     </Link>
                 </CardBody>
-                <CardFooter>Card footer</CardFooter>
             </Card>
         </Col>
     );
