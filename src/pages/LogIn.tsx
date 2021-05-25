@@ -3,14 +3,14 @@ import {Link, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import NumberFormat from 'react-number-format';
 import { Formik, Field, ErrorMessage } from 'formik';
-import {checkPhone, login} from '../store/actions/thunks'
+import {checkPhone, getUser, login} from '../store/actions/thunks'
 import * as Yup from "yup";
 import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
 import {transformPhone} from '../helpers/authHelpers'
 import {authSelector, alertSelector} from "../store/selectors";
 import { showAlert } from "../store/actions/alerts.actions";
-import { checkValidity } from "../api/authApi";
+import { checkValidity, getCurrentUser } from "../api/authApi";
 
 
 interface FormValues {
@@ -43,7 +43,6 @@ export const LogIn = ():JSX.Element => {
         password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     })
 
-
     type User = Yup.InferType<typeof userSchema>;
 
     async function onLogInUser(values) {
@@ -60,6 +59,11 @@ export const LogIn = ():JSX.Element => {
                 }
                 console.log(mainValues)
                 dispatch(login(mainValues))
+                dispatch(getUser())
+                setTimeout(() => {
+                    dispatch(showAlert({text: "Вхід успішний",type: "success"}))
+                }, 900);
+
             }
         } catch(e) {
             dispatch(showAlert({text: "Помилка",type: "error"}))
@@ -68,7 +72,6 @@ export const LogIn = ():JSX.Element => {
     }
 
     if(token) {
-        console.log(token)
         history.push("/home")
         dispatch(showAlert({text:"Вхід успішний!",type: "success"}))
     } else if(error) {

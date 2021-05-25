@@ -37,8 +37,8 @@ export const SimpleAlert:FC<Alert> = ({alert}) => {
 
     const dispatch = useDispatch()
     const color:Color = "warning"
-    const alertColor = alerts?.type
-    console.log('alerts from state',alerts)
+    // @ts-ignore
+    const alertColor:Color = alerts?.type
 
     if(!alerts?.text) {
         return null
@@ -55,7 +55,7 @@ export const SimpleAlert:FC<Alert> = ({alert}) => {
     return (
         <div className={classes.root}>
             <Snackbar open={visible} autoHideDuration={5000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={color}>
+                <Alert onClose={handleClose} severity={alertColor??color}>
                     {alerts.text}
                 </Alert>
             </Snackbar>

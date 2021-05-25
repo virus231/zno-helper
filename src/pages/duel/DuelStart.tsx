@@ -129,7 +129,7 @@ function DuelStart(props: any):JSX.Element {
 
 
     return (
-        <section className="duel">
+        <section className="duel" style={{marginTop: '-48px'}}>
             <Container fluid>
                 <Row className="my-5">
                     <Col lg={{span: 5}}>

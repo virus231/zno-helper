@@ -1,6 +1,6 @@
 import { createAction, createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { AuthResponse, StateHadnlers } from "../../utils/interfaces";
-import { checkEmail, login, register, sendSmsToPhone } from "../actions/thunks";
+import { checkEmail, getUser, login, register, sendSmsToPhone } from "../actions/thunks";
 
 const initialState: AuthResponse & StateHadnlers = {
     email: '',
@@ -62,9 +62,7 @@ export default createReducer(initialState, builder =>
         .addCase(sendSmsToPhone.rejected, (state, { error }) => {
             state.loading = false
             state.error = error.message ?? defaultError
-        })
-    
-        .addCase(logoutUser, state => {
+        }).addCase(logoutUser, state => {
             state.email = ''
             state.error = null
             state.id = 0
@@ -72,5 +70,11 @@ export default createReducer(initialState, builder =>
             state.roles = []
             state.loading = false
             localStorage.removeItem('userData')
-        })
+        }).addCase(getUser.fulfilled, (state, {payload}) => {
+            console.log("getUser", payload)
+    }).addCase(getUser.rejected, (state, {error}) => {
+        console.log("getUser", error)
+    }).addCase(getUser.pending, (state) => {
+        console.log("getUser", state)
+    })
 )

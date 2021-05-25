@@ -52,6 +52,19 @@ export interface Validation {
     loading:boolean
 }
 
+export interface CurrentUser {
+    active: boolean,
+    avatar: string,
+    email: string,
+    id: number,
+    online: boolean,
+    password: string,
+    premium: boolean,
+    referral?: string,
+    role?: string[],
+    username: string
+}
+
 // Subjects
 export enum ESubject {
     GEOGRAPHY,

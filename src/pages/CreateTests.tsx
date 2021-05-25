@@ -12,6 +12,7 @@ import {
     InputGroupAddon,
     Collapse
 } from "shards-react";
+import { useHistory } from "react-router-dom";
 import CreateSingleAnswer from "../components/create-test-templates/CreateSingleAnswer"
 import CreateMultiAnswer from "../components/create-test-templates/CreateMultiAnswer";
 import CreateBooleanAnswer from "../components/create-test-templates/CreateBooleanAnswer";
@@ -25,6 +26,7 @@ import { testTypes } from "../utils/constants";
 import { transformTestWrapToFormat } from "../helpers/testHelpers";
 import {useDispatch} from 'react-redux'
 import { createTestWrap } from "../store/actions/tests.actions";
+import { showAlert } from "../store/actions/alerts.actions";
 
 
 function CreateTests({match: {params}}): JSX.Element {
@@ -39,6 +41,7 @@ function CreateTests({match: {params}}): JSX.Element {
         subject: params.id,
         userId: 10
     })
+    let history = useHistory();
     const [tagOptions, setTagOptions] = React.useState<string[]>([])
     const dispatch = useDispatch()
     const [currentTagQuery,setCurrentTagQuery] = React.useState('')
@@ -63,7 +66,9 @@ function CreateTests({match: {params}}): JSX.Element {
         try {
             const test = transformTestWrapToFormat(testWrap)
             const res = await dispatch(createTestWrap(test))
-              console.log('test',res)    
+            dispatch(showAlert({text: "Тест створений", type: "success"}))
+            history.push(`/tests/${params.id}`);
+
         } catch (e) {
             console.log('testWrapError',e)
         }
