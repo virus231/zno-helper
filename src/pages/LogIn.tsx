@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {Link, useHistory} from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useState } from "react";
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import NumberFormat from 'react-number-format';
 import { Formik, Field, ErrorMessage } from 'formik';
-import {checkPhone, getUser, login} from '../store/actions/thunks'
+import { checkPhone, getUser, login } from '../store/actions/thunks'
 import * as Yup from "yup";
-import {Container, Row, Col, InputGroup, Form} from 'react-bootstrap';
+import { Container, Row, Col, InputGroup, Form } from 'react-bootstrap';
 import MaskedInput from "react-text-mask";
-import {transformPhone} from '../helpers/authHelpers'
-import {authSelector, alertSelector} from "../store/selectors";
+import { transformPhone } from '../helpers/authHelpers'
+import { authSelector, alertSelector } from "../store/selectors";
 import { showAlert } from "../store/actions/alerts.actions";
 import { checkValidity, getCurrentUser } from "../api/authApi";
 
@@ -20,10 +20,10 @@ interface FormValues {
 }
 
 
-export const LogIn = ():JSX.Element => {
+export const LogIn = (): JSX.Element => {
     let history = useHistory();
     const dispatch = useDispatch()
-    const {token, error} = useSelector(authSelector)
+    const { token, error } = useSelector(authSelector)
     // const {errorAlert} = useSelector(alertSelector)
     const [valuess, setValuess] = useState<FormValues>({} as FormValues)
 
@@ -47,7 +47,7 @@ export const LogIn = ():JSX.Element => {
 
     async function onLogInUser(values) {
         try {
-            if(valuess.phone) {
+            if (valuess.phone) {
                 console.log(valuess.phone)
                 const value = await checkValidity('phone', valuess.phone);
                 // if(value.valid) {
@@ -59,23 +59,22 @@ export const LogIn = ():JSX.Element => {
                 }
                 console.log(mainValues)
                 dispatch(login(mainValues))
-                dispatch(getUser())
                 setTimeout(() => {
-                    dispatch(showAlert({text: "Вхід успішний",type: "success"}))
+                    dispatch(showAlert({ text: "Вхід успішний", type: "success" }))
                 }, 900);
 
             }
-        } catch(e) {
-            dispatch(showAlert({text: "Помилка",type: "error"}))
+        } catch (e) {
+            dispatch(showAlert({ text: "Помилка", type: "error" }))
             console.log("login error", e)
         }
     }
 
-    if(token) {
+    if (token) {
         history.push("/home")
-        dispatch(showAlert({text:"Вхід успішний!",type: "success"}))
-    } else if(error) {
-        dispatch(showAlert({text:"Телефон або пароль невірний",type: "error"}))
+        dispatch(showAlert({ text: "Вхід успішний!", type: "success" }))
+    } else if (error) {
+        dispatch(showAlert({ text: "Телефон або пароль невірний", type: "error" }))
     }
 
 
@@ -128,7 +127,7 @@ export const LogIn = ():JSX.Element => {
                                                         className="input-number"
                                                         autoComplete="off"
                                                         value={valuess.phone}
-                                                        onValueChange={({formattedValue, value}) => setValuess({
+                                                        onValueChange={({ formattedValue, value }) => setValuess({
                                                             phone: value,
                                                             password: "",
                                                             formattedValue

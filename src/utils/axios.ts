@@ -1,42 +1,48 @@
 import BaseAxios from "axios";
-import jwtDecode , {JwtPayload} from "jwt-decode";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import { BASE_URL, BASE_TEST_URL } from "../api/config";
 import { store } from "../store/store";
 
 export const axios = BaseAxios.create({ baseURL: BASE_URL })
-export const testAPi = BaseAxios.create({baseURL: BASE_TEST_URL})
+export const testAPi = BaseAxios.create({ baseURL: BASE_TEST_URL })
 const whiteList = ['auth',]
 
 const inWhiteList = (url: string): boolean => {
     const match = whiteList.find((i) => url.includes(i))
     return !!match
 }
-    
+
 export const tokenValid = (token?: string): boolean => {
-    if(!token) return false
+    if (!token) return false
     try {
         const currentDate = new Date()
         const { exp }: JwtPayload = jwtDecode(token)
-        if(exp === undefined) return false
+        if (exp === undefined) return false
         return !(exp * 1000 < currentDate.getTime())
     } catch (error) {
         return false
     }
 }
 
-axios.interceptors.request.use(
-    async (request) => {
-        if (!inWhiteList(request.url ?? '')) {
-            const newRequest = { ...request }
-            return newRequest
-        }
+export const setAxiosInterceptor = (token) => {
+    axios.interceptors.request.use(
+        async (request) => {
 
-        return request
-    },
-    (error) => {
-        return Promise.reject(error)
-    },
-)
+            if (!inWhiteList(request.url ?? '')) {
+                const newRequest = { ...request }
+                newRequest.headers.Authorization = 'Bearer ' + token
+                return newRequest
+            }
+
+            return request
+        },
+        (error) => {
+            return Promise.reject(error)
+        },
+    )
+}
+
+
 
 axios.interceptors.response.use(
     (response) => {
@@ -49,7 +55,7 @@ axios.interceptors.response.use(
             error &&
             error.response &&
             (error.response.status === 401 || error.response.status === 403)
-             && token
+            && token
         ) {
             // eslint-disable-next-line no-void
             // void store.dispatch(doLogout())
