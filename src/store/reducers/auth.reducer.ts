@@ -27,7 +27,7 @@ export default createReducer(initialState, builder =>
             state.loading = false
             state.error = null
             state.token = token
-            localStorage.setItem('userData',JSON.stringify({token}))
+            localStorage.setItem('userData', JSON.stringify({ token }))
             state.username = username
         })
         .addCase(register.rejected, (state, { error }) => {
@@ -40,7 +40,7 @@ export default createReducer(initialState, builder =>
         })
         .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
-            const {token, email, username} = action.payload
+            const { token, email, username } = action.payload
             state.token = token
             state.username = username
             state.loading = false
@@ -70,11 +70,11 @@ export default createReducer(initialState, builder =>
             state.roles = []
             state.loading = false
             localStorage.removeItem('userData')
-        }).addCase(getUser.fulfilled, (state, {payload}) => {
-            console.log("getUser", payload)
-    }).addCase(getUser.rejected, (state, {error}) => {
-        console.log("getUser", error)
-    }).addCase(getUser.pending, (state) => {
-        console.log("getUser", state)
-    })
+        }).addCase(getUser.fulfilled, (state, { payload }) => {
+            console.log("getUser", payload.id)
+        }).addCase(getUser.rejected, (state, { error }) => {
+            console.log("getUser", error)
+        }).addCase(getUser.pending, (state) => {
+            console.log("getUser", state)
+        })
 )
