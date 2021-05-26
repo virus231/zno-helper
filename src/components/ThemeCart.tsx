@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import {
     Col,
     Card,
-    CardHeader,
     CardTitle,
     CardImg,
     CardBody,
-    CardFooter,
     Button
 } from "shards-react";
 
@@ -23,7 +21,7 @@ export const ThemeCart:FC<Props> = ({theme}) => {
                 <CardBody>
                     <CardTitle>{theme.title}</CardTitle>
                     <p>{theme.descr}</p>
-                    <Link to="/test/2">
+                    <Link to={`/test/${theme.subject}/${theme.title}`}>
                         <Button>
                             Пройти Тест
                         </Button>

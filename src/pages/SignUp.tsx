@@ -18,22 +18,7 @@ interface FormValues {
     phone: string;
     formattedValue?: string
 }
-const phoneNumberMask = [
-    "(",
-    /[1-10]/,
-    /\d/,
-    /\d/,
-    ")",
-    " ",
-    /\d/,
-    /\d/,
-    /\d/,
-    "-",
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/
-];
+
 
 export const SignUp = (): JSX.Element => {
     const dispatch = useDispatch()

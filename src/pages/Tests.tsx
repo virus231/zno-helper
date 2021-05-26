@@ -21,10 +21,11 @@ function Tests({match: {params: {id}}}){
     React.useEffect(() => {
         const getTests = async () => {
             setLoading(true)
-            const testsResponse = await getTestsBySubject(id);
+            const testsResponse = await getTestsBySubject(id.toUpperCase());
             // @ts-ignore
             setTests(testsResponse)
             setLoading(false)
+            console.log(testsResponse)
 
         }
         getTests()

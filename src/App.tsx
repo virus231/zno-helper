@@ -65,7 +65,7 @@ function App(props: any) {
                         <PageRoute exact path="/duel-test" component={DuelTest}/>
                         <PageRoute exact path="/create-test/:id" component={CreateTests}/>
                         <PageRoute exact path="/tests/:id" component={Tests}/>
-                        <PageRoute exact path="/test/:id" component={Test}/>
+                        <PageRoute exact path="/test/:subject/:title" component={Test}/>
                         <PageRoute exact path="/subject/:id" component={Subject}/>
                         <PageRoute exact path="/duel-join/:id" component={DuelJoin}/>
                     </div>

@@ -1,13 +1,14 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import {withRouter} from "react-router-dom"
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import {fetchQuizQuestions } from '../api/testsApi'
+import {fetchQuizQuestions, getTestsBySubject } from '../api/testsApi'
 import AnswerCard from '../components/AnswerCard'
 import Question from '../components/Question'
 import { Spinner } from '../components/Spinner'
 import background from '../assets/images/test-bg.jpg'
-import {Difficulty,QuestionState} from '../utils/interfaces'
+import {Difficulty,QuestionState, TestWrap} from '../utils/interfaces'
 
 
 export type AnswerObject = {
@@ -19,13 +20,36 @@ export type AnswerObject = {
 
 const TOTAL_QUESTIONS = 10;
 
-function Test() {
+function Test({match: {params: {subject}}}) {
     const [loading, setLoading] = useState(false)
+    const [tests, setTests] = useState<TestWrap[]>([])
     const [questions, setQuestions] = useState<QuestionState[]>([])
-    const [number, setNumber] = useState(0)
     const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
     const [score, setScore ] = useState(0)
+    const [number, setNumber] = useState(0)
+
     const [gameOver, setGameOver] = useState(true)
+
+    useEffect(() => {
+        const getTests = async () => {
+            setLoading(true)
+            const testsResponse = await getTestsBySubject(subject);
+            console.log(testsResponse)
+            // @ts-ignore
+            testsResponse.map(({tests}) => {
+                setTests(tests)
+            })
+            setLoading(false)
+        }
+        getTests()
+        
+    },[])
+
+    if(!tests) {
+        return (
+            <p>Loading</p>
+        )
+    }
 
 
     const startTrivial = async () => {
@@ -71,6 +95,8 @@ function Test() {
         }
     }
 
+    
+
 
     return (
         <section style={{ backgroundImage: `url(${background})` }} className="test d-flex align-items-center justify-content-center">
@@ -78,6 +104,7 @@ function Test() {
                 <Row>
                     <Col lg={{ span: 10, offset: 2}}>
                         <div className="text-center wrapper-test p-5">
+                            
                             <h1 className="text-white">Питання</h1>
                             <h3 className="text-white">Тест по:</h3>
                             {userAnswers.length === TOTAL_QUESTIONS ? "Вже 10 питання": ""}
@@ -94,12 +121,7 @@ function Test() {
                             {loading ? <CircularProgress color="secondary" /> : null}
                             { !loading && !gameOver && (
                                 <AnswerCard
-                                    questionNumber={number + 1}
-                                    totalQuestions={TOTAL_QUESTIONS}
-                                    question={questions[number].question}
-                                    answers={questions[number].answers}
-                                    userAnswer={userAnswers ? userAnswers[number] : undefined}
-                                    callback={checkAnswer}
+                                    question={tests}
                                 />) }
                             { !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
                                 <button
@@ -119,4 +141,4 @@ function Test() {
     )
 }
 
-export default Test
+export default withRouter(Test)

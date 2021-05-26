@@ -1,36 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AnswerObject } from '../pages/Test';
+import { Test } from '../utils/interfaces';
 
 type Props = {
-    question: string;
-    answers: string[];
-    callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    userAnswer: AnswerObject | undefined;
-    questionNumber: number;
-    totalQuestions: number;
+    question: any;
 }
 
 
-const AnswerCard: React.FC<Props> = ({question, answers, callback, userAnswer, questionNumber, totalQuestions}) => {
+const AnswerCard: React.FC<Props> = ({question}) => {
+    console.log(question)
         return (
             <>
-                {/*<ul className="answers">*/}
-                {/*    <li className="correct">asd</li>*/}
-                {/*    <li className="incorrect">asd</li>*/}
-                {/*    <li>asd</li>*/}
-                {/*    <li>asd</li>*/}
+                <ul className="answers">
+                        
+                   {/* <li className="correct">asd</li>
+                   <li className="incorrect">asd</li>
+                   <li>asd</li>
+                   <li>asd</li> */}
 
-                {/*</ul>*/}
+                </ul>
                 {/*<div>*/}
                 {/*    {*/}
                 {/*        props.correctAnswer ?*/}
                 {/*        'Правильно Відповідь!' : */}
                 {/*        props.clickedAnswer ? 'Неправильна відповідь!' : ''*/}
                 {/*    }*/}
-                {/*</div>*/}
+                {/*</div>
                 <Wrapper>
-                    <p className="number">
+                    {/* <p className="number">
                         Питання: {questionNumber} / {totalQuestions}
                     </p>
                     <p dangerouslySetInnerHTML={{ __html: question }}/>
@@ -45,7 +43,7 @@ const AnswerCard: React.FC<Props> = ({question, answers, callback, userAnswer, q
                                 </button>
                             </ButtonWrapper>
                         ))}
-                    </div>
+                    </div> */}
                 </Wrapper>
             </>
         );

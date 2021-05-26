@@ -84,6 +84,7 @@ interface TestBlock {
 
 export interface TestWrap
 {
+    id?: string
     title: string,
     subject: string,
     userId: number,

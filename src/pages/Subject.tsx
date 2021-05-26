@@ -6,16 +6,13 @@ import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
 
 function Subject({match:{params}}) {
 
-
-
-
     return (
         <section className="subjects mt-5">
             <Container>
                 <Row>
                     <Col lg="4">
                         <h3>
-                            {params.id}
+                            {params.id.toUpperCase()}
                         </h3>
                     </Col>
                 </Row>
