@@ -27,6 +27,7 @@ export default createReducer(initialState, builder =>
             state.loading = false
             state.error = null
             state.token = token
+            state.email = email
             localStorage.setItem('userData', JSON.stringify({ token }))
             state.username = username
         })
@@ -42,6 +43,7 @@ export default createReducer(initialState, builder =>
             // state = { ...action.payload, ...state }
             const { token, email, username } = action.payload
             state.token = token
+            state.email = email
             state.username = username
             state.loading = false
             state.error = null

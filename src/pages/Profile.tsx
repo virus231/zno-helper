@@ -1,156 +1,107 @@
 import React from 'react'
 import {Col, Container, Row} from "react-bootstrap"
+import { useSelector } from 'react-redux'
+import { authSelector } from '../store/selectors'
 
 export const Profile = () => {
+    const {username, email} = useSelector(authSelector)
+    const [name,setName] = React.useState(username)
+
     return (
-        <section>
-            <div className="container emp-profile">
-                <form method="post">
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="profile-img">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
-                                <div className="file btn btn-lg btn-primary">
-                                    Change Photo
-                                    <input type="file" name="file"/>
+        <section className="min-vh-100 d-flex justify-content-center align-items-center">
+            <div className="container">
+                <div className="main-body ">
+                    <div className="row ">
+                        <div className="col-lg-4">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="d-flex flex-column align-items-center text-center">
+                                        <img
+                                            src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                            alt="Admin"
+                                            className="rounded-circle p-1 bg-primary"
+                                            width="110"/>
+                                        <div className="mt-3">
+                                            <h4>{username}</h4>
+                                            <p className="text-secondary mb-1">Full Stack Developer</p>
+                                            <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                            <button className="btn btn-primary mr-2">Follow</button>
+                                            <button className="btn btn-outline-primary">Message</button>
+                                        </div>
+                                    </div>
+                                    <hr className="my-4"/>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="profile-head">
-                                <h5>
-                                    Kshiti Ghelani
-                                </h5>
-                                <h6>
-                                    Web Developer and Designer
-                                </h6>
-                                <p className="proile-rating">RANKINGS : <span>8/10</span></p>
-                                <ul className="nav nav-tabs" id="myTab" role="tablist">
-                                    <li className="nav-item">
-                                        <a className="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-md-2">
-                            <input type="submit" className="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-4">
-                            <div className="profile-work">
-                                <p>WORK LINK</p>
-                                <a href="">Website Link</a><br/>
-                                <a href="">Bootsnipp Profile</a><br/>
-                                <a href="">Bootply Profile</a>
-                                <p>SKILLS</p>
-                                <a href="">Web Designer</a><br/>
-                                <a href="">Web Developer</a><br/>
-                                <a href="">WordPress</a><br/>
-                                <a href="">WooCommerce</a><br/>
-                                <a href="">PHP, .Net</a><br/>
-                            </div>
-                        </div>
-                        <div className="col-md-8">
-                            <div className="tab-content profile-tab" id="myTabContent">
-                                <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>User Id</label>
+                        <div className="col-lg-8">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Full Name</h6>
                                         </div>
-                                        <div className="col-md-6">
-                                            <p>Kshiti123</p>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input onChange={e => setName(e.target.value)}
+                                                   type="text"
+                                                   className="form-control"
+                                                   value={name}/>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Name</label>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Email</h6>
                                         </div>
-                                        <div className="col-md-6">
-                                            <p>Kshiti Ghelani</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Email</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>kshitighelani@gmail.com</p>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control" value={email}/>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Phone</label>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Phone</h6>
                                         </div>
-                                        <div className="col-md-6">
-                                            <p>123 456 7890</p>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control" value="(239) 816-9029"/>
                                         </div>
                                     </div>
+                                    {/*<div className="row mb-3">*/}
+                                    {/*    <div className="col-sm-3">*/}
+                                    {/*        <h6 className="mb-0">Mobile</h6>*/}
+                                    {/*    </div>*/}
+                                    {/*    <div className="col-sm-9 text-secondary">*/}
+                                    {/*        <input type="text" className="form-control" value="(320) 380-4539"/>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="row mb-3">*/}
+                                    {/*    <div className="col-sm-3">*/}
+                                    {/*        <h6 className="mb-0">Address</h6>*/}
+                                    {/*    </div>*/}
+                                    {/*    <div className="col-sm-9 text-secondary">*/}
+                                    {/*        <input type="text" className="form-control" value="Bay Area, San Francisco, CA"/>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
                                     <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Profession</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>Web Developer and Designer</p>
+                                        <div className="col-sm-3"></div>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="button" className="btn btn-primary px-4" value="Save Changes"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Experience</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Hourly Rate</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>10$/hr</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Total Projects</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>230</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>English Level</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
-                                            <label>Availability</label>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <p>6 months</p>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <label>Your Bio</label><br/>
-                                            <p>Your detail description</p>
+                            </div>
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <div className="card">
+                                        <div className="card-body">
+                                            <h5 className="d-flex align-items-center mb-3">Project Status</h5>
+                                            <p>Web Design</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
+
         </section>
     )
 }
