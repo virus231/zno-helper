@@ -9,9 +9,12 @@ type Props = {
   answers: any;
   callback: (e: React.MouseEvent<HTMLElement>) => void;
   totalQuestions: number;
+  userAnswer: AnswerObject | undefined;
+
 };
 
-const AnswerCard: React.FC<Props> = ({ question: {text}, answers:{options}, totalQuestions, callback}) => {
+const AnswerCard: React.FC<Props> = ({ question: {text}, answers:{options}, totalQuestions, callback, userAnswer}) => {
+    console.log(userAnswer)
   return (
     <>
       <h5>{text}</h5>
@@ -19,42 +22,16 @@ const AnswerCard: React.FC<Props> = ({ question: {text}, answers:{options}, tota
         {
             options.map(option => {
                 return (
-                    <li onClick={() => callback(option)} key={option}>{option}</li>
+                    <ButtonWrapper
+                        correct={userAnswer?.correctAnswer === option}
+                        userClicked={userAnswer?.answer === option}
+                        key={option}>
+                        <li onClick={() => callback(option)} key={option}>{option}</li>
+                    </ButtonWrapper>
                 )
             })
         }
-
-
-        {/* <li className="correct">asd</li>
-                   <li className="incorrect">asd</li>
-                   <li>asd</li>
-                   <li>asd</li> */}
       </ul>
-      {/*<div>*/}
-      {/*    {*/}
-      {/*        props.correctAnswer ?*/}
-      {/*        'Правильно Відповідь!' : */}
-      {/*        props.clickedAnswer ? 'Неправильна відповідь!' : ''*/}
-      {/*    }*/}
-      {/*</div>
-                <Wrapper>
-                    {/* <p className="number">
-                        Питання: {questionNumber} / {totalQuestions}
-                    </p>
-                    <p dangerouslySetInnerHTML={{ __html: question }}/>
-                    <div>
-                        {answers.map(answer => (
-                            <ButtonWrapper
-                                correct={userAnswer?.correctAnswer === answer}
-                                userClicked={userAnswer?.answer === answer}
-                                key={answer}>
-                                <button disabled={!!userAnswer} value={answer} onClick={callback}>
-                                    <span dangerouslySetInnerHTML={{ __html: answer}} />
-                                </button>
-                            </ButtonWrapper>
-                        ))}
-                    </div> */}
-      {/* </Wrapper> */}
     </>
   );
 };
@@ -82,7 +59,7 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   :hover {
     opacity: 0.8;
   }
-  button {
+  li {
     cursor: pointer;
     user-select: none;
     font-size: 0.8rem;

@@ -13,12 +13,12 @@ import { Difficulty, QuestionState, TestWrap } from '../utils/interfaces'
 
 export type AnswerObject = {
     question: string;
-    answer: string;
+    answer: any;
     correct: boolean;
-    correctAnswer: string;
+    correctAnswer: any;
 }
 
-const TOTAL_QUESTIONS = 10;
+// const TOTAL_QUESTIONS = 10;
 
 function Test({ match: { params: { subject, theme } } }) {
     const [loading, setLoading] = useState(false)
@@ -65,19 +65,19 @@ function Test({ match: { params: { subject, theme } } }) {
             const answer = e
             // Check answer against correct answer
             console.log(e)
-            console.log(tests[number].content.answer === e)
-            // const correct = questions[number] === answer
-            // console.log(correct)
+            // console.log(tests[number].content.answer === answer)
+            // @ts-ignore
+            const correct = tests[number].content.answer === answer
             // Add score if answer is correct
-            // if (correct) setScore(prev => prev + 1)
+            if (correct) setScore(prev => prev + 1)
             // Save answer in the array for user answers
-            // const answerObject = {
-            //     question: questions[number].question,
-            //     answer,
-            //     correct,
-            //     correctAnswer: questions[number].correct_answer
-            // }
-            // setUserAnswers(prev => [...prev, answerObject])
+            const answerObject = {
+                question: tests[number].title,
+                answer,
+                correct,
+                correctAnswer: tests[number].content.answer
+            }
+            setUserAnswers(prev => [...prev, answerObject])
         }
     }
 
@@ -85,7 +85,7 @@ function Test({ match: { params: { subject, theme } } }) {
         // Move on to the next question if not the last question
         const nextQuestion = number + 1
 
-        if (nextQuestion === TOTAL_QUESTIONS) {
+        if (nextQuestion === tests.length) {
             setGameOver(true)
         } else {
             setNumber(nextQuestion)
@@ -101,8 +101,8 @@ function Test({ match: { params: { subject, theme } } }) {
 
                             <h1 className="text-white">Питання</h1>
                             <h3 className="text-white">Тест по: {theme}</h3>
-                            {userAnswers.length === TOTAL_QUESTIONS ? "Вже 10 питання" : ""}
-                            {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+                            {/*{userAnswers.length === tests.length ? "Вже 10 питання" : ""}*/}
+                            {gameOver || userAnswers.length === tests.length ? (
                                 <button
                                     className="btn btn-primary"
                                     onClick={startTrivial}
@@ -113,25 +113,23 @@ function Test({ match: { params: { subject, theme } } }) {
 
                             <div className="d-flex my-3 justify-content-around">
                                 {!gameOver ? <h4 className="score text-white">Балів: {score} </h4> : null}
-                                <h4 className="text-white">
-                                    <span className="mr-2">
-                                        Запитань
-                                    </span>
+                                {!gameOver ? <h4 className="text-white">
                                     <span>
-                                    { tests.length}
+                                     Запитання: {number + 1} / {tests.length}
                                     </span>
-                                </h4>
+                                </h4> : null}
                             </div>
                             {loading ? <CircularProgress color="secondary" /> : null}
                             {!loading && !gameOver && (
                                 <AnswerCard
-                                    totalQuestions={TOTAL_QUESTIONS}
+                                    totalQuestions={tests.length}
                                     question={tests[number].title}
                                     answers={tests[number].content}
                                     callback={checkAnswer}
+                                    userAnswer={userAnswers ? userAnswers[number] : undefined}
                                 />)}
-                            {!gameOver && !loading ? (
-                                <button className='btn btn-secondary' onClick={nextQuestion}>
+                            {!gameOver && !loading && userAnswers.length === number + 1 && number !== tests.length - 1 ? (
+                                <button  className='btn btn-secondary' onClick={nextQuestion}>
                                     Next Question
                                 </button>
                             ) : null}
