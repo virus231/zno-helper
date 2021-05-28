@@ -15,7 +15,6 @@ import { getUser } from './store/actions/thunks';
 import { getCurrentUser } from './api/authApi';
 import { setAxiosInterceptor } from './utils/axios';
 
-
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         backdrop: {
@@ -29,7 +28,7 @@ const SignUp = lazy(() => import('./pages/SignUp').then(({ SignUp }) => ({ defau
 const LogIn = lazy(() => import('./pages/LogIn').then(({ LogIn }) => ({ default: LogIn })))
 const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 // const Tests = lazy(() => import('./pages/Tests').then(({ Tests }) => ({ default: Tests })))
-// const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
+const Profile = lazy(() => import('./pages/Profile').then(({ Profile }) => ({ default: Profile })))
 // const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 // const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
 // const Home = lazy(() => import('./pages/Home').then(({ Home }) => ({ default: Home })))
@@ -43,11 +42,10 @@ function App(props: any) {
     const hideSidebar = props.location.pathname !== '/duel-start'
     const hdSidebar = props.location.pathname !== '/test/:id'
 
-    React.useEffect(
-        () => {
-            setAxiosInterceptor(token)
-        }, [token]
-    )
+    React.useEffect(() => {
+        setAxiosInterceptor(token)
+    }, [token])
+
     React.useEffect(() => {
         if (token)
             dispatch(getUser())
@@ -70,9 +68,10 @@ function App(props: any) {
                         <PageRoute exact path="/home" component={Home} />
                         <PageRoute exact path="/duel-start" component={DuelStart} />
                         <PageRoute exact path="/duel-test" component={DuelTest} />
+                        <PageRoute exact path="/profile" component={Profile}/>
                         <PageRoute exact path="/create-test/:id" component={CreateTests} />
                         <PageRoute exact path="/tests/:id" component={Tests} />
-                        <PageRoute exact path="/test/:id" component={Test} />
+                        <PageRoute exact path="/test/:subject/:theme" component={Test} />
                         <PageRoute exact path="/subject/:id" component={Subject} />
                         <PageRoute exact path="/duel-join/:id" component={DuelJoin} />
                     </div>

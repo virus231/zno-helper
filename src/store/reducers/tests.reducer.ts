@@ -13,6 +13,7 @@ const initialState: TestWrap = {
     subject: "",
     tests: [],
     tags: null,
+    content: {},
 }
 
 

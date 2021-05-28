@@ -84,13 +84,19 @@ interface TestBlock {
 
 export interface TestWrap
 {
-    id?: string
+    content: {
+        answer?: string
+    },
+    id?: string,
     title: string,
     subject: string,
     userId: number,
     tags?: Tag[] | null,
     tests: Test[]
 }
+
+export type QuestionState = TestWrap & { answer: string }
+
 
 export interface Tag extends TestBlock
 {
@@ -236,7 +242,7 @@ export type Question = {
     type: string;
 }
 
-export type QuestionState = Question & { answers: string[] }
+// export type QuestionState = Question & { answers: string[] }
 export enum Difficulty {
     EASY = "easy",
     MEDIUM = "medium",

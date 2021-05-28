@@ -71,7 +71,7 @@ export default createReducer(initialState, builder =>
             state.loading = false
             localStorage.removeItem('userData')
         }).addCase(getUser.fulfilled, (state, { payload }) => {
-            console.log("getUser", payload.id)
+            console.log("getUser", payload)
         }).addCase(getUser.rejected, (state, { error }) => {
             console.log("getUser", error)
         }).addCase(getUser.pending, (state) => {
