@@ -24,12 +24,12 @@ import { getTagsByFirstChatacters } from "../api/testsApi";
 import CloseCircle from "../components/svg/CloseCircle";
 import { testTypes } from "../utils/constants";
 import { transformTestWrapToFormat } from "../helpers/testHelpers";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createTestWrap } from "../store/actions/tests.actions";
 import { showAlert } from "../store/actions/alerts.actions";
 
 
-function CreateTests({match: {params}}): JSX.Element {
+function CreateTests({ match: { params } }): JSX.Element {
     const [testMode, setTestMode] = React.useState('')
     const [collapseTweet, setCollapseTweet] = React.useState<boolean>(true)
     const [collapseTags, setCollapseTags] = React.useState<boolean>(true)
@@ -44,7 +44,7 @@ function CreateTests({match: {params}}): JSX.Element {
     let history = useHistory();
     const [tagOptions, setTagOptions] = React.useState<string[]>([])
     const dispatch = useDispatch()
-    const [currentTagQuery,setCurrentTagQuery] = React.useState('')
+    const [currentTagQuery, setCurrentTagQuery] = React.useState('')
 
     const getTagsByChar = async (query: string) => {
         try {
@@ -64,15 +64,16 @@ function CreateTests({match: {params}}): JSX.Element {
 
     const publishTest = async () => {
         try {
+            console.log('test to publish', testWrap)
             const test = transformTestWrapToFormat(testWrap)
             const res = await dispatch(createTestWrap(test))
-            dispatch(showAlert({text: "Тест створений", type: "success"}))
+            dispatch(showAlert({ text: "Тест створений", type: "success" }))
             history.push(`/tests/${params.id}`);
 
         } catch (e) {
-            console.log('testWrapError',e)
+            console.log('testWrapError', e)
         }
-        
+
     }
 
     const toggleTweet = () => {
@@ -97,7 +98,7 @@ function CreateTests({match: {params}}): JSX.Element {
         setCurrentTagQuery('')
         setTestWrap(testWrap => ({
             ...testWrap,
-            tags:currentTags
+            tags: currentTags
         }))
     }
     const removeTag = (idx: number) => {
@@ -105,7 +106,7 @@ function CreateTests({match: {params}}): JSX.Element {
         currentTags = currentTags.filter((_, tIdx) => tIdx !== idx)
         setTestWrap(testWrap => ({
             ...testWrap,
-            tags:currentTags
+            tags: currentTags
         }))
     }
     const changeTestCollapseState = (id: number) => {
@@ -119,7 +120,7 @@ function CreateTests({match: {params}}): JSX.Element {
     }
     const setTestWrapTitle = (title: string) => setTestWrap(testWrap => ({ ...testWrap, title }))
     const setTestExplanation = (id: number, explanation: string) => {
-        const tests = [...testWrap.tests].map((test) => test.id === id ? ({ ...test, explanation:{type:'TEXT',text:explanation} }) : test)
+        const tests = [...testWrap.tests].map((test) => test.id === id ? ({ ...test, explanation: { type: 'TEXT', text: explanation } }) : test)
         setTestsHelper(tests)
     }
     const setTestTitle = (id: number, title: string) => {
@@ -127,7 +128,8 @@ function CreateTests({match: {params}}): JSX.Element {
             ...test, title: {
                 type: 'TEXT',
                 text: title,
-        } }) : test)
+            }
+        }) : test)
         setTestsHelper(tests)
     }
     const testBodyPicker = (mode: string) => {
@@ -138,17 +140,17 @@ function CreateTests({match: {params}}): JSX.Element {
         {
             text: '',
             selected: false
-            },
-            {
-                text: '',
-                selected: false
-            }
+        },
+        {
+            text: '',
+            selected: false
+        }
         ]
         switch (mode) {
             case testTypes.MULTI_ANSWER:
                 return {
                     options,
-                    answer: []
+                    answers: []
                 }
             case testTypes.BOOLEAN:
                 return {
@@ -177,16 +179,16 @@ function CreateTests({match: {params}}): JSX.Element {
             id: tests.length + 1,
             content: {
                 ...testBodyPicker(mode),
-                type:mode
+                type: mode
             },
             explanation: {
                 type: 'TEXT',
-                text:''
+                text: ''
             },
             time: 0,
-            title:  {
+            title: {
                 type: 'TEXT',
-                text:''
+                text: ''
             },
             collapsed: true
         }
@@ -206,8 +208,8 @@ function CreateTests({match: {params}}): JSX.Element {
 
 
     useEffect(() => {
-            console.log('testsChaged', testWrap)
-        }, [testWrap.tests]
+        console.log('testsChaged', testWrap)
+    }, [testWrap.tests]
     )
 
     const renderTest = React.useCallback((test: LocalTest, idx: number) => {
@@ -235,7 +237,7 @@ function CreateTests({match: {params}}): JSX.Element {
                     updateTests={setTestsHelper}
                     changeMode={handleChangeTestMode}
                 />
-            case  testTypes.BOOLEAN:
+            case testTypes.BOOLEAN:
                 return <CreateBooleanAnswer
                     testIndex={idx}
                     changeTitle={setTestTitle}
@@ -267,7 +269,7 @@ function CreateTests({match: {params}}): JSX.Element {
     )
 
     return (
-        <Container fluid style={{padding: '100px 0', overflow: 'hidden'}}>
+        <Container fluid style={{ padding: '100px 0', overflow: 'hidden' }}>
             <Row>
                 <Col lg={{ span: 5, offset: 3 }}>
                     <Row>
@@ -606,7 +608,7 @@ function CreateTests({match: {params}}): JSX.Element {
                                     <Button outline pill theme="danger">
                                         Видалити
                                     </Button>
-                                    <Button pill  onClick={publishTest} >Опублікувати</Button>
+                                    <Button pill onClick={publishTest} >Опублікувати</Button>
                                 </div>
                             </CardFooter>
                         </Collapse>
@@ -637,12 +639,12 @@ function CreateTests({match: {params}}): JSX.Element {
                                         freeSolo
                                         inputValue={currentTagQuery}
                                         disableClearable
-                                        onChange={ (e:any) => setCurrentTagQuery(e.target.innerText)}
+                                        onChange={(e: any) => setCurrentTagQuery(e.target.innerText)}
                                         options={tagOptions}
                                         renderInput={(params) => (
                                             <TextField {...params} label="Введіть назву тега..."
                                                 value={currentTagQuery}
-                                                       size="small"
+                                                size="small"
                                                 onChange={(e) => getTagsByChar(e.target.value)} variant="outlined" />
                                         )}
                                     />
@@ -653,22 +655,22 @@ function CreateTests({match: {params}}): JSX.Element {
                                     </InputGroupAddon>
 
                                 </InputGroup>
-                               
+
                                 <div>
                                     <span className="font-italic">Розділіть теги комами</span>
                                     {
-                                    testWrap.tags.map(
-                                        (tag,idx) => (
-                                            <p key={idx + ''}>
-                                        <span className="tag" style={{paddingRight:10}}>
-                                                    {tag}                                             
-                                        </span>
-                                                <CloseCircle click={() => removeTag(idx)}/>
-                                    </p>
+                                        testWrap.tags.map(
+                                            (tag, idx) => (
+                                                <p key={idx + ''}>
+                                                    <span className="tag" style={{ paddingRight: 10 }}>
+                                                        {tag}
+                                                    </span>
+                                                    <CloseCircle click={() => removeTag(idx)} />
+                                                </p>
+                                            )
                                         )
-                                    )
-                                }
-                                    
+                                    }
+
                                 </div>
                             </CardBody>
 
