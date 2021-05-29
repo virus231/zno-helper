@@ -108,7 +108,7 @@ const SideBar = React.memo(function Sidebar() {
                     <SidebarFooter>
                         <Menu iconShape="square">
                             <MenuItem icon={<FiLogOut />} >
-                                <p onClick={logOut}>Вийти</p>
+                                <p className="my-0" onClick={logOut}>Вийти</p>
                             </MenuItem>
                         </Menu>
                     </SidebarFooter>
