@@ -1,60 +1,81 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { withRouter } from "react-router-dom"
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import {fetchQuizQuestions } from '../api/testsApi'
+import { fetchQuizQuestions, getTestsBySubject } from '../api/testsApi'
 import AnswerCard from '../components/AnswerCard'
 import Question from '../components/Question'
 import { Spinner } from '../components/Spinner'
 import background from '../assets/images/test-bg.jpg'
-import {Difficulty,QuestionState} from '../utils/interfaces'
+import { Difficulty, QuestionState, TestWrap } from '../utils/interfaces'
 
 
 export type AnswerObject = {
     question: string;
-    answer: string;
+    answer: any;
     correct: boolean;
-    correctAnswer: string;
+    correctAnswer: any;
 }
 
-const TOTAL_QUESTIONS = 10;
+// const TOTAL_QUESTIONS = 10;
 
-function Test() {
+function Test({ match: { params: { subject, theme } } }) {
     const [loading, setLoading] = useState(false)
-    const [questions, setQuestions] = useState<QuestionState[]>([])
-    const [number, setNumber] = useState(0)
+    const [tests, setTests] = useState<QuestionState[]>([])
+    // const [questions, setQuestions] = useState<QuestionState[]>([])
     const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
-    const [score, setScore ] = useState(0)
+    const [score, setScore] = useState(0)
+    const [number, setNumber] = useState(0)
+
     const [gameOver, setGameOver] = useState(true)
+
+
+    useEffect(() => {
+        const getTests = async () => {
+            setLoading(true)
+            const testsResponse = await getTestsBySubject(subject);
+            console.log(testsResponse)
+            // @ts-ignore
+            testsResponse.map(({ tests }) => {
+                setTests(tests)
+            })
+            setLoading(false)
+        }
+        getTests()
+
+    }, [])
 
 
     const startTrivial = async () => {
         setLoading(true)
         setGameOver(false)
-
-        const newQuestions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY)
-
-        setQuestions(newQuestions)
+        // const newQuestions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY)
+        // setQuestions(newQuestions)
         setScore(0)
         setUserAnswers([])
         setNumber(0)
         setLoading(false)
+        console.log(tests)
     }
 
-    const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-        if(!gameOver) {
+    const checkAnswer = (e: React.MouseEvent<HTMLElement>) => {
+        if (!gameOver) {
             // Users answer
-            const answer = e.currentTarget.value
+            const answer = e
             // Check answer against correct answer
-            const correct = questions[number].correct_answer === answer
+            console.log(e)
+            // console.log(tests[number].content.answer === answer)
+            // @ts-ignore
+            const correct = tests[number].content.answer === answer
             // Add score if answer is correct
             if (correct) setScore(prev => prev + 1)
             // Save answer in the array for user answers
             const answerObject = {
-                question: questions[number].question,
+                question: tests[number].title,
                 answer,
                 correct,
-                correctAnswer: questions[number].correct_answer
+                correctAnswer: tests[number].content.answer
             }
             setUserAnswers(prev => [...prev, answerObject])
         }
@@ -64,24 +85,24 @@ function Test() {
         // Move on to the next question if not the last question
         const nextQuestion = number + 1
 
-        if(nextQuestion === TOTAL_QUESTIONS) {
+        if (nextQuestion === tests.length) {
             setGameOver(true)
         } else {
             setNumber(nextQuestion)
         }
     }
 
-
     return (
         <section style={{ backgroundImage: `url(${background})` }} className="test d-flex align-items-center justify-content-center">
             <Container>
                 <Row>
-                    <Col lg={{ span: 10, offset: 2}}>
+                    <Col lg={{ span: 10, offset: 2 }}>
                         <div className="text-center wrapper-test p-5">
+
                             <h1 className="text-white">Питання</h1>
-                            <h3 className="text-white">Тест по:</h3>
-                            {userAnswers.length === TOTAL_QUESTIONS ? "Вже 10 питання": ""}
-                            {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
+                            <h3 className="text-white">Тест по: {theme}</h3>
+                            {/*{userAnswers.length === tests.length ? "Вже 10 питання" : ""}*/}
+                            {gameOver || userAnswers.length === tests.length ? (
                                 <button
                                     className="btn btn-primary"
                                     onClick={startTrivial}
@@ -90,28 +111,31 @@ function Test() {
                                 </button>
                             ) : null}
 
-                            {!gameOver ? <p className="score text-white">Балів: {score} </p> : null }
+                            <div className="d-flex my-3 justify-content-around">
+                                {!gameOver ? <h4 className="score text-white">Балів: {score} </h4> : null}
+                                {!gameOver ? <h4 className="text-white">
+                                    <span>
+                                     Запитання: {number + 1} / {tests.length}
+                                    </span>
+                                </h4> : null}
+                            </div>
                             {loading ? <CircularProgress color="secondary" /> : null}
-                            { !loading && !gameOver && (
+                            {!loading && !gameOver && (
                                 <AnswerCard
-                                    questionNumber={number + 1}
-                                    totalQuestions={TOTAL_QUESTIONS}
-                                    question={questions[number].question}
-                                    answers={questions[number].answers}
-                                    userAnswer={userAnswers ? userAnswers[number] : undefined}
+                                    totalQuestions={tests.length}
+                                    question={tests[number].title}
+                                    answers={tests[number].content}
                                     callback={checkAnswer}
-                                />) }
-                            { !gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-                                <button
-                                    className="btn btn-primary mt-5"
-                                    onClick={nextQuestion}
-                                >
-                                    Наступне запитання
+                                    userAnswer={userAnswers ? userAnswers[number] : undefined}
+                                />)}
+                            {!gameOver && !loading && userAnswers.length === number + 1 && number !== tests.length - 1 ? (
+                                <button  className='btn btn-secondary' onClick={nextQuestion}>
+                                    Next Question
                                 </button>
                             ) : null}
                         </div>
 
-                        
+
                     </Col>
                 </Row>
             </Container>
@@ -119,4 +143,4 @@ function Test() {
     )
 }
 
-export default Test
+export default withRouter(Test)

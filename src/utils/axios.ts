@@ -1,7 +1,6 @@
 import BaseAxios from "axios";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { BASE_URL, BASE_TEST_URL } from "../api/config";
-import { store } from "../store/store";
 
 export const axios = BaseAxios.create({ baseURL: BASE_URL })
 export const testAPi = BaseAxios.create({ baseURL: BASE_TEST_URL })

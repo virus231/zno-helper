@@ -8,7 +8,7 @@ import {
     SidebarContent,
 } from "react-pro-sidebar";
 import { useSelector,useDispatch } from 'react-redux'
-import { FaList, FaRegHeart, FaUserFriends } from "react-icons/fa";
+import { FaList, FaRegHeart, FaUserFriends, FaUser } from "react-icons/fa";
 import {FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle, FiSettings} from "react-icons/fi";
 import { RiPencilLine } from "react-icons/ri";
 import {BiCog, BiHomeAlt} from "react-icons/bi";
@@ -21,8 +21,13 @@ import {useHistory} from 'react-router'
 import { logoutUser } from "../../store/reducers/auth.reducer";
 import { showAlert } from "../../store/actions/alerts.actions";
 
+const links = [
+    {link: '/profile', text: "Профіль", icon: <FaUser/>},
+    {link: '/home', text: "Предмети", icon: <BiHomeAlt/>}
+]
 
-export default function SideBar():JSX.Element {
+const SideBar = React.memo(function Sidebar() {
+    const [activeIndex, setActiveIndex] = useState(1)
     const [menuCollapse, setMenuCollapse] = useState(false)
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -35,6 +40,10 @@ export default function SideBar():JSX.Element {
         dispatch(logoutUser())
         history.push('/login')
         dispatch(showAlert({text: 'Вихід з системи', type: 'success'}))
+    }
+
+    const activeLink = (index) => {
+        setActiveIndex(index)
     }
 
     return (
@@ -59,21 +68,17 @@ export default function SideBar():JSX.Element {
                     </SidebarHeader>
                     <SidebarContent>
                         <Menu iconShape="square">
-                            <MenuItem active={true} icon={<BiHomeAlt />}>
-                                <Link to='/home'>
-                                    Предмети
-                                </Link>
-                            </MenuItem>
-                            <MenuItem icon={<FaUserFriends />}>
-                                <Link to="/duel-start">
-                                    Дуель
-                                </Link>
-                            </MenuItem>
-                            <MenuItem icon={<FiSettings />}>
-                                <Link to="/home">
-                                    Налаштування
-                                </Link>
-                            </MenuItem>
+                            {
+                                links.map((link, index) => {
+                                    return (
+                                        <MenuItem active={activeIndex === index ? true : false} key={`${link}_${index}`} icon={link.icon}>
+                                            <Link onClick={() => activeLink(index)} to={link.link}>
+                                                {link.text}
+                                            </Link>
+                                        </MenuItem>
+                                    )
+                                })
+                            }
                         </Menu>
                     </SidebarContent>
                     {/*<div className="closemenu" onClick={menuIconClick}>*/}
@@ -103,7 +108,7 @@ export default function SideBar():JSX.Element {
                     <SidebarFooter>
                         <Menu iconShape="square">
                             <MenuItem icon={<FiLogOut />} >
-                                <p onClick={logOut}>Вийти</p>
+                                <p className="my-0" onClick={logOut}>Вийти</p>
                             </MenuItem>
                         </Menu>
                     </SidebarFooter>
@@ -113,4 +118,6 @@ export default function SideBar():JSX.Element {
 
 
     );
-}
+})
+
+export default SideBar;

@@ -38,7 +38,7 @@ function CreateTests({ match: { params } }): JSX.Element {
         title: '',
         tests: [] as LocalTest[],
         tags: [] as string[],
-        subject: params.id,
+        subject: params.id.toUpperCase(),
         userId: 10
     })
     let history = useHistory();
@@ -54,7 +54,7 @@ function CreateTests({ match: { params } }): JSX.Element {
                 setTagOptions([])
                 return
             }
-            const queriedTags = await getTagsByFirstChatacters({ subject: params.id, query })
+            const queriedTags = await getTagsByFirstChatacters({ subject: params.id.toUpperCase(), query })
             setTagOptions(queriedTags.map(el => el.title))
             console.log('queried tags', queriedTags)
         } catch (error) {

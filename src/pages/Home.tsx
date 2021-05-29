@@ -34,9 +34,6 @@ export const Home = () => {
         getSubject()
     },[])
 
-    console.log(subjects)
-
-
 
 
     return (
