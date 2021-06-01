@@ -14,10 +14,9 @@ type Props = {
 };
 
 const AnswerCard: React.FC<Props> = ({ question: {text}, answers:{options}, totalQuestions, callback, userAnswer}) => {
-    console.log(userAnswer)
   return (
     <>
-      <h5>{text}</h5>
+      <h3 className="my-5 text-white">{text}</h3>
       <ul className="answers">
         {
             options.map(option => {
@@ -62,9 +61,9 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   li {
     cursor: pointer;
     user-select: none;
-    font-size: 0.8rem;
+    font-size: 1rem;
     width: 100%;
-    height: 40px;
+    padding: 5px;
     margin: 5px 0;
     background: ${({ correct, userClicked }) =>
       correct

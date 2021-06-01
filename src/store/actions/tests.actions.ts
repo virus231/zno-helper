@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllTests, getTestsById, getTestsBySubject, getTestsByUserId,createTest,addTest, getTagsByFirstChatacters, deleteTest } from "../../api/testsApi";
-import { AddTestData, ESubject, GetTagsData, Tag, TestWrap } from "../../utils/interfaces";
+import { getAllTests, getTestsById, getTestsBySubject, getTestsByUserId,createTest,addTest, getTagsByFirstChatacters, deleteTest, getStatisticBySubject, getFindUserStatistic, addStat } from "../../api/testsApi";
+import { AddTestData, ESubject, GetSubjectStatistic, GetTagsData, Tag, TestWrap } from "../../utils/interfaces";
 
 export const fetchAllTests = createAsyncThunk<TestWrap>('GET_ALL_TESTS', () => getAllTests())
 export const fetchTestsById = createAsyncThunk<TestWrap,string>('GET_TESTS_BY_ID', id => getTestsById(id))
@@ -12,3 +12,6 @@ export const addTestToTestWrap = createAsyncThunk<TestWrap, AddTestData>('ADD_TE
 export const fetchTagsByFirstChatacters = createAsyncThunk<Tag[],GetTagsData>('GET_TAGS_BY_FIRST_CHARACTERS', data => getTagsByFirstChatacters(data))
 export const deleteTestWrap = createAsyncThunk<void,string>('DELETE_TESTWRAP',testWrapId => deleteTest(testWrapId))
 
+export const fetchStatisticBySubject = createAsyncThunk<GetSubjectStatistic, ESubject>('GET_STATISTIC_BY_SUBJECT',subject => getStatisticBySubject(subject))
+export const fetchUserStatistic = createAsyncThunk('GET_USER_STATISTIC', () => getFindUserStatistic())
+export const addStatistic = createAsyncThunk<GetSubjectStatistic, any>('ADD_STATISTIC', statWrap => addStat(statWrap))

@@ -1,5 +1,5 @@
-import { testAPi } from "../utils/axios";
-import { AddTestData, GetTagsData, TestWrap ,ESubject, Tag, Question, Difficulty} from "../utils/interfaces";
+import {axios, testAPi } from "../utils/axios";
+import { AddTestData, GetTagsData, TestWrap ,ESubject, Tag, Question, Difficulty, GetSubjectStatistic} from "../utils/interfaces";
 
 export const shuffleArray = (array: any[]) => {
     return [...array].sort(() => Math.random() - 0.5)
@@ -28,3 +28,7 @@ export const addTest = ({test,testWrapId}:AddTestData):Promise<TestWrap> => test
 export const createTest = (testWrap: TestWrap): Promise<TestWrap> => testAPi.post('/test-wrap', testWrap)
 export const deleteTest = (testWrapId:string):Promise<void> => testAPi.delete(`/test-wrap/${testWrapId}`)
 export const getTagsByFirstChatacters = ({subject,query}:GetTagsData):Promise<Tag[]> => testAPi.get(`/tag/${subject}/${query}`)
+
+export const getStatisticBySubject = (subject):Promise<any> => axios.get(`/statistic/${subject}`)
+export const getFindUserStatistic = () => axios.get('/statistic')
+export const addStat = (statWrap: GetSubjectStatistic):Promise<GetSubjectStatistic> => axios.post('/statistic', statWrap)

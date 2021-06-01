@@ -14,6 +14,8 @@ import PageRoute from './components/PageRoute/PageRoute';
 import { getUser } from './store/actions/thunks';
 import { getCurrentUser } from './api/authApi';
 import { setAxiosInterceptor } from './utils/axios';
+import { fetchStatisticBySubject, fetchUserStatistic } from './store/actions/tests.actions';
+import 'react-circular-progressbar/dist/styles.css';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,6 +51,7 @@ function App(props: any) {
     React.useEffect(() => {
         if (token)
             dispatch(getUser())
+            dispatch(fetchUserStatistic())
     }, [dispatch, token])
 
     return (
@@ -71,7 +74,7 @@ function App(props: any) {
                         <PageRoute exact path="/profile" component={Profile}/>
                         <PageRoute exact path="/create-test/:id" component={CreateTests} />
                         <PageRoute exact path="/tests/:id" component={Tests} />
-                        <PageRoute exact path="/test/:subject/:theme" component={Test} />
+                        <PageRoute exact path="/test/:subject/:theme/:testId" component={Test} />
                         <PageRoute exact path="/subject/:id" component={Subject} />
                         <PageRoute exact path="/duel-join/:id" component={DuelJoin} />
                     </div>

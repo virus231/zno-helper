@@ -21,7 +21,7 @@ export const ThemeCart:FC<Props> = ({theme}) => {
                 <CardBody>
                     <CardTitle>{theme.title}</CardTitle>
                     <p>{theme.descr}</p>
-                    <Link to={`/test/${theme.subject}/${theme.title}`}>
+                    <Link to={`/test/${theme.subject}/${theme.title}/${theme.id}`}>
                         <Button>
                             Пройти Тест
                         </Button>

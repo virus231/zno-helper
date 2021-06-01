@@ -258,3 +258,15 @@ export interface GetSubject {
     subject: string,
     title: string
 }
+
+export interface GetSubjectStatistic {
+    correct: number
+    id:	number
+    missed:	number
+    subject: ESubject
+    testTitle:	string
+    testWrapID:	string
+    total:	number
+    userId:	number
+    wrong:	number
+}

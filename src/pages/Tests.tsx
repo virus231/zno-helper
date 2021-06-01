@@ -5,14 +5,6 @@ import {ThemeCart} from '../components/ThemeCart';
 import { getTestsBySubject } from '../api/testsApi';
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-// const themes = [
-//     {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
-//     {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
-//     {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
-//     {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"},
-//     {title: "title", descr: "опис", img: "https://source.unsplash.com/user/erondu/300x200"}
-// ]
-
 function Tests({match: {params: {id}}}){
     const [tests, setTests] = React.useState([])
     const [loading, setLoading] = React.useState(false)
@@ -25,8 +17,6 @@ function Tests({match: {params: {id}}}){
             // @ts-ignore
             setTests(testsResponse)
             setLoading(false)
-            console.log(testsResponse)
-
         }
         getTests()
     },[])
