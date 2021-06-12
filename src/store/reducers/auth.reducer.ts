@@ -7,7 +7,9 @@ const initialState: AuthResponse & StateHadnlers = {
     id: 0,
     roles: [],
     token: '',
+    phone: '',
     username: '',
+    avatar: '',
     error: null,
     loading: false
 }
@@ -41,12 +43,14 @@ export default createReducer(initialState, builder =>
         })
         .addCase(login.fulfilled, (state, action: PayloadAction<AuthResponse>) => {
             // state = { ...action.payload, ...state }
-            const { token, email, username } = action.payload
+            const { token, email, username, phone } = action.payload
+            console.log(action.payload)
             state.token = token
             state.email = email
             state.username = username
             state.loading = false
             state.error = null
+            state.phone = phone;
         })
         .addCase(login.rejected, (state, { error }) => {
             state.loading = false
@@ -71,13 +75,15 @@ export default createReducer(initialState, builder =>
             state.token = ''
             state.roles = []
             state.loading = false
+            state = {...initialState}
+            console.log(state)
             localStorage.removeItem('userData')
         }).addCase(getUser.fulfilled, (state, { payload }) => {
             console.log("getUser", payload)
-            state.id = payload.id
-        }).addCase(getUser.rejected, (state, { error }) => {
-            console.log("getUser", error)
-        }).addCase(getUser.pending, (state) => {
-            console.log("getUser", state)
+            const {email, avatar, username, phone} = payload;
+            state.avatar = avatar;
+            state.email = email;
+            state.username = username;
+            state.phone = phone
         })
 )

@@ -50,9 +50,6 @@ export const LogIn = (): JSX.Element => {
             if (valuess.phone) {
                 console.log(valuess.phone)
                 const value = await checkValidity('phone', valuess.phone);
-                // if(value.valid) {
-                //     dispatch(showAlert("Такого номера не існує в системі", "error"))
-                // }
                 const mainValues: FormValues = {
                     phone: valuess.phone,
                     password: values.password

@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router-dom"
 import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { fetchQuizQuestions, getTestsBySubject, addStat } from '../api/testsApi'
+import { getTestsBySubject } from '../api/testsApi'
 import AnswerCard from '../components/AnswerCard'
 import Question from '../components/Question'
 import { Spinner } from '../components/Spinner'
 import background from '../assets/images/test-bg.jpg'
-import { Difficulty, GetSubjectStatistic, QuestionState, TestWrap } from '../utils/interfaces'
+import { GetSubjectStatistic, QuestionState, TestWrap } from '../utils/interfaces'
 import {useDispatch, useSelector } from 'react-redux'
 import { authSelector } from '../store/selectors'
-import { addStatistic } from '../store/actions/tests.actions'
+import { addStatistic } from '../store/actions/statistics.actions'
 
 
 export type AnswerObject = {
@@ -100,8 +100,7 @@ function Test({ match: { params: { subject, theme, testId } } }) {
                 testWrapID: testId,
                 total: tests.length,
                 userId: id,
-                wrong: 3,
-                id: 123
+                wrong: 3
             }
             console.log("statiscticsObject", statiscticsObject)
             dispatch(addStatistic(statiscticsObject))

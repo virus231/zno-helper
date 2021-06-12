@@ -2,27 +2,29 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
-import {getFindUserStatistic, getStatisticBySubject, getTestsBySubject } from '../api/testsApi';
-import { fetchStatisticBySubject, fetchUserStatistic } from '../store/actions/tests.actions';
-import { authSelector } from '../store/selectors';
+import {getUserStatistics, getStatisticBySubject, getTestsBySubject } from '../api/testsApi';
+import { getAllStats, getStatsBySubject } from '../store/actions/statistics.actions';
+import { authSelector, statisticsSelector } from '../store/selectors';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { CircularProgress } from '@material-ui/core';
+import { Stats } from 'fs';
 
 
 
 function Subject({match:{params}}) {
     const { token } = useSelector(authSelector)
+    const { stats } = useSelector(statisticsSelector)
+
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
-    const [totalCorrectAnswer, setTotalCorrectAnswer] = useState(0)
     const [allTests, setAllTests] = useState([])
     const [tests, setTests] = useState([])
-    const [userStatisticBySubject, setUserStatisticBySubject] = useState([])
     const [totalQuestions, setTotalQuestions] = useState(0)
     const [totalCorrectAnswers, setTotalCorrectAnswers] = useState(0)
 
     const getStatistic = async () => {
         setLoading(true)
+        console.log(params.id.toUpperCase())
         const res = await getStatisticBySubject(params.id.toUpperCase())
         const totalQuestions = res.reduce((prev, cur) => prev + cur.total, 0);
         const totalCorrectAnswers = res.reduce((prev, cur) => prev + cur.correct,0)
@@ -30,7 +32,7 @@ function Subject({match:{params}}) {
         setTotalCorrectAnswers(totalCorrectAnswers)
         setAllTests(res)
         setLoading(false)
-        console.log("Res", res)
+        console.log("statisctic for diagram", res)
     }
 
     const getTests = async () => {
@@ -44,10 +46,10 @@ function Subject({match:{params}}) {
 
     React.useEffect(() => {
         if(token)
-            dispatch(fetchUserStatistic())
+            dispatch(getAllStats())
+            dispatch(getStatsBySubject(params.id.toUpperCase()))
         getStatistic()
         getTests()
-        console.log("asdf")
     }, [dispatch,token])
 
     const percentage = Number(((totalCorrectAnswers/ totalQuestions) * 100).toFixed(0));
@@ -101,7 +103,7 @@ function Subject({match:{params}}) {
                             loading  ?
                                 <CircularProgress color="secondary" /> :
                                 <Card>
-                                    <div className="d-flex justify-content-around align-items-start p-3">
+                                    <div className="d-flex justify-content-around align-items-center p-3">
                                         <span className="d-flex flex-column align-items-center">
                                             <CircularProgressbar
                                                 value={isNaN(percentage) ? 0 : percentage}

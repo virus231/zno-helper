@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { checkValidity, getCurrentUser, loginUser, registerUser, sendSms, validateSms } from "../../api/authApi";
+import { changeUserData, checkValidity, getCurrentUser, loginUser, registerUser, sendSms, validateSms } from "../../api/authApi";
 import { transformPhone } from "../../helpers/authHelpers";
 import { AuthResponse, CheckCode, CheckResponse, CurrentUser, LoginBody, RegisterBody, SmsResponse } from "../../utils/interfaces";
 
@@ -41,3 +41,4 @@ export const validateCode = createAsyncThunk<CheckCode, object>('validateCode',
 )
 
 export const getUser = createAsyncThunk<CurrentUser>('getUser',() => getCurrentUser())
+export const updateUserProfile = createAsyncThunk('updateUserProfile', (data) => changeUserData(data))

@@ -5,8 +5,6 @@ export const shuffleArray = (array: any[]) => {
     return [...array].sort(() => Math.random() - 0.5)
 }
 
-
-
 export const fetchQuizQuestions = async (amount: number, difficulty: Difficulty) => {
     const endpoint = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`
     const data = await (await fetch(endpoint)).json()
@@ -30,5 +28,5 @@ export const deleteTest = (testWrapId:string):Promise<void> => testAPi.delete(`/
 export const getTagsByFirstChatacters = ({subject,query}:GetTagsData):Promise<Tag[]> => testAPi.get(`/tag/${subject}/${query}`)
 
 export const getStatisticBySubject = (subject):Promise<any> => axios.get(`/statistic/${subject}`)
-export const getFindUserStatistic = () => axios.get('/statistic')
+export const getUserStatistics = () => axios.get('/statistic')
 export const addStat = (statWrap: GetSubjectStatistic):Promise<GetSubjectStatistic> => axios.post('/statistic', statWrap)

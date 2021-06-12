@@ -27,7 +27,7 @@ export const setAxiosInterceptor = (token) => {
     axios.interceptors.request.use(
         async (request) => {
 
-            if (!inWhiteList(request.url ?? '')) {
+            if (token && !inWhiteList(request.url ?? '')) {
                 const newRequest = { ...request }
                 newRequest.headers.Authorization = 'Bearer ' + token
                 return newRequest

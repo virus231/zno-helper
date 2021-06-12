@@ -209,8 +209,7 @@ function CreateTests({ match: { params } }): JSX.Element {
 
     useEffect(() => {
         console.log('testsChaged', testWrap)
-    }, [testWrap.tests]
-    )
+    }, [testWrap.tests])
 
     const renderTest = React.useCallback((test: LocalTest, idx: number) => {
         switch (test.content.type) {
@@ -544,65 +543,6 @@ function CreateTests({ match: { params } }): JSX.Element {
                             </svg>
                         </CardHeader>
                         <Collapse open={collapseTweet}>
-                            <CardBody>
-                                <ul className="pl-0">
-                                    <li className="my-3 d-flex justify-content-between align-items-center">
-                                        <svg
-                                            className="mr-3"
-                                            width="35"
-                                            height="35"
-                                            viewBox="0 0 19 19"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M11.5775 1.28613L0 12.8637V15.4877H2.624L14.2016 3.91017L11.5775 1.28613ZM2.16288 14.3745H1.11328V13.3249L11.5776 2.86057L12.6272 3.91017L2.16288 14.3745Z"
-                                                fill="#222E34"
-                                            />
-                                            <path
-                                                d="M19 16.6011H0V17.7144H19V16.6011Z"
-                                                fill="#222E34"
-                                            />
-                                            <path
-                                                d="M19 14.3745H5.56641V15.4878H19V14.3745Z"
-                                                fill="#222E34"
-                                            />
-                                        </svg>
-                                        Статус:
-                                        <FormSelect className="ml-3">
-                                            <option value="first">Чернетка</option>
-                                            <option value="second">This is the second option.</option>
-                                            <option value="third" disabled>
-                                                This option is disabled.
-                                            </option>
-                                        </FormSelect>
-                                    </li>
-                                    <li className="my-3 d-flex justify-content-between align-items-center">
-                                        <svg
-                                            className="mr-3"
-                                            width="34"
-                                            height="35"
-                                            viewBox="0 0 17 18"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M16.892 8.64983C16.7401 8.42986 13.1215 3.26367 8.49992 3.26367C3.87833 3.26367 0.259583 8.42986 0.107877 8.64962C-0.0359591 8.85831 -0.0359591 9.14135 0.107877 9.35004C0.259583 9.57001 3.87833 14.7362 8.49992 14.7362C13.1215 14.7362 16.7401 9.56998 16.892 9.35022C17.036 9.14156 17.036 8.85831 16.892 8.64983ZM8.49992 13.5494C5.09563 13.5494 2.14715 10.1205 1.27434 8.99953C2.14602 7.87759 5.08832 4.45048 8.49992 4.45048C11.904 4.45048 14.8523 7.87878 15.7255 9.00034C14.8538 10.1222 11.9115 13.5494 8.49992 13.5494Z"
-                                                fill="black"
-                                            />
-                                            <path
-                                                d="M8.49986 5.43945C6.64573 5.43945 5.13721 7.03671 5.13721 8.99991C5.13721 10.9631 6.64573 12.5604 8.49986 12.5604C10.354 12.5604 11.8625 10.9631 11.8625 8.99991C11.8625 7.03671 10.354 5.43945 8.49986 5.43945ZM8.49986 11.3735C7.2637 11.3735 6.25811 10.3087 6.25811 8.99991C6.25811 7.69107 7.26374 6.62629 8.49986 6.62629C9.73598 6.62629 10.7416 7.69107 10.7416 8.99991C10.7416 10.3087 9.73601 11.3735 8.49986 11.3735Z"
-                                                fill="black"
-                                            />
-                                        </svg>
-                                        Видимість:
-                                        <FormSelect className="ml-3">
-                                            <option value="first">Публічно</option>
-                                            <option value="second">Пример</option>
-                                        </FormSelect>
-                                    </li>
-                                </ul>
-                            </CardBody>
                             <CardFooter>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <Button outline pill theme="danger">
@@ -672,57 +612,6 @@ function CreateTests({ match: { params } }): JSX.Element {
                                     }
 
                                 </div>
-                            </CardBody>
-
-                        </Collapse>
-                    </Card>
-
-                    <Card className="mt-4">
-                        <CardHeader className="d-flex justify-content-between align-items-center">
-                            Зображення - обкладинка
-                          <svg
-                                style={{ cursor: 'pointer' }}
-                                onClick={togglePhoto}
-                                width="16"
-                                height="14"
-                                viewBox="0 0 16 14"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path d="M8 0L15.7942 13.5L0.205771 13.5L8 0Z" fill="#DADADA" />
-                            </svg>
-                        </CardHeader>
-                        <Collapse open={collapsePhoto}>
-                            <CardBody>
-                                <label className="custom-file-upload py-5">
-                                    <input type="file" className="" />
-                                    <svg
-                                        className="mr-3"
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M11 0L7.85718 3.14284H10.2143V7.85713H11.7858V3.14284H14.1429L11 0Z"
-                                            fill="#567BF3"
-                                        />
-                                        <path
-                                            d="M11 22.0002L14.1429 18.8574H11.7858V14.1431H10.2143V18.8574H7.85718L11 22.0002Z"
-                                            fill="#567BF3"
-                                        />
-                                        <path
-                                            d="M22 10.9998L18.8571 7.85693V10.2141H14.1428V11.7855H18.8571V14.1426L22 10.9998Z"
-                                            fill="#567BF3"
-                                        />
-                                        <path
-                                            d="M0 10.9998L3.14284 14.1426V11.7855H7.85713V10.2141H3.14284V7.85693L0 10.9998Z"
-                                            fill="#567BF3"
-                                        />
-                                    </svg>
-                                    Перетягніть зображення сюди
-                                </label>
                             </CardBody>
 
                         </Collapse>

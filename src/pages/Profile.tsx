@@ -1,11 +1,53 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import {Col, Container, Row} from "react-bootstrap"
 import { useSelector } from 'react-redux'
+import { changeUserData } from '../api/authApi'
 import { authSelector } from '../store/selectors'
 
 export const Profile = () => {
-    const {username, email} = useSelector(authSelector)
+    const {username, email,phone,avatar} = useSelector(authSelector)
+    const [newEmail, setNewEmail] = useState(email);
     const [name,setName] = React.useState(username)
+    const [avatarUrl, setAvatarUrl] = React.useState<string>(
+        'aHR0cHM6Ly9zdW4yLTMudXNlcmFwaS5jb20vcy92MS9pZjEvQ0FSMUFhbzN5SWljYTd4cTc3eElJTU1UbjI5Q01FLWNFNUpTSkJjOE9UTlZ0MjlKUWpuaFIwWnNYXzlJTy1Bemd3VmJmZ0I2LmpwZz9zaXplPTIwMHgwJnF1YWxpdHk9OTYmY3JvcD0xMzgsNDQsMTA0OCwxMDQ4JmF2YT0x',
+    );
+    const inputFileRef = React.useRef<HTMLInputElement>(null);
+
+    const handleChangeImage = (event: Event): void => {
+        // const file = event.target && (event.target as HTMLInputElement).files[0];
+        // console.log(file)
+        // if (file) {
+        //     const imageUrl = URL.createObjectURL(file);
+        //     setAvatarUrl(imageUrl);
+        // }
+    };
+
+    const updatePhoto = () => {
+        console.log("updatePhoto");
+        console.log(avatarUrl)
+    }
+
+    React.useEffect(() => {
+        if (inputFileRef.current) {
+            inputFileRef.current.addEventListener('change', handleChangeImage);
+        }
+    }, []);
+
+
+    const updateProfile = () => {
+        try {
+          console.log('data', {avatar: avatarUrl, email: newEmail});
+          changeUserData({avatar: avatarUrl, email: newEmail})
+            .then((res) => console.log('setting user', res))
+            .catch((err) => console.log('err', err));
+        } catch (error) {
+          console.log('Error changing user data', error);
+        }
+    };
+
+    const hasChanges = useMemo(() => newEmail !== email || avatar !== avatarUrl, [newEmail, email, avatar, avatarUrl]);
+
+
 
     return (
         <section className="min-vh-100 d-flex justify-content-center align-items-center">
@@ -16,17 +58,12 @@ export const Profile = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex flex-column align-items-center text-center">
-                                        <img
-                                            src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                                            alt="Admin"
-                                            className="rounded-circle p-1 bg-primary"
-                                            width="110"/>
+                                        <input id="image" ref={inputFileRef} type="file" hidden />
+                                        <label htmlFor="image">
+                                            <img src={avatarUrl} alt="Avatar"/>
+                                        </label>
                                         <div className="mt-3">
                                             <h4>{username}</h4>
-                                            <p className="text-secondary mb-1">Full Stack Developer</p>
-                                            <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                            <button className="btn btn-primary mr-2">Follow</button>
-                                            <button className="btn btn-outline-primary">Message</button>
                                         </div>
                                     </div>
                                     <hr className="my-4"/>
@@ -41,7 +78,7 @@ export const Profile = () => {
                                             <h6 className="mb-0">Full Name</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input onChange={e => setName(e.target.value)}
+                                            <input disabled={true} onChange={e => setName(e.target.value)}
                                                    type="text"
                                                    className="form-control"
                                                    value={name}/>
@@ -52,7 +89,7 @@ export const Profile = () => {
                                             <h6 className="mb-0">Email</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control" value={email}/>
+                                            <input onChange={(e) => setNewEmail(e.target.value)} type="text" className="form-control" value={newEmail}/>
                                         </div>
                                     </div>
                                     <div className="row mb-3">
@@ -60,39 +97,13 @@ export const Profile = () => {
                                             <h6 className="mb-0">Phone</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control" value="(239) 816-9029"/>
+                                            <input disabled={true} type="text" className="form-control" value={'+380' + phone}/>
                                         </div>
                                     </div>
-                                    {/*<div className="row mb-3">*/}
-                                    {/*    <div className="col-sm-3">*/}
-                                    {/*        <h6 className="mb-0">Mobile</h6>*/}
-                                    {/*    </div>*/}
-                                    {/*    <div className="col-sm-9 text-secondary">*/}
-                                    {/*        <input type="text" className="form-control" value="(320) 380-4539"/>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
-                                    {/*<div className="row mb-3">*/}
-                                    {/*    <div className="col-sm-3">*/}
-                                    {/*        <h6 className="mb-0">Address</h6>*/}
-                                    {/*    </div>*/}
-                                    {/*    <div className="col-sm-9 text-secondary">*/}
-                                    {/*        <input type="text" className="form-control" value="Bay Area, San Francisco, CA"/>*/}
-                                    {/*    </div>*/}
-                                    {/*</div>*/}
                                     <div className="row">
                                         <div className="col-sm-3"></div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="button" className="btn btn-primary px-4" value="Save Changes"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-sm-12">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h5 className="d-flex align-items-center mb-3">Project Status</h5>
-                                            <p>Web Design</p>
+                                            <button disabled={hasChanges ? false : true} type="button" onClick={updateProfile} className="btn btn-primary px-4">Зберегти зміни</button>
                                         </div>
                                     </div>
                                 </div>

@@ -9,3 +9,4 @@ export const checkValidity = async (mode: string, value: string): Promise<CheckR
 export const sendSms = async (phone: string): Promise<SmsResponse> => axios.get(`/auth/send-sms/${phone}`)
 export const validateSms = async (response): Promise<CheckCode> => axios.get(`/auth/validation/${response.deviceId}/${response.phone}/${response.code}`)
 export const getCurrentUser = async (): Promise<CurrentUser> => axios.get('/user/current')
+export const changeUserData = (data) => axios.put('/user', data)

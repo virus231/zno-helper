@@ -2,19 +2,18 @@ import React, { lazy, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Switch, Redirect, withRouter } from 'react-router-dom';
-import { ResetPassword, Subject, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest, Test, Tests } from './pages/index'
 import SideBar from './components/SideBar/SideBar'
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Spinner } from './components/Spinner';
 import { authSelector } from './store/selectors';
-import { SimpleAlert } from './components/Alert/Alert';
 import './pages/main.scss'
-import PageRoute from './components/PageRoute/PageRoute';
 import { getUser } from './store/actions/thunks';
-import { getCurrentUser } from './api/authApi';
 import { setAxiosInterceptor } from './utils/axios';
-import { fetchStatisticBySubject, fetchUserStatistic } from './store/actions/tests.actions';
+import { ResetPassword, Subject, CreateTests, DuelStart, ChoiceSubjects, DuelJoin, DuelTest, Test, Tests } from './pages/index'
+import PageRoute from './components/PageRoute/PageRoute';
+import { SimpleAlert } from './components/Alert/Alert';
+import { Spinner } from './components/Spinner';
+
 import 'react-circular-progressbar/dist/styles.css';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,7 +50,6 @@ function App(props: any) {
     React.useEffect(() => {
         if (token)
             dispatch(getUser())
-            dispatch(fetchUserStatistic())
     }, [dispatch, token])
 
     return (

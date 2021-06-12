@@ -52,7 +52,6 @@ const SideBar = React.memo(function Sidebar() {
                 <ProSidebar collapsed={menuCollapse}>
                     <SidebarHeader>
                         <div className="logotext">
-                            {/*<p>{menuCollapse ? "Logo" : "Big Logo"}</p>*/}
                         </div>
                         <div className="profile-block text-center mt-5">
                             {menuCollapse ? (
@@ -81,14 +80,6 @@ const SideBar = React.memo(function Sidebar() {
                             }
                         </Menu>
                     </SidebarContent>
-                    {/*<div className="closemenu" onClick={menuIconClick}>*/}
-                        {/* changing menu collapse icon on click */}
-                        {/*{menuCollapse ? (*/}
-                        {/*    <FiArrowRightCircle/>*/}
-                        {/*) : (*/}
-                        {/*    <FiArrowLeftCircle/>*/}
-                        {/*)}*/}
-                    {/*</div>*/}
                     <p className="close-sidebar" onClick={menuIconClick}>
                         {
                             menuCollapse ? (

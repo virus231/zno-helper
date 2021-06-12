@@ -2,6 +2,8 @@ export interface AuthResponse {
     token: string,
     id: number,
     email: string,
+    phone: string,
+    avatar: string,
     username: string,
     roles: string[]
     isAuth?: string
@@ -57,6 +59,7 @@ export interface CurrentUser {
     avatar: string,
     email: string,
     id: number,
+    phone: string,
     online: boolean,
     password: string,
     premium: boolean,
