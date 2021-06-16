@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
-import {getUserStatistics, getStatisticBySubject, getTestsBySubject } from '../api/testsApi';
+import { getUserStatistics, getStatisticBySubject, getTestsBySubject } from '../api/testsApi';
 import { getAllStats, getStatsBySubject } from '../store/actions/statistics.actions';
 import { authSelector, statisticsSelector } from '../store/selectors';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -11,7 +11,7 @@ import { Stats } from 'fs';
 
 
 
-function Subject({match:{params}}) {
+function Subject({ match: { params } }) {
     const { token } = useSelector(authSelector)
     const { stats } = useSelector(statisticsSelector)
 
@@ -27,7 +27,7 @@ function Subject({match:{params}}) {
         console.log(params.id.toUpperCase())
         const res = await getStatisticBySubject(params.id.toUpperCase())
         const totalQuestions = res.reduce((prev, cur) => prev + cur.total, 0);
-        const totalCorrectAnswers = res.reduce((prev, cur) => prev + cur.correct,0)
+        const totalCorrectAnswers = res.reduce((prev, cur) => prev + cur.correct, 0)
         setTotalQuestions(totalQuestions)
         setTotalCorrectAnswers(totalCorrectAnswers)
         setAllTests(res)
@@ -45,14 +45,16 @@ function Subject({match:{params}}) {
 
 
     React.useEffect(() => {
-        if(token)
+        if (token) {
             dispatch(getAllStats())
             dispatch(getStatsBySubject(params.id.toUpperCase()))
-        getStatistic()
-        getTests()
-    }, [dispatch,token])
+            getStatistic()
+            getTests()
+        }
 
-    const percentage = Number(((totalCorrectAnswers/ totalQuestions) * 100).toFixed(0));
+    }, [dispatch, token])
+
+    const percentage = Number(((totalCorrectAnswers / totalQuestions) * 100).toFixed(0));
 
     return (
         <section className="subjects mt-5">
@@ -100,7 +102,7 @@ function Subject({match:{params}}) {
                 <Row>
                     <Col lg={9}>
                         {
-                            loading  ?
+                            loading ?
                                 <CircularProgress color="secondary" /> :
                                 <Card>
                                     <div className="d-flex justify-content-around align-items-center p-3">
