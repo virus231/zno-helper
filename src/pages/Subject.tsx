@@ -7,7 +7,6 @@ import { getAllStats, getStatsBySubject } from '../store/actions/statistics.acti
 import { authSelector, statisticsSelector } from '../store/selectors';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { CircularProgress } from '@material-ui/core';
-import { Stats } from 'fs';
 
 
 

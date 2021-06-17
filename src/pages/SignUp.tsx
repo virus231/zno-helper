@@ -288,22 +288,22 @@ export const SignUp = (): JSX.Element => {
                                                         </InputGroup>
                                                     </Form.Group>
                                                 </Form.Row>
-                                                <Form.Row>
-                                                    <Form.Group as={Col} md="12" controlId="Referal">
-                                                        <p className="referal text-center" onClick={showReferal}>
-                                                            {activeReferal ? 'Реферал' : 'Вказати реферала'}
-                                                        </p>
-                                                        <InputGroup className={activeReferal ? 'd-flex' : 'd-none'}>
-                                                            <Form.Control
-                                                                type="text"
-                                                                placeholder="Реферал"
-                                                                name="referral"
-                                                                value={values.referral}
-                                                                onChange={handleChange}
-                                                            />
-                                                        </InputGroup>
-                                                    </Form.Group>
-                                                </Form.Row>
+                                                {/*<Form.Row>*/}
+                                                {/*    <Form.Group as={Col} md="12" controlId="Referal">*/}
+                                                {/*        <p className="referal text-center" onClick={showReferal}>*/}
+                                                {/*            {activeReferal ? 'Реферал' : 'Вказати реферала'}*/}
+                                                {/*        </p>*/}
+                                                {/*        <InputGroup className={activeReferal ? 'd-flex' : 'd-none'}>*/}
+                                                {/*            <Form.Control*/}
+                                                {/*                type="text"*/}
+                                                {/*                placeholder="Реферал"*/}
+                                                {/*                name="referral"*/}
+                                                {/*                value={values.referral}*/}
+                                                {/*                onChange={handleChange}*/}
+                                                {/*            />*/}
+                                                {/*        </InputGroup>*/}
+                                                {/*    </Form.Group>*/}
+                                                {/*</Form.Row>*/}
                                                 <div className="mt-5 text-center">
                                                     <button
                                                         disabled={nextDisabled}

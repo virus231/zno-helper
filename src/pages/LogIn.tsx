@@ -70,8 +70,6 @@ export const LogIn = (): JSX.Element => {
     if (token) {
         history.push("/home")
         dispatch(showAlert({ text: "Вхід успішний!", type: "success" }))
-    } else if (error) {
-        dispatch(showAlert({ text: "Телефон або пароль невірний", type: "error" }))
     }
 
 

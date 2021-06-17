@@ -1,17 +1,20 @@
 import React, { useMemo, useState } from 'react'
 import {Col, Container, Row} from "react-bootstrap"
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import { changeUserData } from '../api/authApi'
+import { showAlert } from '../store/actions/alerts.actions'
 import { authSelector } from '../store/selectors'
 
 export const Profile = () => {
+    const dispatch = useDispatch()
     const {username, email,phone,avatar} = useSelector(authSelector)
     const [newEmail, setNewEmail] = useState(email);
     const [name,setName] = React.useState(username)
     const [avatarUrl, setAvatarUrl] = React.useState<string>(
-        'aHR0cHM6Ly9zdW4yLTMudXNlcmFwaS5jb20vcy92MS9pZjEvQ0FSMUFhbzN5SWljYTd4cTc3eElJTU1UbjI5Q01FLWNFNUpTSkJjOE9UTlZ0MjlKUWpuaFIwWnNYXzlJTy1Bemd3VmJmZ0I2LmpwZz9zaXplPTIwMHgwJnF1YWxpdHk9OTYmY3JvcD0xMzgsNDQsMTA0OCwxMDQ4JmF2YT0x',
+        'https://sun2-3.userapi.com/s/v1/if1/CAR1Aao3yIica7xq77xIIMMTn29CME-cE5JSJBc8OTNVt29JQjnhR0ZsX_9IO-AzgwVbfgB6.jpg?size=200x0&quality=96&crop=138,44,1048,1048&ava=1',
     );
     const inputFileRef = React.useRef<HTMLInputElement>(null);
+
 
     const handleChangeImage = (event: Event): void => {
         // const file = event.target && (event.target as HTMLInputElement).files[0];
@@ -37,8 +40,11 @@ export const Profile = () => {
     const updateProfile = () => {
         try {
           console.log('data', {avatar: avatarUrl, email: newEmail});
-          changeUserData({avatar: avatarUrl, email: newEmail})
-            .then((res) => console.log('setting user', res))
+          changeUserData({avatar: 'aHR0cHM6Ly9zdW4yLTMudXNlcmFwaS5jb20vcy92MS9pZjEvQ0FSMUFhbzN5SWljYTd4cTc3eElJTU1UbjI5Q01FLWNFNUpTSkJjOE9UTlZ0MjlKUWpuaFIwWnNYXzlJTy1Bemd3VmJmZ0I2LmpwZz9zaXplPTIwMHgwJnF1YWxpdHk9OTYmY3JvcD0xMzgsNDQsMTA0OCwxMDQ4JmF2YT0x', email: newEmail})
+            .then((res) => {
+                console.log('setting user', res)
+                dispatch(showAlert({ text: "Зміни збережені", type: "success" }))
+            })
             .catch((err) => console.log('err', err));
         } catch (error) {
           console.log('Error changing user data', error);
@@ -46,7 +52,6 @@ export const Profile = () => {
     };
 
     const hasChanges = useMemo(() => newEmail !== email || avatar !== avatarUrl, [newEmail, email, avatar, avatarUrl]);
-
 
 
     return (
